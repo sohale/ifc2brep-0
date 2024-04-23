@@ -4,7 +4,7 @@ PoC for an IFC to BREP converter for BIM  in C++ (3D, BIM, cli)
 ### Features:
 * It uses IFC [SDK](https://www.opendesign.com/products/ifc-sdk).
 * The BREP files will be in Novorender JSON [format](https://github.com/novorender/ts/blob/main/measure/worker/brep.ts).
-* It converts ...
+* It converts "cylinders" and "circular arcs", [TBC]
 * Is a CLI application written in C++.
 * IFC is partially implemented in the PoC: "cylinders" and "circular arcs", enough to convert certain sample files.
 
