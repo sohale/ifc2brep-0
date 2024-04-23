@@ -18,7 +18,7 @@ Novorender. Tagline: *The World`s Most Powerful Digital Twin & BIM Platform*
 ### Technical Details
 #### IFC SDK:
 * Uses IFC [SDK](https://www.opendesign.com/products/ifc-sdk)
-* IFC SDK includes an (SDK-) viewer.
+* IFC SDK includes a viewer.
 
 #### The Novorender JSON [format](https://github.com/novorender/ts/blob/main/measure/worker/brep.ts):
 * The BREP files will be in Novorender JSON [format](https://github.com/novorender/ts/blob/main/measure/worker/brep.ts). 
