@@ -6,6 +6,7 @@ Features:
 * The BREP files will be in Novorender JSON [format](https://github.com/novorender/ts/blob/main/measure/worker/brep.ts).
 * It converts ...
 * Is a CLI application written in C++.
+* IFC is partially implemented in the PoC: "cylinders" and "circular arcs", enough to convert certain sample files.
 
 ### IFC SDK:
 Uses IFC [SDK](https://www.opendesign.com/products/ifc-sdk)
