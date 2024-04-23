@@ -10,7 +10,7 @@ PoC for an IFC to BREP converter for BIM  in C++ (3D, BIM, cli)
 
 ### Sponsor: Novorender
 Novorender. Tagline: *The World`s Most Powerful Digital Twin & BIM Platform*
-* [novorender.com](https://novorender.com/)](https://novorender.com/)
+* [https://novorender.com/](https://novorender.com/)
 * [Linkedin:novorender](https://www.linkedin.com/company/novorender/about/)
  
 * Sample files are kindly provided by RISA: [risa.no](https://risa.no)
