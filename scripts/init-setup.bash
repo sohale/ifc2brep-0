@@ -1,7 +1,9 @@
-#!avoid_running_this
+#!avoid_running_this dont run
+# This is not a real script
+echo "This is not to be exexcuted, just drafted notes for documentation purposes: On how to set up the project" ; exit 1
+
+# How to set up the project
 # Typical setup commands for working on remote machine
-set -ex
-echo "This is not to be exexcuted, just for documentation purposes: How to set up the project" ; exit 1
 
 PROJECT_PATH_BASE="novorender"
 
