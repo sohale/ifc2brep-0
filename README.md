@@ -13,11 +13,12 @@ Sponsored by **Novorender** "*The World`s Most Powerful Digital Twin & BIM Platf
 * Novorender: [novorender.com](https://novorender.com/) ([on linkedin](https://www.linkedin.com/company/novorender/about/)) `013cbab0ccd3c7fd21`
 * Sample files are kindly provided by RISA Norway: [risa.no](https://risa.no)
 
-### Technical Details
-#### IFC SDK:
-* Uses IFC [SDK](https://www.opendesign.com/products/ifc-sdk)
-* IFC SDK includes a viewer.
-
-#### The Novorender JSON [format](https://github.com/novorender/ts/blob/main/measure/worker/brep.ts):
-* The BREP files will be in Novorender JSON [format](https://github.com/novorender/ts/blob/main/measure/worker/brep.ts). 
+### Usage
+* IFC viewer: [Open IFC Viewer](https://openifcviewer.com/)
+#### Output format
+The BREP files will be in Novorender JSON [format](https://github.com/novorender/ts/blob/main/measure/worker/brep.ts). 
 * IFC `id`s are used as filenames
+
+### Technical Details
+* Uses ODA's IFC [SDK](https://www.opendesign.com/products/ifc-sdk)
+
