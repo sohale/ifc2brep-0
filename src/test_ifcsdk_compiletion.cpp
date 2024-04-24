@@ -6,7 +6,23 @@
 // includes-symb/ifcsdk/Include/Ifc4x3
 // includes-symb/ifcsdk/Include/IfcModel.h
 // #include <ifcsdk/Include/Ifc4x3/IfcModel.h> ??
-#include <ifcsdk/Include/IfcModel.h>
+
+/*
+// #include <ifcsdk/Include/IfcModel.h>
+#include "ifcsdk/Include/IfcModel.h"
+
+// not:
+external/oda-ifc-sdk/Examples/ExIfcTutorials/ExIfcTutorials.cpp
+external/oda-ifc-sdk/Examples/ExLandXML2Ifc/Processors.cpp
+
+
+external/oda-ifc-sdk/Examples/ExIfcTutorials/ExIfcTutorial_ModelOpsFloor.cpp
+
+#include "IfcModelOps.h"
+#include "IfcModelOpsFiller.h"
+#include "IfcModelProcessor.h"
+*/
+#include "ifcsdk/Include/IfcModelProcessor.h"
 
 int main(int argc, char* argv[]) {
    std::cout << "Hello" << std::endl;
