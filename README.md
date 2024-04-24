@@ -17,7 +17,7 @@ Sponsored by **Novorender** "*The World`s Most Powerful Digital Twin & BIM Platf
 * IFC viewer: [Open IFC Viewer](https://openifcviewer.com/)
 #### Output format
 The BREP files will be in Novorender JSON [format](https://github.com/novorender/ts/blob/main/measure/worker/brep.ts). 
-* IFC `id`s are used as filenames
+* IFC `id`s are used as filenames, e.g. `0f7I2_mxX3JOk$Z$4oj$LI.json`
 
 ### Technical Details
 * Uses ODA's IFC [SDK](https://www.opendesign.com/products/ifc-sdk)
