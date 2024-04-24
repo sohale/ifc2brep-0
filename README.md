@@ -9,7 +9,7 @@ PoC for an IFC to BREP converter for BIM  in C++ (3D, BIM, cli)
 * IFC is partially implemented in the PoC: "cylinders" and "circular arcs", enough to convert certain sample files.
 
 ### Sponsor
-Novorender (*The World`s Most Powerful Digital Twin & BIM Platform*)
+Sponsored by **Novorender** (*The World`s Most Powerful Digital Twin & BIM Platform*)
 * Novorender: [novorender.com](https://novorender.com/) ([on linkedin](https://www.linkedin.com/company/novorender/about/)) `013cbab0ccd3c7fd21`
 * Sample files are kindly provided by RISA Norway: [risa.no](https://risa.no)
 
