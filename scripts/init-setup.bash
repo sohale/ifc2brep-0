@@ -38,3 +38,9 @@ ln -s "$HOME/$PROJECT_PATH_BASE/oda-sdk/vc16/Ifc"  external/oda-ifc-sdk
 
 # For cross-compiling on windows
 sudo apt-get install mingw-w64
+
+sudo apt install wine
+
+sudo dpkg --add-architecture i386
+sudo apt update
+sudo apt install wine32
