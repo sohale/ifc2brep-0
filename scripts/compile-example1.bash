@@ -27,7 +27,11 @@ ln -s -f "$REPO_ROOT/external/oda-ifc-sdk"  $INPUT_INCLUDES/ifcsdk
 
 clang++  \
    -std=c++20  -stdlib=libstdc++  \
-   $INPUT_INCLUDES   \
+   -I $INPUT_INCLUDES   \
    $INPUT_SRC/$FILE_BASENAME.cpp   \
   -o $OUTPUT_BIN/$FILE_BASENAME.out
-#  -v  -lstdc++
+#  -v
+# -lstdc++
+# -L library
+# -l link
+# -I include
