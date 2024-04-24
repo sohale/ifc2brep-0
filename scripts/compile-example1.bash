@@ -32,6 +32,6 @@ clang++  \
   -o $OUTPUT_BIN/$FILE_BASENAME.out
 #  -v
 # -lstdc++
-# -L library
-# -l link
+# -L library (link directories)
+# -l link : (link: names) looks for libXXXX.so in -L
 # -I include
