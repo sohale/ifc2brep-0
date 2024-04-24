@@ -21,7 +21,7 @@ mv -f  "$OUTPUT_BIN/$FILE_BASENAME.out"  "$OUTPUT_BIN/$FILE_BASENAME.out.old" ||
 
 # includes
 # /IFC4
-ln -s "$REPO_ROOT/external/oda-ifc-sdk"  $INPUT_INCLUDES/ifcsdk
+ln -s -f "$REPO_ROOT/external/oda-ifc-sdk"  $INPUT_INCLUDES/ifcsdk
 
 # Compile
 
