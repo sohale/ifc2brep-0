@@ -10,14 +10,14 @@ cd $REPO_ROOT
 
 FILE_BASENAME=test_ifcsdk_compiletion
 
-BIN_OUTPUT=$REPO_ROOT/out
-SRC_INPUT=$REPO_ROOT/src
+OUTPUT_BIN=$REPO_ROOT/out
+INPUT_SRC=$REPO_ROOT/src
 INPUT_INCLUDES=$REPO_ROOT/includes-symb
-mkdir -p $BIN_OUTPUT
+mkdir -p $OUTPUT_BIN
 mkdir -p $INPUT_INCLUDES
 
 # Backup
-mv -f  "$BIN_OUTPUT/$FILE_BASENAME.out"  "$BIN_OUTPUT/$FILE_BASENAME.out.old" || :  # Don't err
+mv -f  "$OUTPUT_BIN/$FILE_BASENAME.out"  "$OUTPUT_BIN/$FILE_BASENAME.out.old" || :  # Don't err
 
 # includes
 # /IFC4
@@ -27,7 +27,7 @@ ln -s "$REPO_ROOT/external/oda-ifc-sdk"  $INPUT_INCLUDES/ifcsdk
 
 clang++  \
    -std=c++20  -stdlib=libstdc++  \
-   ../includes-symb   \
-   $SRC_INPUT/$FILE_BASENAME.cpp   \
-  -o $BIN_OUTPUT/$FILE_BASENAME.out
+   $INPUT_INCLUDES   \
+   $INPUT_SRC/$FILE_BASENAME.cpp   \
+  -o $OUTPUT_BIN/$FILE_BASENAME.out
 #  -v  -lstdc++
