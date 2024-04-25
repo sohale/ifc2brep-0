@@ -1,6 +1,6 @@
 #!/bin/bash
 set -exu
-# Bash style: u/h-flow, stage-points, blocks, defers
+# Bash style: u/h-flow, splittable (some states), states / stage-points (numbered, named/laballed), blocks, defers, oprtations
 
 # scripts/get-msvc.bash -> set up
 
