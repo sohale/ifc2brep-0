@@ -1,5 +1,8 @@
 #!/bin/bash
 set -exu
+# Bash style: u/h-flow, stage-points, blocks, defers
+
+# scripts/get-msvc.bash -> set up
 
 function gitrepo_reset_to_root() {
    # Sets directory context to the root of the git repository
@@ -23,7 +26,7 @@ sudo apt install expect
 VENVFOLDER="venv-sosi"
 python3 -m venv $VENVFOLDER
 
-# defers, blocks
+
 function activate_my_venv() {
    source $VENVFOLDER/bin/activate
 }
@@ -50,6 +53,9 @@ END_EXPECT_TCL
 activate_my_venv
 verify_python_3_activated
 
+
+# 4
+# "get-msvc" .bash
 
 # pip install conan
 pip install getgist
