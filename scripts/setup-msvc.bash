@@ -1,7 +1,9 @@
 #!/bin/bash
 set -exu
 # Bash style: u/h-flow, splittable (some states), states / stage-points (numbered, named/laballed), blocks, defers, oprtations
+# History: statebash from my https://github.com/sosi-org/cloudbeat/tree/master
 
+# Naming:
 # scripts/get-msvc.bash -> set up
 
 function gitrepo_reset_to_root() {
@@ -21,16 +23,22 @@ gitrepo_reset_to_root
 # script tools
 sudo apt install expect
 
-
-# 2
+# 2.1
+# Layout the structure
+mkdir -p $REPO_ROOT/scripts/external-tools/
+# new affordance: "scripts/external-tools"
+# 2.2
 VENVFOLDER="venv-sosi"
+: || \
 python3 -m venv $VENVFOLDER
 # From here on, I can do the following. I defer them.
+# new affordance: "activate_my_venv" and "verify_python_3_activated"
 function activate_my_venv() {
    source $VENVFOLDER/bin/activate
 }
 function verify_python_3_activated() {
 # block: verify python 3 is activated
+# todo: verify Python 3.6+
 expect  <<'END_EXPECT_TCL'
    spawn python3 -V
    set timeout -1
@@ -57,4 +65,12 @@ verify_python_3_activated
 # name: "get-msvc" .bash
 
 # pip install conan
-pip install getgist
+
+# GetGist by https://github.com/cuducos/getgist
+: || \
+pip install --upgrade getgist
+
+# Gist: https://gist.github.com//7f3162ec2988e81e56d5c4e22cde9977
+getgist mmozeiko portable-msvc.py
+# mkdir -p $REPO_ROOT/scripts/external-tools/
+mv -f portable-msvc.py $REPO_ROOT/scripts/external-tools/
