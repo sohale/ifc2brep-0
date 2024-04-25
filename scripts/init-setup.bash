@@ -134,8 +134,20 @@ sudo ln -s  $REPO_ROOT/external-tools/relevant-sources.list.d/winehq-jammy.sourc
 
 sudo apt update
 
-# sudo apt remove wine
+# sudo apt remove wine  # removed winetricks too
 # wine winetricks win32
 # wine32:i386
+# sudo apt remove wine winetricks wine32
+
 # ...
+# removing and cleaning up.
+# Previous installations so far:
+#   sudo apt install clang
+#   sudo apt reinstall clang
+#   sudo apt install gcc
+#   sudo apt install mingw-w64
+#   sudo apt install wine
+#   sudo apt install wine32
+#   sudo apt install winetricks
+
 sudo apt install --install-recommends winehq-stable
