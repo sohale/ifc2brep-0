@@ -140,7 +140,8 @@ sudo apt update
 # sudo apt remove wine winetricks wine32
 
 # ...
-# removing and cleaning up.
+
+# Cleaning up & removing
 # Previous installations so far:
 #   sudo apt install clang
 #   sudo apt reinstall clang
@@ -149,5 +150,8 @@ sudo apt update
 #   sudo apt install wine
 #   sudo apt install wine32
 #   sudo apt install winetricks
+sudo apt remove wine wine32 wine64
+sudo apt autoremove
+sudo apt upgrade
 
 sudo apt install --install-recommends winehq-stable
