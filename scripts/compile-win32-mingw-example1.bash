@@ -43,3 +43,16 @@ x86_64-w64-mingw32-g++ \
 
 #    -Wl,-subsystem,console
 #    -mconsole
+
+
+# Cross-compiling notes:
+# In theory, I could use clang++ with `-target x86_64-pc-windows-msvc` or ,`x86_64-w64-mingw32` but it didn't work
+# MSVC ABI
+#
+#+   -target x86_64-w64-mingw32    \
+#+   -I /usr/include/x86_64-linux-gnu/    \
+#+   -L /usr/lib/gcc/x86_64-w64-mingw32/10-win32 \
+# See also scripts/init-setup.bash: `dpkg --add-architecture i386` and `apt install mingw-w64` and `apt install wine32`
+#
+# Possible solution: (In theory)
+#+   -target x86_64-pc-windows-msvc    \

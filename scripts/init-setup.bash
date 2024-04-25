@@ -54,10 +54,18 @@ nvm install --lts
 nvm use lts/iron
 
 # For cross-compiling on windows
-sudo apt-get install mingw-w64
+sudo apt install mingw-w64
 
 sudo apt install wine
 
 sudo dpkg --add-architecture i386
 sudo apt update
 sudo apt install wine32
+
+sudo apt install wine64
+# Winelib
+
+# Possible approach (not used)
+# sudo apt install virtualbox
+
+# MSVC Build Tools
