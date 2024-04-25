@@ -1,7 +1,7 @@
 #!/bin/bash
 set -exu
 # Bash style: u/h-flow, splittable (some states), states / stage-points (numbered, named/laballed), blocks, defers, oprtations
-# History: statebash from my https://github.com/sosi-org/cloudbeat/tree/master
+# History: This framework is built upon the idea of "statebash" from my "cloudbeat"
 
 # Naming:
 # scripts/get-msvc.bash -> set up
