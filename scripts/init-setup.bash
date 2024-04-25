@@ -31,10 +31,27 @@ git clone git@github.com:sohale/ifc2brep-0.git
 cd ifc2brep-0.git
 
 # unzip
+# (after some moving of files)
 unzip /home/$TARGET_UN/example-files-novorender.zip   -d $HOME/$PROJECT_PATH_BASE/oda-sdk
 unzip /home/$TARGET_UN/oda-sdk.zip   -d $HOME/$PROJECT_PATH_BASE/oda-sdk
 
 ln -s "$HOME/$PROJECT_PATH_BASE/oda-sdk/vc16/Ifc"  external/oda-ifc-sdk
+
+
+# Install nvm. Check https://github.com/nvm-sh/nvm for the latest version.
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash
+
+# The following is appended already. Close and reopen your terminal to start using nvm or run the following to use it now
+# ```txt
+# export NVM_DIR="$HOME/.nvm"
+# [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+# [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+# ```
+
+## log out and log back in
+
+nvm install --lts
+nvm use lts/iron
 
 # For cross-compiling on windows
 sudo apt-get install mingw-w64
