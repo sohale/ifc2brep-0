@@ -1,9 +1,16 @@
 #!/bin/bash
 set -exu
-# Bash style: u/h-flow, splittable (some states), states / stage-points (numbered, named/laballed), blocks, defers, oprtations
+# Framework: splitable/statebash/slices/segments/bashsegments/...
+# Is a Bash style.
+# Concepts: u/h-flow, splitable (some states), states / stage-points (numbered, named/laballed), blocks, defers, oprtations
 # History: This framework is built upon the idea of "statebash" from my "cloudbeat"
+## More details:
+##   # Affordances:
+##     # `new affordance: '...'` a string, "symbolic" (literal S&R)
+##     # `bubble affordance: '...'` (todo: for venv? or general?) : # affordance to outside (-of-the-script) user
+##     # affordance bubbling types: script, venv, global
 
-# Naming:
+# Naming history:
 # scripts/get-msvc.bash -> set up
 
 function gitrepo_reset_to_root() {
@@ -25,8 +32,8 @@ sudo apt install expect
 
 # 2.1
 # Layout the structure
-mkdir -p $REPO_ROOT/scripts/external-tools/
-# new affordance: "scripts/external-tools"
+mkdir -p $REPO_ROOT/external-tools/
+# new affordance: '$REPO_ROOT/external-tools'
 # 2.2
 VENVFOLDER="venv-sosi"
 : || \
@@ -36,6 +43,7 @@ python3 -m venv $VENVFOLDER
 function activate_my_venv() {
    source $VENVFOLDER/bin/activate
 }
+
 function verify_python_3_activated() {
 # block: verify python 3 is activated
 # todo: verify Python 3.6+
@@ -72,5 +80,11 @@ pip install --upgrade getgist
 
 # Gist: https://gist.github.com//7f3162ec2988e81e56d5c4e22cde9977
 getgist mmozeiko portable-msvc.py
-# mkdir -p $REPO_ROOT/scripts/external-tools/
-mv -f portable-msvc.py $REPO_ROOT/scripts/external-tools/
+chmod +x portable-msvc.py
+mv -f portable-msvc.py $REPO_ROOT/external-tools/
+# new affordance: $REPO_ROOT/external-tools/portable-msvc.py
+
+$REPO_ROOT/external-tools/portable-msvc.py
+# Expect this: "Downloading MSVC v14.39.17.9 and Windows SDK v22621"
+# Expect license agreement prompt
+# Leads to : "FileNotFoundError: [Errno 2] No such file or directory: 'msiexec.exe'
