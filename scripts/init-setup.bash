@@ -69,3 +69,73 @@ sudo apt install wine64
 # sudo apt install virtualbox
 
 # MSVC Build Tools
+# ...
+
+wine cmd.exe
+# then, `exit`
+# available: msiexec
+# This `wine cmd.exe` is wonderful. opens many doors.
+
+sudo apt install winetrick
+winetricks python26
+
+
+
+# Here in this file, I repeats what I instantiated: (actually did)
+lsb_release -a
+
+# Note: My Linux version (where these commands/notes are tested)
+lsb_release -a
+# No LSB modules are available.
+# Distributor ID:	Ubuntu
+# Description:	Ubuntu 22.04.4 LTS
+# Release:	22.04
+# Codename:	jammy
+
+# Why not first get the latest Wine?
+# Use this: https://wiki.winehq.org/Ubuntu
+#  security via key verification
+sudo mkdir -pm755 /etc/apt/keyrings
+sudo wget -O /etc/apt/keyrings/winehq-archive.key https://dl.winehq.org/wine-builds/winehq.key
+
+
+
+# Particular to: Ubuntu 22.04 (Jammy Jellyfish)
+sudo wget -NP /etc/apt/sources.list.d/ https://dl.winehq.org/wine-builds/ubuntu/dists/jammy/winehq-jammy.sources
+
+# Note: `-N` means: "only if the remote file is newer than the local one or if the local file does not exist"
+# `-P`: a prefix directory where all files are saved
+
+ls /etc/apt/sources.list.d/
+
+# affordance to outside (-of-the-script) user
+export REPO_ROOT=/home/ephemssss/novorender/ifc2brep-0
+mkdir -p $REPO_ROOT/external-tools/
+
+mkdir -p $REPO_ROOT/external-tools/relevant-sources.list.d
+
+sudo wget -NP $REPO_ROOT/external-tools/relevant-sources.list.d/  https://dl.winehq.org/wine-builds/ubuntu/dists/jammy/winehq-jammy.sources
+# ls -alth $REPO_ROOT/external-tools/relevant-sources.list.d
+#   # -rw-r--r-- 1 root      root       163 Apr  6 07:16 winehq-jammy.sources
+sudo ln -s  $REPO_ROOT/external-tools/relevant-sources.list.d/winehq-jammy.sources    /etc/apt/sources.list.d/
+
+# cat /etc/apt/keyrings/winehq-archive.key
+# ...
+
+# cat /etc/apt/sources.list.d/winehq-jammy.sources
+#Types: deb
+#URIs: https://dl.winehq.org/wine-builds/ubuntu
+#Suites: jammy
+#Components: main
+#Architectures: amd64 i386
+#Signed-By: /etc/apt/keyrings/winehq-archive.key
+
+# reminder: I am: https://wiki.winehq.org/Ubuntu   ---ing
+
+sudo apt update
+
+# sudo apt remove wine
+# wine winetricks win32
+# wine32:i386
+# ...
+sudo apt install --install-recommends winehq-stable
