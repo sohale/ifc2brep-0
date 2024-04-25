@@ -38,5 +38,8 @@ x86_64-w64-mingw32-g++ \
     -I$INPUT_INCLUDES/ifcsdk-win \
     $INPUT_SRC/$FILE_BASENAME.cpp \
     -o $OUTPUT_BIN/$FILE_BASENAME.out \
-    -lstdc++ -static
+    -lstdc++ -static \
+    -mconsole
 
+#    -Wl,-subsystem,console
+#    -mconsole
