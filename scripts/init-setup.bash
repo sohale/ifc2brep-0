@@ -214,9 +214,12 @@ DISPLAY=:0.0 WINEPREFIX=$WINE64_PREFIX wine cmd /c \
 # The `/quiet` flag of the python installer exe makes it command-line only (no GUI , "quiet" mode)
 # Even in quiet mode (non-GUI), the `DISPLAY=:0.0` prevents some errors.
 # Completed
-# Python Installation complete!
+# Python Installation complete by Wine! in /home/ephemssss/novorender/ifc2brep-0/external-tools/wine64
 # Thanks to the method in https://askubuntu.com/a/1200679/407596
 
 WINEPREFIX=$WINE64_PREFIX wine cmd
 # Now you can run python
 # Python 3.7.6 (tags/v3.7.6:43364a7ae0, Dec 19 2019, 00:42:30) [MSC v.1916 64 bit (AMD64)] on win32
+
+WINEPREFIX=$WINE64_PREFIX WINARCH=win64  wine64  cmd
+# still win32
