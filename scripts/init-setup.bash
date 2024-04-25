@@ -155,3 +155,68 @@ sudo apt autoremove
 sudo apt upgrade
 
 sudo apt install --install-recommends winehq-stable
+# /opt/wine-<branch>/
+# binaries: /opt/wine-stable/  , data: ~/.wine/drive_c/
+# installation finished? https://wiki.winehq.org/Ubuntu
+
+# Next step: Winetricks
+# https://wiki.winehq.org/Winetricks
+
+git clone git@github.com:Winetricks/winetricks.git
+cd ...
+sudo make install # sudo winetricks --self-update? no.
+# https://github.com/Winetricks/winetricks/tree/master?tab=readme-ov-file#updating
+
+# This is great: (led to wine/winetricks)
+# https://askubuntu.com/questions/678277/how-to-install-python3-in-wine
+
+
+# Add repo for faudio package.  Required for winedev
+add-apt-repository -y ppa:cybermax-dexter/sdl2-backport
+sudo apt update
+# sudo apt install faudio # ?
+# todo: install it ^
+
+# environment is ready
+
+set -u
+
+# x-windows GUI set-up
+# NOT NEEDED(?):
+sudo apt install xvfb
+# Start the X-windows server
+# Note uppercase 'X'
+Xvfb :0 -screen 0 1024x768x16 &
+jid=$!
+echo $jid
+
+
+# Downlaod Python installers
+cd $REPOROOT/external-tools/
+wget https://www.python.org/ftp/python/3.7.6/python-3.7.6-amd64.exe
+wget https://www.python.org/ftp/python/3.7.6/python-3.7.6.exe
+# We want to run those in win64 (64-bit) (and in a window? No)
+
+sudo apt install cabextract
+mkdir -p $REPO_ROOT/external-tools/wine64
+export WINE64_PREFIX=$REPO_ROOT/external-tools/wine64
+
+WINEPREFIX=$WINE64_PREFIX WINARCH=win64 winetricks \
+    corefonts \
+    win10
+# Microsoft Windows 10.0.19043
+
+# Run the python installer ( in win64 and (?no-) GUI )
+# why not WINARCH=win64  ?? No, maybe since winetricks already set that?
+DISPLAY=:0.0 WINEPREFIX=$WINE64_PREFIX wine cmd /c \
+    python-3.7.6-amd64.exe /quiet PrependPath=1 \
+    && echo "Python Installation complete by Wine! in $WINE64_PREFIX "
+# The `/quiet` flag of the python installer exe makes it command-line only (no GUI , "quiet" mode)
+# Even in quiet mode (non-GUI), the `DISPLAY=:0.0` prevents some errors.
+# Completed
+# Python Installation complete!
+# Thanks to the method in https://askubuntu.com/a/1200679/407596
+
+WINEPREFIX=$WINE64_PREFIX wine cmd
+# Now you can run python
+# Python 3.7.6 (tags/v3.7.6:43364a7ae0, Dec 19 2019, 00:42:30) [MSC v.1916 64 bit (AMD64)] on win32
