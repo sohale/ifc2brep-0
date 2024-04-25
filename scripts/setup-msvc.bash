@@ -25,8 +25,7 @@ sudo apt install expect
 # 2
 VENVFOLDER="venv-sosi"
 python3 -m venv $VENVFOLDER
-
-
+# From here on, I can do the following. I defer them.
 function activate_my_venv() {
    source $VENVFOLDER/bin/activate
 }
@@ -55,7 +54,7 @@ verify_python_3_activated
 
 
 # 4
-# "get-msvc" .bash
+# name: "get-msvc" .bash
 
 # pip install conan
 pip install getgist
