@@ -223,3 +223,7 @@ WINEPREFIX=$WINE64_PREFIX wine cmd
 
 WINEPREFIX=$WINE64_PREFIX WINARCH=win64  wine64  cmd
 # still win32
+
+# Environment is ready
+# tested on wine-9.0
+# I now know how to install software in Wine / Wine-dows
