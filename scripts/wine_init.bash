@@ -1,5 +1,7 @@
 set -eux
 
+# the wine_init.bash, for setting up wine on your system + wine runtime (WINE_PREFIX)
+
 # see scripts/setup-msvc.bash
 function gitrepo_reset_to_root() {
    # Sets directory context to the root of the git repository

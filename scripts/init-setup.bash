@@ -239,3 +239,10 @@ DISPLAY=:0.0 WINEPREFIX=$WINE64_PREFIX WINARCH=win64  wine64  cmd
 ./vs_buildtools.exe /quiet PrependPath=1
 
 DISPLAY=:0.0 WINEPREFIX=$WINE64_PREFIX   winecfg
+
+
+# How to set up X (MacOS)
+
+# revealed:
+# https://wiki.winehq.org/Mono
+# Spare me from automating this. You can just clock on it. The reason is, there is a table for choosing the compatible versions between Wine & Mono ...
