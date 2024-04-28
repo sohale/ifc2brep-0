@@ -153,6 +153,7 @@ sudo apt update
 sudo apt remove wine wine32 wine64
 sudo apt autoremove
 sudo apt upgrade
+sudo apt-get clean   # free disk
 
 sudo apt install --install-recommends winehq-stable
 # /opt/wine-<branch>/
@@ -192,7 +193,7 @@ echo $jid
 
 
 # Downlaod Python installers
-cd $REPOROOT/external-tools/
+cd $REPO_ROOT/external-tools/
 wget https://www.python.org/ftp/python/3.7.6/python-3.7.6-amd64.exe
 wget https://www.python.org/ftp/python/3.7.6/python-3.7.6.exe
 # We want to run those in win64 (64-bit) (and in a window? No)
@@ -227,3 +228,14 @@ WINEPREFIX=$WINE64_PREFIX WINARCH=win64  wine64  cmd
 # Environment is ready
 # tested on wine-9.0
 # I now know how to install software in Wine / Wine-dows
+
+cd $REPO_ROOT/external-tools/
+# Bootstrappers
+wget https://aka.ms/vs/17/release/vs_community.exe
+wget https://aka.ms/vs/17/release/vs_buildtools.exe
+
+DISPLAY=:0.0 WINEPREFIX=$WINE64_PREFIX WINARCH=win64  wine64  cmd
+
+./vs_buildtools.exe /quiet PrependPath=1
+
+DISPLAY=:0.0 WINEPREFIX=$WINE64_PREFIX   winecfg
