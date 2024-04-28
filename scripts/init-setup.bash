@@ -261,7 +261,17 @@ sudo apt install x11vnc
 # On client local machine (MacBook), install a VNC. I used TightVNC
 
 # dont use xvfb-run
+# fixed it.
 
-DISPLAY=:1 WINEPREFIX=$WINE64_PREFIX WINARCH=win64  wine64  cmd
+
+sudo apt-get install openbox
+
+export DISPLAY=:1
+
+
+# Suddenly it has a proper window too
+openbox &
+
+WINEPREFIX=$WINE64_PREFIX WINARCH=win64  wine64  cmd
 
 # This works. So ugly (tightvnc), but works: shows the notepad.

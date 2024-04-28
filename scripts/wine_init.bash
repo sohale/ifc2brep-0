@@ -45,9 +45,18 @@ function installations_x {
    # | verfy(Openbox 3.6.1)
    Xvfb -help
 
+
+   sudo apt install x11vnc
+   sudo apt-get install openbox
+
    echo "To be implemented ..."
    error
 }
+
+function run_x_stack {
+   x11vnc -display :1 -nopw &
+}
+
 
 gitrepo_reset_to_root
 
@@ -91,4 +100,12 @@ echo 'add your command here in this file:       WINEPREFIX=$WINE64_PREFIX WINARC
 
 # WINEPREFIX=$WINE64_PREFIX   xvfb-run wine64  notepad
 
-DISPLAY=:1 WINEPREFIX=$WINE64_PREFIX WINARCH=win64  wine64  cmd
+# DISPLAY=:1 WINEPREFIX=$WINE64_PREFIX WINARCH=win64  wine64  cmd
+
+export DISPLAY=:1
+sudo apt-get install openbox
+
+# Suddenly it has a proper window too
+openbox &
+
+WINEPREFIX=$WINE64_PREFIX WINARCH=win64  wine64  cmd
