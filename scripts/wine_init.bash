@@ -22,6 +22,7 @@ function installations_x {
    # Also: X-windows ones
    sudo apt install xvfb
 
+
    # New affordances:
 
    # Xvfb :0 -screen 0 1024x768x16 &
@@ -29,15 +30,22 @@ function installations_x {
    # echo $jid
 
    # xvfb-run wine64
+   # but not recommended. Dont use `xvfb-run` with `wine64`. Simply. wine64, but set $DIPLAY before it.
+
+   sudo apt-get install xorg openbox
+   sudo apt install x11vnc
+
+   sudo apt install xterm
+   #sudo apt-get install x11-apps libx11-6
+   # will make avvailable xclock, xeyes, xterm
+   sudo apt-get install xorg openbox
 
 
-
-   # sudo apt-get install xorg openbox
-   # dpkg -l | grep xorg
-   # dpkg -l | grep openbox
-
+   # Wine -> xvfb -> openbox -> x11vnc -> (client) TightVNC
 
    # Verify
+   # dpkg -l | grep xorg
+   # dpkg -l | grep openbox
    sudo Xorg -version
    #   X.Org X Server 1.21.1.4
    #   X Protocol Version 11, Revision 0
@@ -46,15 +54,24 @@ function installations_x {
    Xvfb -help
 
 
-   sudo apt install x11vnc
-   sudo apt-get install openbox
+   echo "Not re-tested from clean slate"
 
-   echo "To be implemented ..."
-   error
 }
 
 function run_x_stack {
+
+   Xvfb :1 -screen 0 1024x768x16 &
+   # Also may affect the `DISPLAY`?
+   openbox &
    x11vnc -display :1 -nopw &
+
+   export DISPLAY=":1"
+   echo "DISPLAY:  $DISPLAY"
+
+  # verify these three (servers-like) processes are running ^
+  # Only run if they are not running.
+
+  # Verificaiton + idempotency
 }
 
 

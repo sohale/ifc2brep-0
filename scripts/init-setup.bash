@@ -258,20 +258,37 @@ sudo apt-get install x11-apps libx11-6
 sudo apt-get install xorg openbox
 sudo apt install x11vnc
 
-# On client local machine (MacBook), install a VNC. I used TightVNC
-
 # dont use xvfb-run
 # fixed it.
 
-
 sudo apt-get install openbox
 
-export DISPLAY=:1
+##############
+# up the x stack:
 
+export DESIRED_DISPLAY=:1
 
-# Suddenly it has a proper window too
+Xvfb "$DESIRED_DISPLAY" -screen 0 1024x768x16 &
+# Without openbox: This works. So ugly (tightvnc), but works: shows the notepad.
+# With openbox: Suddenly it has a proper window too.
 openbox &
+x11vnc -display "$DESIRED_DISPLAY" -nopw &
+# ^ gives you a port number
 
+export DISPLAY="$DESIRED_DISPLAY"
+# DISPLAY shoud Not be "localhost:10.0" or anything with "localhost" in it. That would mean, the server would be (incorrectly) on local client side (XQuartz). We currently don't use XQuartz if we use "Xvfb + vnc11"
+# no xvfb-run
+# must have DISPLAY set correctly
 WINEPREFIX=$WINE64_PREFIX WINARCH=win64  wine64  cmd
 
-# This works. So ugly (tightvnc), but works: shows the notepad.
+
+######
+# On client local machine (MacBook)
+# use `ssh -Y``
+# Install a VNC. I used TightVNC
+# run VNC:
+#    use port number given by "x11vnc" command
+# XQuartz (not sued here!)
+
+# Idea: tunelling
+# IDea: directly sent to XQuartz
