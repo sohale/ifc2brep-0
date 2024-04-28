@@ -25,5 +25,9 @@ echo "Wine folder is: $WINE64_PREFIX"
 
 ls -1 $WINE64_PREFIX >/dev/null  # verify it exists
 
-DISPLAY=:0.0 WINEPREFIX=$WINE64_PREFIX WINARCH=win64  xvfb-run wine64  cmd
+# not: DISPLAY=:0.0
+
+# DISPLAY=:0.0 WINEPREFIX=$WINE64_PREFIX WINARCH=win64  xvfb-run wine64  cmd
 # cd $REPO_ROOT/external-tools/
+
+DISPLAY=:1 WINEPREFIX=$WINE64_PREFIX WINARCH=win64  wine64  cmd
