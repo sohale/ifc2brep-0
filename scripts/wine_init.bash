@@ -30,6 +30,21 @@ function installations_x {
 
    # xvfb-run wine64
 
+
+
+   # sudo apt-get install xorg openbox
+   # dpkg -l | grep xorg
+   # dpkg -l | grep openbox
+
+
+   # Verify
+   sudo Xorg -version
+   #   X.Org X Server 1.21.1.4
+   #   X Protocol Version 11, Revision 0
+   openbox --version
+   # | verfy(Openbox 3.6.1)
+   Xvfb -help
+
    echo "To be implemented ..."
    error
 }
@@ -52,10 +67,28 @@ ls -1 $WINE64_PREFIX >/dev/null  # verify it exists
 #WINEPREFIX=$WINE64_PREFIX WINARCH=win64 winetricks \
 #    corefonts \
 #    win10
+# arch=32|64  # for creating 64 or 32
+
+#WINEPREFIX=$WINE64_PREFIX WINARCH=win64 winetricks \
+#      apps list
+#      #x11-apps
+
+
+export DISPLAY=:1
+
+echo "DISPLAY:  $DISPLAY"
+echo 'add your command here in this file:       WINEPREFIX=$WINE64_PREFIX WINARCH=win64  xvfb-run wine64     YOURCOMMAND   '
+
 
 # no 'DISPLAY=:0.0 '?
 # DISPLAY=:0.0 WINEPREFIX=$WINE64_PREFIX WINARCH=win64  xvfb-run wine64  cmd
 
+# DISPLAY=:0.0
+#DISPLAY=localhost:10.0
 # WINEPREFIX=$WINE64_PREFIX WINARCH=win64  xvfb-run wine64  cmd
 
-echo 'add your command here in this file:       WINEPREFIX=$WINE64_PREFIX WINARCH=win64  xvfb-run wine64     YOURCOMMAND   '
+# WINEDEBUG=warn+all  WINEPREFIX=$WINE64_PREFIX  xvfb-run wine64 explorer /desktop=name,1024x768 notepad.exe
+
+# WINEPREFIX=$WINE64_PREFIX   xvfb-run wine64  notepad
+
+DISPLAY=:1 WINEPREFIX=$WINE64_PREFIX WINARCH=win64  wine64  cmd

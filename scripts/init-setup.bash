@@ -246,3 +246,22 @@ DISPLAY=:0.0 WINEPREFIX=$WINE64_PREFIX   winecfg
 # revealed:
 # https://wiki.winehq.org/Mono
 # Spare me from automating this. You can just clock on it. The reason is, there is a table for choosing the compatible versions between Wine & Mono ...
+
+sudo apt install x11vnc
+
+# linux
+# for debugging:
+sudo apt install xterm
+sudo apt-get install x11-apps libx11-6
+# libx11-6 ?
+# will make avvailable xclock, xeyes, xterm
+sudo apt-get install xorg openbox
+sudo apt install x11vnc
+
+# On client local machine (MacBook), install a VNC. I used TightVNC
+
+# dont use xvfb-run
+
+DISPLAY=:1 WINEPREFIX=$WINE64_PREFIX WINARCH=win64  wine64  cmd
+
+# This works. So ugly (tightvnc), but works: shows the notepad.
