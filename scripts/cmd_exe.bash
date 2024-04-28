@@ -10,6 +10,11 @@ function gitrepo_reset_to_root() {
    cd $REPO_ROOT
 }
 
+function installations {
+   # do we need these too?
+   error
+   sudo apt-get install xorg libx11-6 wine
+}
 
 gitrepo_reset_to_root
 
@@ -20,5 +25,5 @@ echo "Wine folder is: $WINE64_PREFIX"
 
 ls -1 $WINE64_PREFIX >/dev/null  # verify it exists
 
-DISPLAY=:0.0 WINEPREFIX=$WINE64_PREFIX WINARCH=win64  wine64  cmd
+DISPLAY=:0.0 WINEPREFIX=$WINE64_PREFIX WINARCH=win64  xvfb-run wine64  cmd
 # cd $REPO_ROOT/external-tools/
