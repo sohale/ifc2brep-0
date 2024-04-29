@@ -104,6 +104,7 @@ function run_x_stack {
 
    echo "---"
    ps aux | grep -v grep  | grep -e Xvfb -e openbox -e vnc || :
+   # Kill if any are up (a distributed "restart")
    ps aux | grep -v grep  | grep -e Xvfb -e openbox -e vnc | pid_from_psaux | xargs kill || :
    ps aux | grep -v grep  | grep -e Xvfb -e openbox -e vnc || :
 
@@ -142,14 +143,14 @@ function run_x_stack {
    ##########################
 
    export DISPLAY="$DESIRED_DISPLAY"
-   echo "DISPLAY:  $DISPLAY"
+   echo "DISPLAY7:  $DISPLAY"
 
   # verify these three (servers-like) processes are running ^
   # Only run if they are not running.
 
-   # rename: run_x_stack__verify -> verify_x_stack
-   function run_x_stack__verify {
+   function verify_x_stack {
    # Verificaiton + idempotency
+   # renamed: run_x_stack__verify -> verify_x_stack
 
    # verify "visually" (also useful for cli: for user surface): "evidence"
    # Can be run before or after
@@ -176,8 +177,9 @@ function run_x_stack {
    fi
    return $SUCCESS_ExCODE
    }
-   export -f run_x_stack__verify
-   run_x_stack__verify
+   export -f verify_x_stack
+
+   verify_x_stack
 
 }
 
@@ -186,7 +188,7 @@ gitrepo_reset_to_root
 
 # The main difference witrh wine_cmd.exe
 run_x_stack
-run_x_stack__verify
+verify_x_stack
 
 mkdir -p $REPO_ROOT/external-tools/wine64
 export WINE64_PREFIX=$REPO_ROOT/external-tools/wine64

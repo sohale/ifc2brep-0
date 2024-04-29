@@ -33,7 +33,7 @@ ls -1 $WINE64_PREFIX >/dev/null  # verify it exists
 # cd $REPO_ROOT/external-tools/
 
 sleep 1
-run_x_stack__verify
+verify_x_stack
 
 echo "DISPLAY:  $DISPLAY"
 echo 'add your command here in this file:       WINEPREFIX=$WINE64_PREFIX WINARCH=win64  wine64     YOURCOMMAND   '
