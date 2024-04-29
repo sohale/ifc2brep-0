@@ -39,7 +39,7 @@ function installations_x {
    #sudo apt-get install x11-apps libx11-6
    # will make avvailable xclock, xeyes, xterm
    sudo apt-get install xorg openbox
-
+   sudo apt-get install openbox
 
    # Wine -> xvfb -> openbox -> x11vnc -> (client) TightVNC
 
@@ -60,22 +60,43 @@ function installations_x {
 
 function run_x_stack {
 
-   Xvfb :1 -screen 0 1024x768x16 &
+   echo "---"
+   ps aux | grep -v grep  | grep -e Xvfb -e openbox -e vnc || :
+
+   export DESIRED_DISPLAY=":1"
+
+   Xvfb "$DESIRED_DISPLAY" -screen 0 1024x768x16 &
    # Also may affect the `DISPLAY`?
    openbox &
-   x11vnc -display :1 -nopw &
+   x11vnc -display "$DESIRED_DISPLAY" -nopw &
+         # -ncache 10
+         # -passwd yourPassword
+         # -ssl
 
-   export DISPLAY=":1"
+   export DISPLAY="$DESIRED_DISPLAY"
    echo "DISPLAY:  $DISPLAY"
 
   # verify these three (servers-like) processes are running ^
   # Only run if they are not running.
 
-  # Verificaiton + idempotency
+   sleep 1
+
+   # Verificaiton + idempotency
+
+   # verify "visually" (also useful for cli: for user surface): "evidence"
+   # Can be run before or after
+   # may or may not gather info about meeting requirement
+   ps aux | grep -v grep  | grep -e Xvfb -e openbox -e vnc || :
+
 }
+
+export -f run_x_stack
 
 
 gitrepo_reset_to_root
+
+# The main difference witrh wine_cmd.exe
+run_x_stack
 
 mkdir -p $REPO_ROOT/external-tools/wine64
 export WINE64_PREFIX=$REPO_ROOT/external-tools/wine64
@@ -120,7 +141,7 @@ echo 'add your command here in this file:       WINEPREFIX=$WINE64_PREFIX WINARC
 # DISPLAY=:1 WINEPREFIX=$WINE64_PREFIX WINARCH=win64  wine64  cmd
 
 export DISPLAY=:1
-sudo apt-get install openbox
+
 
 # Suddenly it has a proper window too
 openbox &
