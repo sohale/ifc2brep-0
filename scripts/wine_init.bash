@@ -102,14 +102,14 @@ function ONCE {
 
 function run_x_stack {
 
-   echo "---"
+   echo "re-run_x_stack"
+
    ps aux | grep -v grep  | grep -e Xvfb -e openbox -e vnc || :
    # Kill if any are up (a distributed "restart")
    ps aux | grep -v grep  | grep -e Xvfb -e openbox -e vnc | pid_from_psaux | xargs kill || :
    ps aux | grep -v grep  | grep -e Xvfb -e openbox -e vnc || :
 
-
-   sleep 1
+   sleep 0.5
    export DESIRED_DISPLAY=":1"
 
    #########################
@@ -119,31 +119,26 @@ function run_x_stack {
    # You need to have  connected using `ssh -Y user@host` to be able to connect to (receive the GUI from) `x11vnc`
    # No xvfb-run, no XQuartz
 
-   echo DISPLAY1=$DISPLAY
    ONCE Xvfb "$DESIRED_DISPLAY" -screen 0 1024x768x16 &
-   echo DISPLAY2=$DISPLAY
    sleep 0.5
-   echo DISPLAY3=$DISPLAY
+
    # Suddenly it has a proper window too:
    # a "stacking window manager"
    # don't need session management (r.g. lxsession ) capabilities (such as saving and restoring sessions) => no need to set SESSION_MANAGER
    DISPLAY=$DESIRED_DISPLAY ONCE openbox --debug &
    # Also this ^ may affect the `DISPLAY` env?
    sleep 0.5
-   echo DISPLAY4=$DISPLAY
+
    DISPLAY=$DESIRED_DISPLAY ONCE x11vnc -display "$DESIRED_DISPLAY" -nopw &
          # -ncache 10
          # -passwd yourPassword
          # -ssl
-   echo DISPLAY5=$DISPLAY
    sleep 0.5
-   echo DISPLAY6=$DISPLAY
-
 
    ##########################
 
    export DISPLAY="$DESIRED_DISPLAY"
-   echo "DISPLAY7:  $DISPLAY"
+   echo "DISPLAY:  $DISPLAY"
 
   # verify these three (servers-like) processes are running ^
   # Only run if they are not running.
