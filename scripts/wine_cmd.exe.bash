@@ -40,5 +40,5 @@ echo 'add your command here in this file:       WINEPREFIX=$WINE64_PREFIX WINARC
 
 #   $$P$$G"
 DISPLAY=$DESIRED_DISPLAY   WINEPREFIX=$WINE64_PREFIX  WINARCH=win64  wine64  \
-   cmd /k scripts/winebat/cmd_prompt.bat
+   cmd /k scripts/inside_wine/cmd_prompt.bat
    # /k "PROMPT $$E[32m$$P$$E[34m$$G$$E[0m"
