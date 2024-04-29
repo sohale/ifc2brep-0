@@ -88,9 +88,23 @@ function run_x_stack {
    # may or may not gather info about meeting requirement
    ps aux | grep -v grep  | grep -e Xvfb -e openbox -e vnc || :
 
-}
+   if ! pgrep -f Xvfb > /dev/null; then
+      echo "Warning: Xvfb missing"
+   else
+      echo "Verified: Xvfb"
+   fi
+   if ! pgrep -f openbox > /dev/null; then
+      echo "Warning: openbox missing"
+   else
+      echo "Verified: openbox"
+   fi
+   if ! pgrep -f x11vnc > /dev/null; then
+      echo "Warning: x11vnc missing"
+   else
+      echo "Verified: x11vnc"
+   fi
 
-export -f run_x_stack
+}
 
 
 gitrepo_reset_to_root
