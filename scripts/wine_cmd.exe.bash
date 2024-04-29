@@ -1,7 +1,7 @@
 set -eux
 
 # see scripts/setup-msvc.bash
-function gitrepo_reset_to_root() {
+function gitrepo_reset_to_root__() {
    # Sets directory context to the root of the git repository
    # git rev-parse --show-toplevel
    SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )

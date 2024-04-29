@@ -11,6 +11,7 @@ function gitrepo_reset_to_root() {
    REPO_ROOT=$(git rev-parse --show-toplevel)
    cd $REPO_ROOT
 }
+export -f gitrepo_reset_to_root
 
 function installations {
    echo "Not implemented"
@@ -134,6 +135,12 @@ ls -1 $WINE64_PREFIX >/dev/null  # verify it exists
 #      apps list
 #      #x11-apps
 
+$REPO_ROOT/scripts/wine_cmd.exe.bash
+
+ExC=$?
+echo "doone. exit code: $ExC"
+exit $ExC
+#
 
 export DISPLAY=:1
 
