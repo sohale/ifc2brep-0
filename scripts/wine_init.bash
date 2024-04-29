@@ -13,6 +13,10 @@ function gitrepo_reset_to_root() {
 }
 export -f gitrepo_reset_to_root
 
+
+export ERROR_ExCODE=1
+export SUCCESS_ExCODE=0
+
 function installations {
    echo "Not implemented"
    # set the apt repo, key, etc
@@ -58,6 +62,24 @@ function installations_x {
    echo "Not re-tested from clean slate"
 
 }
+function ONCE {
+   # how to keep env var local?
+   commandname="$1"
+
+   #  Check if the process is already running. We only want one instance of tha running.
+   if ! pgrep -f $commandname > /dev/null; then
+      echo "Warning: $commandname missing. Going to run it: $@"
+      # return $ERROR_ExCODE
+      # run, and return the code?
+      $@
+      exitcode=$?
+      return exitcode
+
+   else
+      echo "Verified: $commandname is already running. Skipping."
+   fi
+   # return $SUCCESS_ExCODE
+}
 
 function run_x_stack {
 
@@ -66,10 +88,10 @@ function run_x_stack {
 
    export DESIRED_DISPLAY=":1"
 
-   Xvfb "$DESIRED_DISPLAY" -screen 0 1024x768x16 &
+   ONCE Xvfb "$DESIRED_DISPLAY" -screen 0 1024x768x16 &
    # Also may affect the `DISPLAY`?
-   openbox &
-   x11vnc -display "$DESIRED_DISPLAY" -nopw &
+   ONCE openbox &
+   ONCE x11vnc -display "$DESIRED_DISPLAY" -nopw &
          # -ncache 10
          # -passwd yourPassword
          # -ssl
@@ -82,6 +104,7 @@ function run_x_stack {
 
    sleep 1
 
+   function run_x_stack__verify {
    # Verificaiton + idempotency
 
    # verify "visually" (also useful for cli: for user surface): "evidence"
@@ -91,19 +114,25 @@ function run_x_stack {
 
    if ! pgrep -f Xvfb > /dev/null; then
       echo "Warning: Xvfb missing"
+      return $ERROR_ExCODE
    else
       echo "Verified: Xvfb"
    fi
    if ! pgrep -f openbox > /dev/null; then
       echo "Warning: openbox missing"
+      return $ERROR_ExCODE
    else
       echo "Verified: openbox"
    fi
    if ! pgrep -f x11vnc > /dev/null; then
       echo "Warning: x11vnc missing"
+      return $ERROR_ExCODE
    else
       echo "Verified: x11vnc"
    fi
+   return $SUCCESS_ExCODE
+   }
+   run_x_stack__verify
 
 }
 
@@ -112,6 +141,7 @@ gitrepo_reset_to_root
 
 # The main difference witrh wine_cmd.exe
 run_x_stack
+run_x_stack__verify
 
 mkdir -p $REPO_ROOT/external-tools/wine64
 export WINE64_PREFIX=$REPO_ROOT/external-tools/wine64
