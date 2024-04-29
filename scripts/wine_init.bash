@@ -13,9 +13,18 @@ function gitrepo_reset_to_root() {
 }
 export -f gitrepo_reset_to_root
 
-
+##############
+# Some generic utils
 export ERROR_ExCODE=1
 export SUCCESS_ExCODE=0
+
+function pid_from_psaux {
+   # Usage: pipe with a `ps aux`
+   cut -c10-16
+}
+export -f pid_from_psaux
+
+##############
 
 function installations {
    echo "Not implemented"
@@ -95,22 +104,40 @@ function run_x_stack {
 
    echo "---"
    ps aux | grep -v grep  | grep -e Xvfb -e openbox -e vnc || :
+   ps aux | grep -v grep  | grep -e Xvfb -e openbox -e vnc | pid_from_psaux | xargs kill || :
+   ps aux | grep -v grep  | grep -e Xvfb -e openbox -e vnc || :
 
+
+   sleep 1
    export DESIRED_DISPLAY=":1"
 
    #########################
    # "Up" the three processes that are necessary for directing Wine GUI graphical output to your local computer.
-   # In method one, the stack is: windows_program -> cmd -> Xvfb -> openbox -> x11vnc --> (Linux --> MacOS) --> `ssh -Y`  --> TightVNC (MacOS)
+   # In method one, the stack is:
+   #    windows_program -> cmd -> $DISPLAY -> Xvfb -> openbox -> x11vnc --> (Linux --> MacOS) --> `ssh -Y`  --> TightVNC (MacOS)
    # You need to have  connected using `ssh -Y user@host` to be able to connect to (receive the GUI from) `x11vnc`
+   # No xvfb-run, no XQuartz
 
+   echo DISPLAY1=$DISPLAY
    ONCE Xvfb "$DESIRED_DISPLAY" -screen 0 1024x768x16 &
+   echo DISPLAY2=$DISPLAY
+   sleep 0.5
+   echo DISPLAY3=$DISPLAY
    # Suddenly it has a proper window too:
-   ONCE openbox &
+   # a "stacking window manager"
+   # don't need session management (r.g. lxsession ) capabilities (such as saving and restoring sessions) => no need to set SESSION_MANAGER
+   DISPLAY=$DESIRED_DISPLAY ONCE openbox --debug &
    # Also this ^ may affect the `DISPLAY` env?
-   ONCE x11vnc -display "$DESIRED_DISPLAY" -nopw &
+   sleep 0.5
+   echo DISPLAY4=$DISPLAY
+   DISPLAY=$DESIRED_DISPLAY ONCE x11vnc -display "$DESIRED_DISPLAY" -nopw &
          # -ncache 10
          # -passwd yourPassword
          # -ssl
+   echo DISPLAY5=$DISPLAY
+   sleep 0.5
+   echo DISPLAY6=$DISPLAY
+
 
    ##########################
 
@@ -120,8 +147,7 @@ function run_x_stack {
   # verify these three (servers-like) processes are running ^
   # Only run if they are not running.
 
-   sleep 1
-
+   # rename: run_x_stack__verify -> verify_x_stack
    function run_x_stack__verify {
    # Verificaiton + idempotency
 
@@ -150,6 +176,7 @@ function run_x_stack {
    fi
    return $SUCCESS_ExCODE
    }
+   export -f run_x_stack__verify
    run_x_stack__verify
 
 }
@@ -192,8 +219,8 @@ exit $ExC
 
 export DISPLAY=:1
 
-echo "DISPLAY:  $DISPLAY"
-echo 'add your command here in this file:       WINEPREFIX=$WINE64_PREFIX WINARCH=win64  xvfb-run wine64     YOURCOMMAND   '
+echo "DISPLAY:  $DISPLAY should be set. to redicrect the output to above stack. I will set it based on DESIRED_DISPLAY=$DESIRED_DISPLAY"
+echo 'add your command here in this file:    WINEPREFIX=$WINE64_PREFIX WINARCH=win64  wine64     YOUR_WINDOWS_MSDOS_COMMAND   '
 
 
 # no 'DISPLAY=:0.0 '?

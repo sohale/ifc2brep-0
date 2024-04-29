@@ -32,6 +32,12 @@ ls -1 $WINE64_PREFIX >/dev/null  # verify it exists
 # DISPLAY=:0.0 WINEPREFIX=$WINE64_PREFIX WINARCH=win64  xvfb-run wine64  cmd
 # cd $REPO_ROOT/external-tools/
 
+sleep 1
+run_x_stack__verify
+
+echo "DISPLAY:  $DISPLAY"
+echo 'add your command here in this file:       WINEPREFIX=$WINE64_PREFIX WINARCH=win64  wine64     YOURCOMMAND   '
+
 #   $$P$$G"
 DISPLAY=$DESIRED_DISPLAY   WINEPREFIX=$WINE64_PREFIX  WINARCH=win64  wine64  \
    cmd /k scripts/winebat/cmd_prompt.bat
