@@ -64,16 +64,26 @@ function installations_x {
 }
 function ONCE {
    # how to keep env var local?
-   commandname="$1"
+   local commandname="$1"
+   shift  # Remove the first argument `ONCE` and shift the rest to the left
+
+   # Protection mechanism: Use 'command -v' to check if the program is in PATH
+   if ! command -v "$commandname" > /dev/null; then
+      echo "Error: Command not found: $commandname"
+      return $ERROR_ExCODE
+   fi
 
    #  Check if the process is already running. We only want one instance of tha running.
    if ! pgrep -f $commandname > /dev/null; then
-      echo "Warning: $commandname missing. Going to run it: $@"
-      # return $ERROR_ExCODE
-      # run, and return the code?
-      $@
-      exitcode=$?
-      return exitcode
+
+      echo "An instance of \"$commandname\" is not running. Going to run it: $commandname $*"
+      # Run it, and return the code:
+      ##############################
+      "$commandname" "${@}"
+      ##############################
+
+      local exitcode=$?
+      return $exitcode
 
    else
       echo "Verified: $commandname is already running. Skipping."
