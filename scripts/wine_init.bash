@@ -185,11 +185,21 @@ gitrepo_reset_to_root
 run_x_stack
 verify_x_stack
 
-mkdir -p $REPO_ROOT/external-tools/wine64
-export WINE64_PREFIX=$REPO_ROOT/external-tools/wine64
+export CLOUD_STORAGE_VOLUME=/mnt/volume_lon1_01
+export WINE_STORAGE_BASE=$CLOUD_STORAGE_VOLUME/ifc2brep
 
+sudo mkdir -p $WINE_STORAGE_BASE
+sudo chown $USER:$USER $WINE_STORAGE_BASE
+sudo chmod 775 $WINE_STORAGE_BASE
+
+echo "Storage base is: $WINE_STORAGE_BASE"
+ls -1 $WINE_STORAGE_BASE >/dev/null
+
+# mkdir -p $REPO_ROOT/external-tools/wine64
+# export WINE64_PREFIX=$REPO_ROOT/external-tools/wine64
+export WINE64_PREFIX=$WINE_STORAGE_BASE/wine64
+mkdir -p $WINE64_PREFIX
 echo "Wine folder is: $WINE64_PREFIX"
-
 ls -1 $WINE64_PREFIX >/dev/null  # verify it exists
 
 # now, you can run wine64 cmd
@@ -198,10 +208,12 @@ ls -1 $WINE64_PREFIX >/dev/null  # verify it exists
 ####################
 
 # If already done, skip this step
-#WINEPREFIX=$WINE64_PREFIX WINARCH=win64 winetricks \
-#    corefonts \
-#    win10
+# WINARCH=win64
 # arch=32|64  # for creating 64 or 32
+: || \
+WINEPREFIX=$WINE64_PREFIX arch=64 winetricks \
+    corefonts \
+    win10
 
 #WINEPREFIX=$WINE64_PREFIX WINARCH=win64 winetricks \
 #      apps list

@@ -292,3 +292,13 @@ WINEPREFIX=$WINE64_PREFIX WINARCH=win64  wine64  cmd
 
 # Idea: tunelling
 # IDea: directly sent to XQuartz
+
+
+# Digital Ocean Volume added (100 GB) at:
+# /mnt/volume_lon1_01
+# It is utilised in scripts/wine_init.bash
+#
+mkdir -p /mnt/volume_lon1_01
+mount -o discard,defaults,noatime /dev/disk/by-id/scsi-0DO_Volume_volume-lon1-01 /mnt/volume_lon1_01
+# Change fstab so the volume will be mounted after a reboot too
+echo '/dev/disk/by-id/scsi-0DO_Volume_volume-lon1-01 /mnt/volume_lon1_01 ext4 defaults,nofail,discard 0 0' | sudo tee -a /etc/fstab

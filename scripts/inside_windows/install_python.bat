@@ -1,5 +1,5 @@
 
-REM cli-only installation
+REM cli-only (non-GUI) installation
 external-tools/python-3.7.6-amd64.exe /quiet PrependPath=1
 
 REM GUI installation:
