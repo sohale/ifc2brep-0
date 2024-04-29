@@ -272,7 +272,7 @@ Xvfb "$DESIRED_DISPLAY" -screen 0 1024x768x16 &
 # Without openbox: This works. So ugly (tightvnc), but works: shows the notepad.
 # With openbox: Suddenly it has a proper window too.
 openbox &
-x11vnc -display "$DESIRED_DISPLAY" -nopw &
+x11vnc -display "$DESIRED_DISPLAY" -nopw   -ncache 10   &
 # ^ gives you a port number
 
 export DISPLAY="$DESIRED_DISPLAY"

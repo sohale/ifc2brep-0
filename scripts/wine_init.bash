@@ -195,10 +195,20 @@ sudo chmod 775 $WINE_STORAGE_BASE
 echo "Storage base is: $WINE_STORAGE_BASE"
 ls -1 $WINE_STORAGE_BASE >/dev/null
 
+# Create $REPO_ROOT/working-dir that is inside the Cloud Storage
+mkdir -p $WINE_STORAGE_BASE/working-dir
+rm $REPO_ROOT/working-dir
+ln -s -f $WINE_STORAGE_BASE/working-dir  $REPO_ROOT/working-dir
+export WORKING_DIR=$REPO_ROOT/working-dir
+# cd $REPO_ROOT/working-dir  # Dont.  You will lose the REPO_ROOT
+
+
 # mkdir -p $REPO_ROOT/external-tools/wine64
 # export WINE64_PREFIX=$REPO_ROOT/external-tools/wine64
 export WINE64_PREFIX=$WINE_STORAGE_BASE/wine64
 mkdir -p $WINE64_PREFIX
+
+echo "WORKING_DIR=$WORKING_DIR"
 echo "Wine folder is: $WINE64_PREFIX"
 ls -1 $WINE64_PREFIX >/dev/null  # verify it exists
 
@@ -231,6 +241,7 @@ export DISPLAY=:1
 echo "DISPLAY:  $DISPLAY should be set. to redicrect the output to above stack. I will set it based on DESIRED_DISPLAY=$DESIRED_DISPLAY"
 echo 'add your command here in this file:    WINEPREFIX=$WINE64_PREFIX WINARCH=win64  wine64     YOUR_WINDOWS_MSDOS_COMMAND   '
 
+echo "scripts/inside_windows/install_python.bat"
 
 # no 'DISPLAY=:0.0 '?
 # DISPLAY=:0.0 WINEPREFIX=$WINE64_PREFIX WINARCH=win64  xvfb-run wine64  cmd

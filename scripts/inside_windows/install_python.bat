@@ -7,3 +7,8 @@ REM external-tools/python-3.7.6-amd64.exe
 
 REM this file:
 REM ./scripts/inside_windows/install_python.bat
+
+REM python -m venv mywin-venv
+REM mywin-venv/Scripts/activate.bat
+REM pip
+REM deactivate
