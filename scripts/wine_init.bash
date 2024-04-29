@@ -119,13 +119,13 @@ function run_x_stack {
    # You need to have  connected using `ssh -Y user@host` to be able to connect to (receive the GUI from) `x11vnc`
    # No xvfb-run, no XQuartz
 
-   ONCE Xvfb "$DESIRED_DISPLAY" -screen 0 1024x768x16 &
+   ONCE Xvfb "$DESIRED_DISPLAY" -screen 0 800x600x16 &
    sleep 0.5
 
    # Suddenly it has a proper window too:
    # a "stacking window manager"
    # don't need session management (r.g. lxsession ) capabilities (such as saving and restoring sessions) => no need to set SESSION_MANAGER
-   DISPLAY=$DESIRED_DISPLAY ONCE openbox --debug &
+   DISPLAY=$DESIRED_DISPLAY ONCE openbox &   # --debug
    # Also this ^ may affect the `DISPLAY` env?
    sleep 0.5
 
