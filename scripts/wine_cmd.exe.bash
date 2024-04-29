@@ -26,8 +26,13 @@ echo "Wine folder is: $WINE64_PREFIX"
 ls -1 $WINE64_PREFIX >/dev/null  # verify it exists
 
 # not: DISPLAY=:0.0
+# export DESIRED_DISPLAY=:1
+# maket sure this exists DESIRED_DISPLAY=":1"
 
 # DISPLAY=:0.0 WINEPREFIX=$WINE64_PREFIX WINARCH=win64  xvfb-run wine64  cmd
 # cd $REPO_ROOT/external-tools/
 
-DISPLAY=:1 WINEPREFIX=$WINE64_PREFIX WINARCH=win64  wine64  cmd
+#   $$P$$G"
+DISPLAY=$DESIRED_DISPLAY   WINEPREFIX=$WINE64_PREFIX  WINARCH=win64  wine64  \
+   cmd /k scripts/winebat/cmd_prompt.bat
+   # /k "PROMPT $$E[32m$$P$$E[34m$$G$$E[0m"

@@ -98,13 +98,21 @@ function run_x_stack {
 
    export DESIRED_DISPLAY=":1"
 
+   #########################
+   # "Up" the three processes that are necessary for directing Wine GUI graphical output to your local computer.
+   # In method one, the stack is: windows_program -> cmd -> Xvfb -> openbox -> x11vnc --> (Linux --> MacOS) --> `ssh -Y`  --> TightVNC (MacOS)
+   # You need to have  connected using `ssh -Y user@host` to be able to connect to (receive the GUI from) `x11vnc`
+
    ONCE Xvfb "$DESIRED_DISPLAY" -screen 0 1024x768x16 &
-   # Also may affect the `DISPLAY`?
+   # Suddenly it has a proper window too:
    ONCE openbox &
+   # Also this ^ may affect the `DISPLAY` env?
    ONCE x11vnc -display "$DESIRED_DISPLAY" -nopw &
          # -ncache 10
          # -passwd yourPassword
          # -ssl
+
+   ##########################
 
    export DISPLAY="$DESIRED_DISPLAY"
    echo "DISPLAY:  $DISPLAY"
@@ -203,8 +211,5 @@ echo 'add your command here in this file:       WINEPREFIX=$WINE64_PREFIX WINARC
 
 export DISPLAY=:1
 
-
-# Suddenly it has a proper window too
-openbox &
 
 WINEPREFIX=$WINE64_PREFIX WINARCH=win64  wine64  cmd
