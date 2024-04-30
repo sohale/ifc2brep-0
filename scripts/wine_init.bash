@@ -205,7 +205,7 @@ export WORKING_DIR=$REPO_ROOT/working-dir
 
 # mkdir -p $REPO_ROOT/external-tools/wine64
 # export WINE64_PREFIX=$REPO_ROOT/external-tools/wine64
-export WINE64_PREFIX=$WINE_STORAGE_BASE/wine64
+export WINE64_PREFIX=$WINE_STORAGE_BASE/wine32
 mkdir -p $WINE64_PREFIX
 
 echo "WORKING_DIR=$WORKING_DIR"
@@ -218,19 +218,26 @@ ls -1 $WINE64_PREFIX >/dev/null  # verify it exists
 ####################
 
 # If already done, skip this step
-# WINARCH=win64
+# WINEARCH=win64
 # arch=32|64  # for creating 64 or 32
-: || \
-WINEPREFIX=$WINE64_PREFIX arch=32 winetricks \
+# : || \
+WINEARCH=win64
+WINEPREFIX=$WINE64_PREFIX  WINEARCH=win32 winetricks arch=32 \
     corefonts \
     win10
+
+# Useful, but requires X-windows in place
+# 64 vs 32?
+WINEPREFIX=$WINE64_PREFIX WINEARCH=win32 winecfg
+echo "ok $?"
+exit
 
 # # Enable .NET
 # WINEPREFIX=$WINE64_PREFIX arch=32 winetricks \
 #     mono
 # no mono
 
-#WINEPREFIX=$WINE64_PREFIX WINARCH=win64 winetricks \
+#WINEPREFIX=$WINE64_PREFIX WINEARCH=win64 winetricks \
 #      apps list
 #      #x11-apps
 
@@ -238,9 +245,11 @@ WINEPREFIX=$WINE64_PREFIX arch=32 winetricks \
   list-all | grep vcrun
 
 WINEPREFIX=$WINE64_PREFIX arch=32 winetricks \
+   -q \
    vcrun2019
 # oh !! MSVC?
 # requires GUI
+# -q => quiet (no GUI)
 
 
 $REPO_ROOT/scripts/wine_cmd.exe.bash
@@ -253,24 +262,24 @@ exit $ExC
 export DISPLAY=:1
 
 echo "DISPLAY:  $DISPLAY should be set. to redicrect the output to above stack. I will set it based on DESIRED_DISPLAY=$DESIRED_DISPLAY"
-echo 'add your command here in this file:    WINEPREFIX=$WINE64_PREFIX WINARCH=win64  wine64     YOUR_WINDOWS_MSDOS_COMMAND   '
+echo 'add your command here in this file:    WINEPREFIX=$WINE64_PREFIX WINEARCH=win64  wine64     YOUR_WINDOWS_MSDOS_COMMAND   '
 
 echo "scripts/inside_windows/install_python.bat"
 
 # no 'DISPLAY=:0.0 '?
-# DISPLAY=:0.0 WINEPREFIX=$WINE64_PREFIX WINARCH=win64  xvfb-run wine64  cmd
+# DISPLAY=:0.0 WINEPREFIX=$WINE64_PREFIX WINEARCH=win64  xvfb-run wine64  cmd
 
 # DISPLAY=:0.0
 #DISPLAY=localhost:10.0
-# WINEPREFIX=$WINE64_PREFIX WINARCH=win64  xvfb-run wine64  cmd
+# WINEPREFIX=$WINE64_PREFIX WINEARCH=win64  xvfb-run wine64  cmd
 
 # WINEDEBUG=warn+all  WINEPREFIX=$WINE64_PREFIX  xvfb-run wine64 explorer /desktop=name,1024x768 notepad.exe
 
 # WINEPREFIX=$WINE64_PREFIX   xvfb-run wine64  notepad
 
-# DISPLAY=:1 WINEPREFIX=$WINE64_PREFIX WINARCH=win64  wine64  cmd
+# DISPLAY=:1 WINEPREFIX=$WINE64_PREFIX WINEARCH=win64  wine64  cmd
 
 export DISPLAY=:1
 
 
-WINEPREFIX=$WINE64_PREFIX WINARCH=win64  wine64  cmd
+WINEPREFIX=$WINE64_PREFIX WINEARCH=win64  wine64  cmd
