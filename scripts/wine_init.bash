@@ -221,13 +221,23 @@ ls -1 $WINE64_PREFIX >/dev/null  # verify it exists
 # WINARCH=win64
 # arch=32|64  # for creating 64 or 32
 : || \
-WINEPREFIX=$WINE64_PREFIX arch=64 winetricks \
+WINEPREFIX=$WINE64_PREFIX arch=32 winetricks \
     corefonts \
     win10
+
+# # Enable .NET
+# WINEPREFIX=$WINE64_PREFIX arch=32 winetricks \
+#     mono
+# no mono
 
 #WINEPREFIX=$WINE64_PREFIX WINARCH=win64 winetricks \
 #      apps list
 #      #x11-apps
+
+WINEPREFIX=$WINE64_PREFIX arch=32 winetricks \
+   vcrun2019
+# oh !! MSVC?
+# requires GUI
 
 $REPO_ROOT/scripts/wine_cmd.exe.bash
 

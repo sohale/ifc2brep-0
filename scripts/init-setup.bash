@@ -302,3 +302,9 @@ mkdir -p /mnt/volume_lon1_01
 mount -o discard,defaults,noatime /dev/disk/by-id/scsi-0DO_Volume_volume-lon1-01 /mnt/volume_lon1_01
 # Change fstab so the volume will be mounted after a reboot too
 echo '/dev/disk/by-id/scsi-0DO_Volume_volume-lon1-01 /mnt/volume_lon1_01 ext4 defaults,nofail,discard 0 0' | sudo tee -a /etc/fstab
+
+# winetricks can insatll vc !
+# winetricks list-all | grep vcrun
+# force reinstall:
+# winetricks --force vcrun2019
+# oh, gui?!
