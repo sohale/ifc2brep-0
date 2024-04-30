@@ -71,6 +71,7 @@ function installations_x {
    echo "Not re-tested from clean slate"
 
 }
+
 function ONCE {
    # how to keep env var local?
    local commandname="$1"
@@ -100,7 +101,7 @@ function ONCE {
    # return $SUCCESS_ExCODE
 }
 
-function run_x_stack {
+function run_x_stack1 {
 
    echo "re-run_x_stack"
 
@@ -126,7 +127,7 @@ function run_x_stack {
    # a "stacking window manager"
    # don't need session management (r.g. lxsession ) capabilities (such as saving and restoring sessions) => no need to set SESSION_MANAGER
    DISPLAY=$DESIRED_DISPLAY ONCE openbox &   # --debug
-   # Also this ^ may affect the `DISPLAY` env?
+   # Does this ^ may affect the `DISPLAY` env? No.
    sleep 0.5
 
    DISPLAY=$DESIRED_DISPLAY ONCE x11vnc -display "$DESIRED_DISPLAY" -nopw &
@@ -178,12 +179,48 @@ function run_x_stack {
 
 }
 
+
+function run_x_stack2 {
+
+   echo "re-run_x_stack 2"
+
+   sleep 0.5
+   export DESIRED_DISPLAY=
+
+   ############################
+   # In method one, the stack is:
+   #    windows_program -> cmd -> wine32 -> $DISPLAY -> (as localhost: which via ssh, it refers to MacOS's) --> (Linux --> MacOS) --> `ssh -Y`  --> XQuartz (MacOS)
+   # You need to have  connected using `ssh -Y user@host` to be able to connect to (receive the GUI from) `wine` to XQuartz
+   # No Xvfb openbox x11vnc, xvfb-run, yes: XQuartz
+   #
+
+   # DISPLAY shoud be "localhost:10.0"
+
+   # export DISPLAY="$DESIRED_DISPLAY"
+   echo "DISPLAY:  $DISPLAY"
+
+
+   # Kill if any from tje other method (stack) are up
+   ps aux | grep -v grep  | grep -e Xvfb -e openbox -e vnc | pid_from_psaux | xargs kill || :
+
+
+   function verify_x_stack {
+      ps aux | grep -v grep  | grep -e Xvfb -e openbox -e vnc && exit $ERROR_ExCODE
+      return $SUCCESS_ExCODE
+   }
+   export -f verify_x_stack
+
+   verify_x_stack
+
+}
+
 # todo: run_x_stack2 # for without Xvfb,openbox
 
 gitrepo_reset_to_root
 
 # The main difference witrh wine_cmd.exe
-run_x_stack
+# run_x_stack1
+run_x_stack2
 verify_x_stack
 
 export CLOUD_STORAGE_VOLUME=/mnt/volume_lon1_01
@@ -232,6 +269,14 @@ WINEPREFIX=$WINE_PREFIX_  WINEARCH=$WINE_ARCH_ winetricks arch=32 \
     win10
 
 : || \
+WINEPREFIX=$WINE_PREFIX_  WINEARCH=$WINE_ARCH_  winetricks \
+    msi2
+# WINEDEBUG=+msi wine your_installer.msi
+# Also see note: "Re-register the Windows Installer Service"
+# Also check `winecfg`` for "msiexec" being "builtin"
+# msi2: Unknown arg msi2
+
+: || \
 WINEPREFIX=$WINE_PREFIX_  WINEARCH=$WINE_ARCH_ winetricks \
    --force vcrun2019 corefonts dotnet48
 # Keep checking the GUI !
@@ -248,10 +293,12 @@ WINEPREFIX=$WINE_PREFIX_  WINEARCH=$WINE_ARCH_ winetricks \
 
 # Useful, but requires X-windows in place
 # 64 vs 32?
-: || \
+# : || \
 WINEPREFIX=$WINE_PREFIX_ WINEARCH=$WINE_ARCH_ winecfg
 # echo "ok $?"
 # exit
+# Make sure that Wine is configured to use its built-in msiexec rather than attempting to use a native version:
+# Go to the "Libraries" tab. Look for msiexec in the list. If it's set to "native" or has any specific overrides, you might want to change it to "builtin" to ensure Wine uses its internal version.
 
 # # Enable .NET
 # WINEPREFIX=$WINE_PREFIX_ arch=32 winetricks \
@@ -289,6 +336,14 @@ WINEPREFIX=$WINE_PREFIX_ arch=32 winetricks \
 #          `winetricks --force vcrun2019`
 #    msvc/VC/Tools/MSVC/14.39.33519/bin/Hostx64/x64/cl.exe
 
+printenv
+printenv | grep -e ^WINE_PREFIX_= -e ^DESIRED_DISPLAY= -e ^WINE_ARCH_= -e ^REPO_ROOT= \
+    | tee env1.env
+
+DISPLAY=$DESIRED_DISPLAY   WINEPREFIX=$WINE_PREFIX_  WINEARCH=$WINE_ARCH_  printenv | grep -e ^DISPLAY= -e ^WINEPREFIX= -e ^WINEARCH= \
+    | tee env2.env
+
+# then use:   (source env2.env && wine cmd)
 
 #
 # The environment is ready. Ready to cmd.exe:
