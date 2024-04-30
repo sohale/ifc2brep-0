@@ -230,6 +230,13 @@ WINEPREFIX=$WINE_PREFIX_  WINEARCH=$WINE_ARCH_ winetricks arch=32 \
     corefonts \
     win10
 
+# : || \
+WINEPREFIX=$WINE_PREFIX_  WINEARCH=$WINE_ARCH_ winetricks \
+   --force vcrun2019 corefonts dotnet48
+# check the gui !
+#   vcrun2022
+
+
 # Useful, but requires X-windows in place
 # 64 vs 32?
 : || \
