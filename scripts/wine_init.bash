@@ -230,12 +230,20 @@ WINEPREFIX=$WINE_PREFIX_  WINEARCH=$WINE_ARCH_ winetricks arch=32 \
     corefonts \
     win10
 
-# : || \
+: || \
 WINEPREFIX=$WINE_PREFIX_  WINEARCH=$WINE_ARCH_ winetricks \
    --force vcrun2019 corefonts dotnet48
-# check the gui !
+# Keep checking the GUI !
+# Missing? : Windows Modules Installer Service
+# .Net 4.8 installed
 #   vcrun2022
 
+: || \
+WINEPREFIX=$WINE_PREFIX_  WINEARCH=$WINE_ARCH_ winetricks \
+   vcrun2019
+
+# then
+# vs_buildtools.exe
 
 # Useful, but requires X-windows in place
 # 64 vs 32?
