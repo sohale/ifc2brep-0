@@ -337,10 +337,11 @@ WINEPREFIX=$WINE_PREFIX_ arch=32 winetricks \
 #    msvc/VC/Tools/MSVC/14.39.33519/bin/Hostx64/x64/cl.exe
 
 printenv
-printenv | grep -e ^WINE_PREFIX_= -e ^DESIRED_DISPLAY= -e ^WINE_ARCH_= -e ^REPO_ROOT= \
+
+printenv | grep -E '^(WINE_PREFIX_|DESIRED_DISPLAY|WINE_ARCH_|REPO_ROOT)=' \
     | tee env1.env
 
-DISPLAY=$DESIRED_DISPLAY   WINEPREFIX=$WINE_PREFIX_  WINEARCH=$WINE_ARCH_  printenv | grep -e ^DISPLAY= -e ^WINEPREFIX= -e ^WINEARCH= \
+DISPLAY=$DESIRED_DISPLAY   WINEPREFIX=$WINE_PREFIX_  WINEARCH=$WINE_ARCH_  printenv | grep -E '^(DISPLAY|WINEPREFIX|WINEARCH)=' \
     | tee env2.env
 
 # then use:   (source env2.env && wine cmd)
