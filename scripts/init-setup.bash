@@ -200,30 +200,30 @@ wget https://www.python.org/ftp/python/3.7.6/python-3.7.6.exe
 
 sudo apt install cabextract
 mkdir -p $REPO_ROOT/external-tools/wine64
-export WINE64_PREFIX=$REPO_ROOT/external-tools/wine64
+export WINE_PREFIX_=$REPO_ROOT/external-tools/wine64
 
 # typo: WINARCH WINEARCH
-WINEPREFIX=$WINE64_PREFIX WINEARCH=win64 winetricks \
+WINEPREFIX=$WINE_PREFIX_ WINEARCH=win64 winetricks \
     corefonts \
     win10
 # Microsoft Windows 10.0.19043
 
 # Run the python installer ( in win64 and (?no-) GUI )
 # why not WINEARCH=win64  ?? No, maybe since winetricks already set that?
-DISPLAY=:0.0 WINEPREFIX=$WINE64_PREFIX wine cmd /c \
+DISPLAY=:0.0 WINEPREFIX=$WINE_PREFIX_ wine cmd /c \
     python-3.7.6-amd64.exe /quiet PrependPath=1 \
-    && echo "Python Installation complete by Wine! in $WINE64_PREFIX "
+    && echo "Python Installation complete by Wine! in $WINE_PREFIX_ "
 # The `/quiet` flag of the python installer exe makes it command-line only (no GUI , "quiet" mode)
 # Even in quiet mode (non-GUI), the `DISPLAY=:0.0` prevents some errors.
 # Completed
 # Python Installation complete by Wine! in /home/ephemssss/novorender/ifc2brep-0/external-tools/wine64
 # Thanks to the method in https://askubuntu.com/a/1200679/407596
 
-WINEPREFIX=$WINE64_PREFIX wine cmd
+WINEPREFIX=$WINE_PREFIX_ wine cmd
 # Now you can run python
 # Python 3.7.6 (tags/v3.7.6:43364a7ae0, Dec 19 2019, 00:42:30) [MSC v.1916 64 bit (AMD64)] on win32
 
-WINEPREFIX=$WINE64_PREFIX WINEARCH=win64  wine64  cmd
+WINEPREFIX=$WINE_PREFIX_ WINEARCH=win64  wine64  cmd
 # still win32
 
 # Environment is ready
@@ -235,11 +235,11 @@ cd $REPO_ROOT/external-tools/
 wget https://aka.ms/vs/17/release/vs_community.exe
 wget https://aka.ms/vs/17/release/vs_buildtools.exe
 
-DISPLAY=:0.0 WINEPREFIX=$WINE64_PREFIX WINEARCH=win64  wine64  cmd
+DISPLAY=:0.0 WINEPREFIX=$WINE_PREFIX_ WINEARCH=win64  wine64  cmd
 
 ./vs_buildtools.exe /quiet PrependPath=1
 
-DISPLAY=:0.0 WINEPREFIX=$WINE64_PREFIX   winecfg
+DISPLAY=:0.0 WINEPREFIX=$WINE_PREFIX_   winecfg
 
 
 # How to set up X (MacOS)
@@ -280,7 +280,7 @@ export DISPLAY="$DESIRED_DISPLAY"
 # DISPLAY shoud Not be "localhost:10.0" or anything with "localhost" in it. That would mean, the server would be (incorrectly) on local client side (XQuartz). We currently don't use XQuartz if we use "Xvfb + vnc11"
 # no xvfb-run
 # must have DISPLAY set correctly
-WINEPREFIX=$WINE64_PREFIX WINEARCH=win64  wine64  cmd
+WINEPREFIX=$WINE_PREFIX_ WINEARCH=win64  wine64  cmd
 
 
 ######

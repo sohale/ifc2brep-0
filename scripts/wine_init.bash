@@ -204,13 +204,13 @@ export WORKING_DIR=$REPO_ROOT/working-dir
 
 
 # mkdir -p $REPO_ROOT/external-tools/wine64
-# export WINE64_PREFIX=$REPO_ROOT/external-tools/wine64
-export WINE64_PREFIX=$WINE_STORAGE_BASE/wine32
-mkdir -p $WINE64_PREFIX
+# export WINE_PREFIX_=$REPO_ROOT/external-tools/wine64
+export WINE_PREFIX_=$WINE_STORAGE_BASE/wine32
+mkdir -p $WINE_PREFIX_
 
 echo "WORKING_DIR=$WORKING_DIR"
-echo "Wine folder is: $WINE64_PREFIX"
-ls -1 $WINE64_PREFIX >/dev/null  # verify it exists
+echo "Wine folder is: $WINE_PREFIX_"
+ls -1 $WINE_PREFIX_ >/dev/null  # verify it exists
 
 # now, you can run wine64 cmd
 
@@ -220,31 +220,31 @@ ls -1 $WINE64_PREFIX >/dev/null  # verify it exists
 # If already done, skip this step
 # WINEARCH=win64
 # arch=32|64  # for creating 64 or 32
-# : || \
+: || \
 WINEARCH=win64
-WINEPREFIX=$WINE64_PREFIX  WINEARCH=win32 winetricks arch=32 \
+WINEPREFIX=$WINE_PREFIX_  WINEARCH=win32 winetricks arch=32 \
     corefonts \
     win10
 
 # Useful, but requires X-windows in place
 # 64 vs 32?
-WINEPREFIX=$WINE64_PREFIX WINEARCH=win32 winecfg
+WINEPREFIX=$WINE_PREFIX_ WINEARCH=win32 winecfg
 echo "ok $?"
 exit
 
 # # Enable .NET
-# WINEPREFIX=$WINE64_PREFIX arch=32 winetricks \
+# WINEPREFIX=$WINE_PREFIX_ arch=32 winetricks \
 #     mono
 # no mono
 
-#WINEPREFIX=$WINE64_PREFIX WINEARCH=win64 winetricks \
+#WINEPREFIX=$WINE_PREFIX_ WINEARCH=win64 winetricks \
 #      apps list
 #      #x11-apps
 
-WINEPREFIX=$WINE64_PREFIX arch=32 winetricks \
+WINEPREFIX=$WINE_PREFIX_ arch=32 winetricks \
   list-all | grep vcrun
 
-WINEPREFIX=$WINE64_PREFIX arch=32 winetricks \
+WINEPREFIX=$WINE_PREFIX_ arch=32 winetricks \
    -q \
    vcrun2019
 # oh !! MSVC?
@@ -262,24 +262,24 @@ exit $ExC
 export DISPLAY=:1
 
 echo "DISPLAY:  $DISPLAY should be set. to redicrect the output to above stack. I will set it based on DESIRED_DISPLAY=$DESIRED_DISPLAY"
-echo 'add your command here in this file:    WINEPREFIX=$WINE64_PREFIX WINEARCH=win64  wine64     YOUR_WINDOWS_MSDOS_COMMAND   '
+echo 'add your command here in this file:    WINEPREFIX=$WINE_PREFIX_ WINEARCH=win64  wine64     YOUR_WINDOWS_MSDOS_COMMAND   '
 
 echo "scripts/inside_windows/install_python.bat"
 
 # no 'DISPLAY=:0.0 '?
-# DISPLAY=:0.0 WINEPREFIX=$WINE64_PREFIX WINEARCH=win64  xvfb-run wine64  cmd
+# DISPLAY=:0.0 WINEPREFIX=$WINE_PREFIX_ WINEARCH=win64  xvfb-run wine64  cmd
 
 # DISPLAY=:0.0
 #DISPLAY=localhost:10.0
-# WINEPREFIX=$WINE64_PREFIX WINEARCH=win64  xvfb-run wine64  cmd
+# WINEPREFIX=$WINE_PREFIX_ WINEARCH=win64  xvfb-run wine64  cmd
 
-# WINEDEBUG=warn+all  WINEPREFIX=$WINE64_PREFIX  xvfb-run wine64 explorer /desktop=name,1024x768 notepad.exe
+# WINEDEBUG=warn+all  WINEPREFIX=$WINE_PREFIX_  xvfb-run wine64 explorer /desktop=name,1024x768 notepad.exe
 
-# WINEPREFIX=$WINE64_PREFIX   xvfb-run wine64  notepad
+# WINEPREFIX=$WINE_PREFIX_   xvfb-run wine64  notepad
 
-# DISPLAY=:1 WINEPREFIX=$WINE64_PREFIX WINEARCH=win64  wine64  cmd
+# DISPLAY=:1 WINEPREFIX=$WINE_PREFIX_ WINEARCH=win64  wine64  cmd
 
 export DISPLAY=:1
 
 
-WINEPREFIX=$WINE64_PREFIX WINEARCH=win64  wine64  cmd
+WINEPREFIX=$WINE_PREFIX_ WINEARCH=win64  wine64  cmd

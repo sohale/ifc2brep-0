@@ -18,28 +18,29 @@ function installations {
 
 gitrepo_reset_to_root
 
-mkdir -p $REPO_ROOT/external-tools/wine64
-export WINE64_PREFIX=$REPO_ROOT/external-tools/wine64
+# Must inherit this
+# mkdir -p $REPO_ROOT/external-tools/wine64
+# export WINE_PREFIX_=$REPO_ROOT/external-tools/wine64
 
-echo "Wine folder is: $WINE64_PREFIX"
+echo "Wine folder is: $WINE_PREFIX_"
 
-ls -1 $WINE64_PREFIX >/dev/null  # verify it exists
+ls -1 $WINE_PREFIX_ >/dev/null  # verify it exists
 
 # not: DISPLAY=:0.0
 # export DESIRED_DISPLAY=:1
 # maket sure this exists DESIRED_DISPLAY=":1"
 
-# DISPLAY=:0.0 WINEPREFIX=$WINE64_PREFIX WINARCH=win64  xvfb-run wine64  cmd
+# DISPLAY=:0.0 WINEPREFIX=$WINE_PREFIX_ WINEARCH=win64  xvfb-run wine64  cmd
 # cd $REPO_ROOT/external-tools/
 
 sleep 1
 verify_x_stack
 
 echo "DISPLAY:  $DISPLAY"
-echo 'add your command here in this file:       WINEPREFIX=$WINE64_PREFIX WINARCH=win64  wine64     YOURCOMMAND   '
+echo 'add your command here in this file:       WINEPREFIX=$WINE_PREFIX_ WINEARCH=win64  wine64     YOURCOMMAND   '
 
 #   $$P$$G"
-DISPLAY=$DESIRED_DISPLAY   WINEPREFIX=$WINE64_PREFIX  WINARCH=win64  wine64  \
+DISPLAY=$DESIRED_DISPLAY   WINEPREFIX=$WINE_PREFIX_  WINEARCH=win64  wine64  \
    cmd /k scripts/inside_windows/cmd_prompt.bat
    # /k "PROMPT $$E[32m$$P$$E[34m$$G$$E[0m"
 
