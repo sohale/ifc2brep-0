@@ -235,9 +235,13 @@ WINEPREFIX=$WINE64_PREFIX arch=32 winetricks \
 #      #x11-apps
 
 WINEPREFIX=$WINE64_PREFIX arch=32 winetricks \
+  list-all | grep vcrun
+
+WINEPREFIX=$WINE64_PREFIX arch=32 winetricks \
    vcrun2019
 # oh !! MSVC?
 # requires GUI
+
 
 $REPO_ROOT/scripts/wine_cmd.exe.bash
 
