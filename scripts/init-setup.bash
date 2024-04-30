@@ -324,3 +324,27 @@ wget  -O winsdksetup.exe \
 # ref: https://learn.microsoft.com/en-us/answers/questions/706690/install-visual-studio-2019-build-tools
 
 # Now, rest of that file (yet to be done) :
+
+wget -O vs_buildtools.exe \
+    https://download.visualstudio.microsoft.com/download/pr/378e5eb4-c1d7-4c05-8f5f-55678a94e7f4/b9619acc0f9a1dfbdc1b67fddf9972e169916ceae237cf95f286c9e5547f804f/vs_BuildTools.exe
+
+```bat
+start /w vs_buildtools.exe --quiet --wait --norestart --nocache modify
+ --installPath "%ProgramFiles(x86)%\Microsoft Visual Studio\2019\BuildTools"
+ --add Microsoft.Net.ComponentGroup.4.6.2.DeveloperTools
+ --add Microsoft.VisualStudio.Component.VC.Tools.x86.x64
+ || IF "%ERRORLEVEL%"=="3010" EXIT 0
+```
+
+
+
+ && (start /w vs_buildtools.exe --quiet --wait --norestart --nocache modify
+ --installPath "%ProgramFiles(x86)%\Microsoft Visual Studio\2019\BuildTools"
+ --add Microsoft.Net.ComponentGroup.4.6.2.DeveloperTools
+ --add Microsoft.VisualStudio.Component.VC.Tools.x86.x64
+ || IF "%ERRORLEVEL%"=="3010" EXIT 0)
+
+MsiExec.exe /i https://nodejs.org/dist/v14.9.0/node-v14.9.0-x64.msi /qn
+ && del /q vs_buildtools.exe
+
+ENTRYPOINT ["cmd", "/c", "dir", "C:\\Program Files (x86)\\Microsoft Visual Studio"]
