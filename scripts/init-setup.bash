@@ -316,4 +316,11 @@ echo '/dev/disk/by-id/scsi-0DO_Volume_volume-lon1-01 /mnt/volume_lon1_01 ext4 de
 
 # worked: downloa from this URL, it worked:
 
-wget https://go.microsoft.com/fwlink/?linkid=2120843 -O installer-2029.exe
+wget  -O winsdksetup.exe \
+      "https://go.microsoft.com/fwlink/?linkid=2120843"
+# afford: winsdksetup.exe /quiet
+
+# This helped it working ^
+# ref: https://learn.microsoft.com/en-us/answers/questions/706690/install-visual-studio-2019-build-tools
+
+# Now, rest of that file (yet to be done) :
