@@ -333,10 +333,10 @@ wget -O vs_buildtools.exe \
 ```bat
 REM where the vs_buildtools.exe is downloaded:
 cd external-tools
-start /w vs_buildtools.exe --quiet --wait --norestart --nocache modify --installPath "%ProgramFiles(x86)%\Microsoft Visual Studio\2019\BuildTools" --add Microsoft.Net.ComponentGroup.4.6.2.DeveloperTools --add Microsoft.VisualStudio.Component.VC.Tools.x86.x64
+start /w vs_buildtools.exe --quiet --wait --norestart --nocache modify --installPath "%ProgramFiles%\Microsoft Visual Studio\2019\BuildTools" --add Microsoft.Net.ComponentGroup.4.6.2.DeveloperTools --add Microsoft.VisualStudio.Component.VC.Tools.x86.x64
 echo "ERRORLEVEL (should not be 3010): ERRORLEVEL=%ERRORLEVEL%"
 ```
-
+# Still didn't work ^
 
 
 # Does not work
