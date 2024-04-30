@@ -264,12 +264,28 @@ WINEPREFIX=$WINE_PREFIX_ WINEARCH=$WINE_ARCH_ winecfg
 WINEPREFIX=$WINE_PREFIX_ arch=32 winetricks \
   list-all | grep vcrun
 
+# IF installed, vcrun2019 already installed, skipping
 WINEPREFIX=$WINE_PREFIX_ arch=32 winetricks \
    -q \
    vcrun2019
 # oh !! MSVC?
 # requires GUI
 # -q => quiet (no GUI)
+
+# New affordances enabled:
+# dir "C:\Program Files\Microsoft SDKs\Windows\v10.0A\bin\NETFX 4.8 Tools"
+#         such as: lc.exe, wsdl.exe
+
+
+#
+# The environment is ready. Ready to cmd.exe:
+#
+# Providing: $WINE_PREFIX_ $DESIRED_DISPLAY, $WINE_ARCH_, $REPO_ROOT, gitrepo_reset_to_root, verify_x_stack
+# DISPLAY=$DESIRED_DISPLAY   WINEPREFIX=$WINE_PREFIX_  WINEARCH=$WINE_ARCH_  wine  \
+   # cmd.exe or any command
+
+# The environment is ready.
+##################################################
 
 
 $REPO_ROOT/scripts/wine_cmd.exe.bash
