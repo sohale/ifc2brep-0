@@ -320,6 +320,8 @@ wget  -O winsdksetup.exe \
       "https://go.microsoft.com/fwlink/?linkid=2120843"
 # afford: winsdksetup.exe /quiet
 
+#  mv ./index.html\?linkid\=2120843 rrr --> msvc-dl/rrr.exe
+
 # This helped it working ^
 # ref: https://learn.microsoft.com/en-us/answers/questions/706690/install-visual-studio-2019-build-tools
 
@@ -329,22 +331,20 @@ wget -O vs_buildtools.exe \
     https://download.visualstudio.microsoft.com/download/pr/378e5eb4-c1d7-4c05-8f5f-55678a94e7f4/b9619acc0f9a1dfbdc1b67fddf9972e169916ceae237cf95f286c9e5547f804f/vs_BuildTools.exe
 
 ```bat
-start /w vs_buildtools.exe --quiet --wait --norestart --nocache modify
- --installPath "%ProgramFiles(x86)%\Microsoft Visual Studio\2019\BuildTools"
- --add Microsoft.Net.ComponentGroup.4.6.2.DeveloperTools
- --add Microsoft.VisualStudio.Component.VC.Tools.x86.x64
- || IF "%ERRORLEVEL%"=="3010" EXIT 0
+REM where the vs_buildtools.exe is downloaded:
+cd external-tools
+start /w vs_buildtools.exe --quiet --wait --norestart --nocache modify --installPath "%ProgramFiles(x86)%\Microsoft Visual Studio\2019\BuildTools" --add Microsoft.Net.ComponentGroup.4.6.2.DeveloperTools --add Microsoft.VisualStudio.Component.VC.Tools.x86.x64
+echo "ERRORLEVEL (should not be 3010): ERRORLEVEL=%ERRORLEVEL%"
 ```
 
 
 
- && (start /w vs_buildtools.exe --quiet --wait --norestart --nocache modify
- --installPath "%ProgramFiles(x86)%\Microsoft Visual Studio\2019\BuildTools"
- --add Microsoft.Net.ComponentGroup.4.6.2.DeveloperTools
- --add Microsoft.VisualStudio.Component.VC.Tools.x86.x64
- || IF "%ERRORLEVEL%"=="3010" EXIT 0)
-
+# Does not work
+```bat
 MsiExec.exe /i https://nodejs.org/dist/v14.9.0/node-v14.9.0-x64.msi /qn
- && del /q vs_buildtools.exe
+echo %ERRORLEVEL%
+```
+# You can delete vs_buildtools.exe now
+# && del /q vs_buildtools.exe
 
-ENTRYPOINT ["cmd", "/c", "dir", "C:\\Program Files (x86)\\Microsoft Visual Studio"]
+# ENTRYPOINT ["cmd", "/c", "dir", "C:\\Program Files (x86)\\Microsoft Visual Studio"]

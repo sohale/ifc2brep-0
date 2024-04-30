@@ -16,9 +16,36 @@ function installations {
    sudo apt-get install xorg libx11-6 wine
 }
 
-gitrepo_reset_to_root
+# Must inherit this: gitrepo_reset_to_root
+#   othewise, workaround
+gitrepo_reset_to_root || {
+   # workaround
 
-# Must inherit this
+   echo "Using workaround, sincince "flow closure info" are missing as a result of headless running"
+
+   gitrepo_reset_to_root__
+
+   function verify_x_stack {
+      echo "no verify in workaround, since it may be directly sending x-windows to client (local machine)'s XQuartz"
+      # in that case, `DISPLAY` should be something like "localhost:10.0", in which, "localhost" is actually the ssh-client's local machine (runnning an insatnce of XQuartz)
+   }
+
+   WINE_PREFIX_=/mnt/volume_lon1_01/ifc2brep/wine32
+   DESIRED_DISPLAY=":1"
+   WINE_ARCH_="win32"
+
+   echo "$REPO_ROOT" >/dev/null  # verify already defined
+
+
+   # Providing: $WINE_PREFIX_ $DESIRED_DISPLAY, $WINE_ARCH_, $REPO_ROOT, gitrepo_reset_to_root, verify_x_stack
+   # DISPLAY=$DESIRED_DISPLAY   WINEPREFIX=$WINE_PREFIX_  WINEARCH=$WINE_ARCH_  wine  \
+      # cmd.exe or any command
+
+}
+
+
+
+
 # mkdir -p $REPO_ROOT/external-tools/wine64
 # export WINE_PREFIX_=$REPO_ROOT/external-tools/wine64
 

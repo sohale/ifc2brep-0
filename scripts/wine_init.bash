@@ -178,6 +178,7 @@ function run_x_stack {
 
 }
 
+# todo: run_x_stack2 # for without Xvfb,openbox
 
 gitrepo_reset_to_root
 
@@ -272,9 +273,21 @@ WINEPREFIX=$WINE_PREFIX_ arch=32 winetricks \
 # requires GUI
 # -q => quiet (no GUI)
 
+# This was an important step (?)
+# wget  -O winsdksetup.exe \
+#      "https://go.microsoft.com/fwlink/?linkid=2120843"
+
+
 # New affordances enabled:
 # dir "C:\Program Files\Microsoft SDKs\Windows\v10.0A\bin\NETFX 4.8 Tools"
 #         such as: lc.exe, wsdl.exe
+#         but not what I am looking after
+# dir "C:\Program Files\Microsoft Visual Studio\Installer"
+#         lots of installer files (only installer, not the executables)
+
+# And this (Where did this come from?) Probably by one of the `winetricks` ones (vcrun2019 ?) (no: vs_buildtools.exe ?)
+#          `winetricks --force vcrun2019`
+#    msvc/VC/Tools/MSVC/14.39.33519/bin/Hostx64/x64/cl.exe
 
 
 #
