@@ -223,8 +223,9 @@ WINEPREFIX=$WINE_PREFIX_ wine cmd
 # Now you can run python
 # Python 3.7.6 (tags/v3.7.6:43364a7ae0, Dec 19 2019, 00:42:30) [MSC v.1916 64 bit (AMD64)] on win32
 
-WINEPREFIX=$WINE_PREFIX_ WINEARCH=win64  wine64  cmd
-# still win32
+export WINE_ARCH_=win64
+WINEPREFIX=$WINE_PREFIX_ WINEARCH=$WINE_ARCH_  wine64  cmd
+# still win32 ? --> because: WINARCH vs WINEARCH?
 
 # Environment is ready
 # tested on wine-9.0
