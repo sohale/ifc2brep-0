@@ -314,5 +314,6 @@ echo '/dev/disk/by-id/scsi-0DO_Volume_volume-lon1-01 /mnt/volume_lon1_01 ext4 de
 
 # finally this worked, on win32. You can use directly XQuartz. No need for Xvfb
 
-wget downlloaded from this, worked:
-https://go.microsoft.com/fwlink/?linkid=2120843 -O installer-2029.exe
+# worked: downloa from this URL, it worked:
+
+whet https://go.microsoft.com/fwlink/?linkid=2120843 -O installer-2029.exe
