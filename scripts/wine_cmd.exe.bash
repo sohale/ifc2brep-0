@@ -30,17 +30,17 @@ ls -1 $WINE_PREFIX_ >/dev/null  # verify it exists
 # export DESIRED_DISPLAY=:1
 # maket sure this exists DESIRED_DISPLAY=":1"
 
-# DISPLAY=:0.0 WINEPREFIX=$WINE_PREFIX_ WINEARCH=$WINE_ARCH_  xvfb-run wine64  cmd
+# DISPLAY=:0.0 WINEPREFIX=$WINE_PREFIX_ WINEARCH=$WINE_ARCH_  xvfb-run wine  cmd
 # cd $REPO_ROOT/external-tools/
 
 sleep 1
 verify_x_stack
 
 echo "DISPLAY:  $DISPLAY"
-echo 'add your command here in this file:       WINEPREFIX=$WINE_PREFIX_ WINEARCH=$WINE_ARCH_  wine64     YOURCOMMAND   '
+echo 'add your command here in this file:       WINEPREFIX=$WINE_PREFIX_ WINEARCH=$WINE_ARCH_  wine     YOURCOMMAND   '
 
 #   $$P$$G"
-DISPLAY=$DESIRED_DISPLAY   WINEPREFIX=$WINE_PREFIX_  WINEARCH=$WINE_ARCH_  wine64  \
+DISPLAY=$DESIRED_DISPLAY   WINEPREFIX=$WINE_PREFIX_  WINEARCH=$WINE_ARCH_  wine  \
    cmd /k scripts/inside_windows/cmd_prompt.bat
    # /k "PROMPT $$E[32m$$P$$E[34m$$G$$E[0m"
 

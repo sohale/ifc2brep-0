@@ -44,7 +44,7 @@ function installations_x {
    # echo $jid
 
    # xvfb-run wine64
-   # but not recommended. Dont use `xvfb-run` with `wine64`. Simply. wine64, but set $DIPLAY before it.
+   # but not recommended. Dont use `xvfb-run` with `wine`. Simply `wine`, but set `$DISPLAY` before it.
 
    sudo apt-get install xorg openbox
    sudo apt install x11vnc
@@ -212,24 +212,27 @@ echo "WORKING_DIR=$WORKING_DIR"
 echo "Wine folder is: $WINE_PREFIX_"
 ls -1 $WINE_PREFIX_ >/dev/null  # verify it exists
 
-# now, you can run wine64 cmd
+# now, you can run wine cmd
+# wine wine32 win64
 
 # ^ wine prefix
 ####################
 
 export WINE_ARCH_=win32
+# Note that many winetrick & softwares only currently support wine32, and some dontt support win64.
+# Hence, we focus only on wine32 for now.
 
 # If already done, skip this step
 # WINEARCH=win64
 # arch=32|64  # for creating 64 or 32
-# : || \
+: || \
 WINEPREFIX=$WINE_PREFIX_  WINEARCH=$WINE_ARCH_ winetricks arch=32 \
     corefonts \
     win10
 
 # Useful, but requires X-windows in place
 # 64 vs 32?
-# : || \
+: || \
 WINEPREFIX=$WINE_PREFIX_ WINEARCH=$WINE_ARCH_ winecfg
 # echo "ok $?"
 # exit
@@ -264,24 +267,24 @@ exit $ExC
 export DISPLAY=:1
 
 echo "DISPLAY:  $DISPLAY should be set. to redicrect the output to above stack. I will set it based on DESIRED_DISPLAY=$DESIRED_DISPLAY"
-echo 'add your command here in this file:    WINEPREFIX=$WINE_PREFIX_ WINEARCH=$WINE_ARCH_  wine64     YOUR_WINDOWS_MSDOS_COMMAND   '
+echo 'add your command here in this file:    WINEPREFIX=$WINE_PREFIX_ WINEARCH=$WINE_ARCH_  wine     YOUR_WINDOWS_MSDOS_COMMAND   '
 
 echo "scripts/inside_windows/install_python.bat"
 
 # no 'DISPLAY=:0.0 '?
-# DISPLAY=:0.0 WINEPREFIX=$WINE_PREFIX_ WINEARCH=$WINE_ARCH_  xvfb-run wine64  cmd
+# DISPLAY=:0.0 WINEPREFIX=$WINE_PREFIX_ WINEARCH=$WINE_ARCH_  xvfb-run wine  cmd
 
 # DISPLAY=:0.0
 #DISPLAY=localhost:10.0
-# WINEPREFIX=$WINE_PREFIX_ WINEARCH=$WINE_ARCH_  xvfb-run wine64  cmd
+# WINEPREFIX=$WINE_PREFIX_ WINEARCH=$WINE_ARCH_  xvfb-run wine  cmd
 
-# WINEDEBUG=warn+all  WINEPREFIX=$WINE_PREFIX_  xvfb-run wine64 explorer /desktop=name,1024x768 notepad.exe
+# WINEDEBUG=warn+all  WINEPREFIX=$WINE_PREFIX_  xvfb-run wine explorer /desktop=name,1024x768 notepad.exe
 
-# WINEPREFIX=$WINE_PREFIX_   xvfb-run wine64  notepad
+# WINEPREFIX=$WINE_PREFIX_   xvfb-run wine  notepad
 
-# DISPLAY=:1 WINEPREFIX=$WINE_PREFIX_ WINEARCH=$WINE_ARCH_  wine64  cmd
+# DISPLAY=:1 WINEPREFIX=$WINE_PREFIX_ WINEARCH=$WINE_ARCH_  wine  cmd
 
 export DISPLAY=:1
 
 
-WINEPREFIX=$WINE_PREFIX_ WINEARCH=$WINE_ARCH_  wine64  cmd
+WINEPREFIX=$WINE_PREFIX_ WINEARCH=$WINE_ARCH_  wine  cmd
