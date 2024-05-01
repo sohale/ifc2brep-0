@@ -345,6 +345,8 @@ DISPLAY=$DESIRED_DISPLAY   WINEPREFIX=$WINE_PREFIX_  WINEARCH=$WINE_ARCH_  print
     | tee env2.env
 
 # then use:   (source env2.env && wine cmd)
+# (source env2.env && winetricks list)
+# (source env2.env && winetricks list-all) | grep -ie insta
 
 #
 # The environment is ready. Ready to cmd.exe:
