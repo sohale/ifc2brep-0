@@ -71,6 +71,7 @@ docker run \
 
       echo "Example compilation"
       echo "./scripts/inside_msvc-wine/compile1.bash"
+      echo "./scripts/inside_msvc-wine/compile2.bash"
 
 
       # Then, continue interactively

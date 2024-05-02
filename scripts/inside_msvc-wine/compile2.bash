@@ -12,9 +12,22 @@ echo '$REPO_ROOT=' "$REPO_ROOT"
 
 ls -alth
 
+# to find them:
+#   find /home/ephemssss/novorender/oda-sdk/vc16/ |grep IfcModelProcessor
+
+# ifcsdk-win/Ifc/Include/IfcModelProcessor.h
+# /home/ephemssss/novorender/oda-sdk/vc16/Sdai/Include/daiModel.h
+
+
 # MAINCPP=
 /opt/msvc/bin/x64/cl \
    /EHsc /std:c++20  /I./includes-symb/  \
+   /I/home/ephemssss/novorender/oda-sdk/vc16/Sdai/Include  \
+   /I/home/ephemssss/novorender/oda-sdk/vc16/Ifc/Include  \
+   /I/home/ephemssss/novorender/oda-sdk/vc16/Kernel/Include \
+   /I/home/ephemssss/novorender/oda-sdk/vc16/KernelBase/Include \
+   /I/home/ephemssss/novorender/oda-sdk/vc16/Ifc/Include \
+   /I/home/ephemssss/novorender/oda-sdk/vc16/Ifc/Include/Common \
    -Fo./out/ -Fe./out/a.exe  \
    ./src/test_ifcsdk_compiletion.cpp
 

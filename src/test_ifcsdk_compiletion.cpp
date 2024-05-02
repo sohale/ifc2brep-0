@@ -28,7 +28,12 @@ external/oda-ifc-sdk/Examples/ExIfcTutorials/ExIfcTutorial_ModelOpsFloor.cpp
 
 //#include "ifcsdk/Include/IfcModelProcessor.h"
 
+/*
 #include "ifcsdk-win/Ifc/Include/IfcModelProcessor.h"
+#include "ifcsdk-win/Ifc/Include/IfcModel.h"
+*/
+#include "IfcModelProcessor.h"
+#include "IfcModel.h"
 
 int main(int argc, char* argv[]) {
    std::cout << "Hello.5." << std::endl;
