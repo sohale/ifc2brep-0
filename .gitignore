@@ -33,3 +33,8 @@
 
 # Project-specific
 .DS_Store
+*.env
+trashbin
+working-dir
+# out
+external-tools
