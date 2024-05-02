@@ -68,6 +68,9 @@ docker run \
       echo "_initial_cwd=$_initial_cwd"
       cd $_initial_cwd
 
+      echo "Example compilation"
+      echo "./scripts/inside_msvc-wine/compile1.bash"
+
 
       # Then, continue interactively
       exec bash

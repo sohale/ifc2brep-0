@@ -11,6 +11,7 @@ echo "hi compiler"
 echo '$REPO_ROOT=' "$REPO_ROOT"
 
 # echo WINEDEBUG=$WINEDEBUG
+# Not effective. (?)
 export WINEDEBUG="-fixme-all"
 echo WINEDEBUG=$WINEDEBUG
 
