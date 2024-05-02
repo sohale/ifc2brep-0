@@ -48,6 +48,7 @@ function installations_x {
 
    sudo apt-get install xorg openbox
    sudo apt install x11vnc
+   # sudo apt-get install xorg libx11-6 wine
 
    sudo apt install xterm
    #sudo apt-get install x11-apps libx11-6

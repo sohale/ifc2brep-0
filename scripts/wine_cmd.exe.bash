@@ -10,11 +10,7 @@ function gitrepo_reset_to_root__() {
    cd $REPO_ROOT
 }
 
-function installations {
-   # do we need these too?
-   error
-   sudo apt-get install xorg libx11-6 wine
-}
+# "installations": already installed in wine_init.bash
 
 # Must inherit this: gitrepo_reset_to_root
 #   othewise, workaround
@@ -31,9 +27,15 @@ function default_wine_32 {
    }
 
    WINE_PREFIX_=/mnt/volume_lon1_01/ifc2brep/wine32
-   DESIRED_DISPLAY=":1"
+   # DESIRED_DISPLAY=":1"
+   DESIRED_DISPLAY="localhost:10.0"
    WINE_ARCH_="win32"
    WINE_PREFIX_="wine32"
+   WINE_COMMAND_="wine32"
+
+   # old place: $REPO_ROOT/external-tools/wine32
+   mkdir -p $WINE_PREFIX_
+
 
    echo "$REPO_ROOT" >/dev/null  # verify already defined
 
@@ -44,11 +46,32 @@ function default_wine_32 {
 
 }
 
-gitrepo_reset_to_root || default_wine_32
+# workaround for 64
+function default_wine_64 {
+
+   echo "Using workaround (64)"
+
+   gitrepo_reset_to_root__
+
+   WINE_PREFIX_=/mnt/volume_lon1_01/ifc2brep/wine64
+   DESIRED_DISPLAY="localhost:10.0"
+   WINE_ARCH_="win64"
+   WINE_PREFIX_="wine64"
+   WINE_COMMAND_="wine64"
+
+   ls -1 $WINE_PREFIX_ >/dev/null  # Be struct. error
+   echo "$REPO_ROOT" >/dev/null  # verify already defined
 
 
-# mkdir -p $REPO_ROOT/external-tools/wine64
-# export WINE_PREFIX_=$REPO_ROOT/external-tools/wine64
+   # Providing: $WINE_COMMAND_, $WINE_PREFIX_ $DESIRED_DISPLAY, $WINE_ARCH_, $REPO_ROOT, gitrepo_reset_to_root, verify_x_stack
+   # Usage:
+   # DISPLAY=$DESIRED_DISPLAY   WINEPREFIX=$WINE_PREFIX_  WINEARCH=$WINE_ARCH_  $WINE_PREFIX_  cmd.exe
+
+}
+
+# gitrepo_reset_to_root || default_wine_32
+gitrepo_reset_to_root || default_wine_64
+
 
 echo "Wine folder is: $WINE_PREFIX_"
 
@@ -58,7 +81,7 @@ ls -1 $WINE_PREFIX_ >/dev/null  # verify it exists
 # export DESIRED_DISPLAY=:1
 # maket sure this exists DESIRED_DISPLAY=":1"
 
-# DISPLAY=:0.0 WINEPREFIX=$WINE_PREFIX_ WINEARCH=$WINE_ARCH_  xvfb-run wine  cmd
+# DISPLAY=:0.0 WINEPREFIX=$WINE_PREFIX_ WINEARCH=$WINE_ARCH_  xvfb-run $WINE_COMMAND_  cmd
 # cd $REPO_ROOT/external-tools/
 
 sleep 1
@@ -68,12 +91,12 @@ verify_x_stack
 
 echo "DISPLAY:  $DISPLAY"
 echo 'Usage:'
-echo '   WINEPREFIX=$WINE_PREFIX_ WINEARCH=$WINE_ARCH_  wine  WINDOWS_MSDOS_PROGRAM_NAME'
+echo '   WINEPREFIX=$WINE_PREFIX_ WINEARCH=$WINE_ARCH_  $WINE_COMMAND_  WINDOWS_MSDOS_PROGRAM_NAME'
 echo '   (source env2.env && winetricks list-all)'
-echo '   (source env2.env && wine  WINDOWS_MSDOS_PROGRAM_NAME)'
+echo '   (source env2.env && $WINE_COMMAND_  WINDOWS_MSDOS_PROGRAM_NAME)'
 
 #   $$P$$G"
-DISPLAY=$DESIRED_DISPLAY   WINEPREFIX=$WINE_PREFIX_  WINEARCH=$WINE_ARCH_  wine  \
+DISPLAY=$DESIRED_DISPLAY   WINEPREFIX=$WINE_PREFIX_  WINEARCH=$WINE_ARCH_  $WINE_COMMAND_  \
    cmd /k scripts/inside_windows/cmd_prompt.bat
    # /k "PROMPT $$E[32m$$P$$E[34m$$G$$E[0m"
 
