@@ -348,3 +348,71 @@ echo %ERRORLEVEL%
 # && del /q vs_buildtools.exe
 
 # ENTRYPOINT ["cmd", "/c", "dir", "C:\\Program Files (x86)\\Microsoft Visual Studio"]
+
+
+# In search of
+
+# Cross compilation with MSVC on Linux
+# https://github.com/mstorsjo/msvc-wine
+# https://github.com/mstorsjo/msvc-wine/blob/master/Dockerfile
+
+# https://wiki.winehq.org/Category:List_of_Commands
+
+# https://wiki.winehq.org/Wineboot
+
+# msiexec is a Linux command in Wine 🤦 !
+# https://wiki.winehq.org/Msiexec
+
+
+
+# ncdu ~/.wine
+# ncdu ~/.wine64/
+#
+# rm -rf ~/.wine
+# rm -rf ~/.wine64/
+
+# This seems to work
+cd external
+git clone git@github.com:mstorsjo/msvc-wine
+
+# docker build .
+# docker build -t myimage-msvc-wine .
+# docker build -t myimage-msvc-wine:v1.0 .
+
+docker build \
+     -f Dockerfile \
+     -t msvc-wine \
+     .
+
+# Test using the installed tools
+docker build -f Dockerfile.hello .
+# Test using the installation with Clang
+docker build -f Dockerfile.clang .
+
+# see also: external/msvc-wine/.github/workflows/build.yml
+
+# I admit, using `docker` is much better
+
+# manual:
+
+# (scripted verion: scripts/wine_init_sol3.bash )
+
+# docker run -it msvc-wine bash
+docker run -it -e DISPLAY=$DISPLAY msvc-wine bash
+
+# each time you need to:  (see external/msvc-wine/Dockerfile.hello )
+#  To "start a persistent wine server"
+wineserver -p && $(command -v wine64 || command -v wine || false) wineboot
+
+# /usr/bin/wine64 wineboot
+
+# ls /opt/msvc/bin
+#     arm  arm64  msvctricks.exe  x64  x86
+
+/opt/msvc/bin/x64/cl
+
+
+# Don't forget to:
+# export DISPLAY=localhost:10.0
+# export WINEARCH=win32
+# export WINEPREFIX=/mnt/volume_lon1_01/ifc2brep/wine32

@@ -47,7 +47,7 @@ function activate_my_venv() {
 function verify_python_3_activated() {
 # block: verify python 3 is activated
 # todo: verify Python 3.6+
-expect  <<'END_EXPECT_TCL'
+expect  <<'END_EXPECT.TCL'
    spawn python3 -V
    set timeout -1
    expect {
@@ -60,7 +60,7 @@ expect  <<'END_EXPECT_TCL'
       }
    }
    expect eof
-END_EXPECT_TCL
+END_EXPECT.TCL
 }
 
 
