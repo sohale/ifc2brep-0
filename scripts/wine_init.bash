@@ -26,11 +26,15 @@ export -f pid_from_psaux
 
 ##############
 
-function installations {
-   echo "Not implemented"
+function installations_base {
+   sudo apt install msitools
+
+   # todo: winehq-apt
+   # todo: winehq
    # set the apt repo, key, etc
-   error
-   # Also: X-windows ones
+
+   echo "Installations: not fully automated"
+   # error
 }
 function installations_x {
    # Also: X-windows ones
@@ -222,6 +226,9 @@ function run_x_stack2 {
 
 gitrepo_reset_to_root
 
+installations_base
+# installations_x
+
 # The main difference witrh wine_cmd.exe
 # run_x_stack1
 run_x_stack2
@@ -399,13 +406,24 @@ echo '   (source env2.env && $WINE_COMMAND_  WINDOWS_MSDOS_PROGRAM_NAME)'
 
 # The environment is ready.
 ##################################################
-
-
-#######
-# ok, now let's install a few more things to reduce the warnings
+source env1.env
 source env2.env
+env
 
-#######
+################
+# ok, now let's install a few more things to reduce the warnings
+
+
+: || \
+winetricks arch=$ARCH_BITS \
+    corefonts
+# winepath -w /home/ephemssss/.local/share/icons
+
+# may be useful:
+# wineserver -k  # restart
+
+#################
+
 
 $REPO_ROOT/scripts/wine_cmd.exe.bash
 

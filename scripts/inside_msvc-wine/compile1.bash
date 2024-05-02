@@ -1,10 +1,28 @@
 #!/bin/bash
 set -eux
 
+# To run:
+# ./scripts/wine_init_sol3.bash
+# ./scripts/inside_msvc-wine/compile1.bash
+
 # Kind of a Win-enhanced bash file: We caould call it: `.wine-bash`
 echo "hi compiler"
 
 echo '$REPO_ROOT=' "$REPO_ROOT"
+
+# echo WINEDEBUG=$WINEDEBUG
+export WINEDEBUG="-fixme-all"
+echo WINEDEBUG=$WINEDEBUG
+
+# While still in Linux
+
+/opt/msvc/bin/x64/cl ./src/test_ifcsdk_compiletion.cpp /EHsc /std:c++20  /I ./includes-symb/ -Fo./out/ -Fe./out/a.exe
+
+WINEDEBUG="-fixme-all" wine64 ./out/a.exe
+
+exit 0
+
+
 # Define the base filename and directories
 FILE_BASENAME=test_ifcsdk_compilation
 OUTPUT_BIN=$REPO_ROOT/out

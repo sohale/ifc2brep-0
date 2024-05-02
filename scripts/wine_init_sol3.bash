@@ -2,12 +2,21 @@
 set -exu
 
 source repo.env
+
+
+# : || \
+{
+
 cd  $REPO_ROOT/external/msvc-wine
 
 # build the image
 docker build      -f Dockerfile      -t msvc-wine      .
 #  docker build -f Dockerfile.hello .
 #  docker build -f Dockerfile.clang .
+
+}
+
+cd  $REPO_ROOT
 
 #     --env DISPLAY="$DISPLAY" \
 
@@ -56,6 +65,7 @@ docker run \
       echo 'You can:   wine64 cmd.exe'
       echo 'You can:   cd $REPO_ROOT/src'
       echo "You are inside docker. Explore the folder of: /opt/msvc/bin/x64/cl.exe"
+      echo "_initial_cwd=$_initial_cwd"
       cd $_initial_cwd
 
 

@@ -69,6 +69,16 @@ function default_wine_64 {
 
 }
 
+
+########################
+#
+
+
+source env1.env
+source env2.env
+env
+
+
 # gitrepo_reset_to_root || default_wine_32
 gitrepo_reset_to_root || default_wine_64
 
