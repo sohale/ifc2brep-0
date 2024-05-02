@@ -32,7 +32,10 @@ ls -alth
    \
    -Fo./out/ \
    -Fe./out/a.exe  \
-   ./src/test_ifcsdk_compiletion.cpp
+   ./src/test_ifcsdk_compiletion.cpp \
+   \
+   /link /LIBPATH:/home/ephemssss/novorender/oda-sdk/vc16/lib/vc16_amd64dll IfcCore.lib IfcBrepModeler.lib IfcFacetModeler.lib TB_Common.lib
+
 
 ls -alth ./out
 
