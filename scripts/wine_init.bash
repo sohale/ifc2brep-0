@@ -185,7 +185,10 @@ function run_x_stack2 {
    echo "re-run_x_stack 2"
 
    sleep 0.5
-   export DESIRED_DISPLAY=
+   echo "before:DISPLAY:  $DISPLAY"
+
+   export DISPLAY="localhost:10.0"
+   export DESIRED_DISPLAY=$DISPLAY
 
    ############################
    # In method one, the stack is:
@@ -336,17 +339,29 @@ WINEPREFIX=$WINE_PREFIX_ arch=32 winetricks \
 #          `winetricks --force vcrun2019`
 #    msvc/VC/Tools/MSVC/14.39.33519/bin/Hostx64/x64/cl.exe
 
+
+function prepend_export {
+   # Prepend 'export ' to each line
+   sed 's/^/export /'
+   # awk '{print "export " $0}'
+}
+
 printenv
 
 printenv | grep -E '^(WINE_PREFIX_|DESIRED_DISPLAY|WINE_ARCH_|REPO_ROOT)=' \
+    | prepend_export \
     | tee env1.env
 
 DISPLAY=$DESIRED_DISPLAY   WINEPREFIX=$WINE_PREFIX_  WINEARCH=$WINE_ARCH_  printenv | grep -E '^(DISPLAY|WINEPREFIX|WINEARCH)=' \
+    | prepend_export \
     | tee env2.env
+
+# There are two levels of `env`s here
 
 # then use:   (source env2.env && wine cmd)
 # (source env2.env && winetricks list)
 # (source env2.env && winetricks list-all) | grep -ie insta
+
 
 #
 # The environment is ready. Ready to cmd.exe:
@@ -370,6 +385,8 @@ export DISPLAY=:1
 
 echo "DISPLAY:  $DISPLAY should be set. to redicrect the output to above stack. I will set it based on DESIRED_DISPLAY=$DESIRED_DISPLAY"
 echo 'add your command here in this file:    WINEPREFIX=$WINE_PREFIX_ WINEARCH=$WINE_ARCH_  wine     YOUR_WINDOWS_MSDOS_COMMAND   '
+echo 'or:    (source env2.env && winetricks list-all)'
+echo 'or:    (source env2.env && wine  YOUR_WINDOWS_MSDOS_COMMAND)'
 
 echo "scripts/inside_windows/install_python.bat"
 
