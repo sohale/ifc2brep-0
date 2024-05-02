@@ -9,10 +9,13 @@ docker build      -f Dockerfile      -t msvc-wine      .
 #  docker build -f Dockerfile.hello .
 #  docker build -f Dockerfile.clang .
 
+#     --env DISPLAY="$DISPLAY" \
+
 # run after building the image
 docker run \
     --interactive --tty --rm \
-    --env DISPLAY="$DISPLAY" \
+    --env DISPLAY=10.16.0.6:10.0 \
+    -v /tmp/.X11-unix:/tmp/.X11-unix \
     --env REPO_ROOT="$REPO_ROOT" \
     --env _initial_cwd="$(pwd)" \
     --env HOST_HOME="$HOME" \
@@ -24,6 +27,15 @@ docker run \
       # cd $REPO_ROOT/external/msvc-wine
       # pwd
       echo "You are inside docker."
+
+      # Particular to this Docker image:
+      export WINEPREFIX=/root/.wine
+      export WINEARCH=win64
+      # alias wine32=error
+      # alias wine=error
+      export winecmd=$(command -v wine64 || command -v wine || false)
+      echo $winecmd
+
       echo "Booting Wine64:"
       wineserver -p && $(command -v wine64 || command -v wine || false) wineboot
 
@@ -40,6 +52,8 @@ docker run \
 
       echo "Added to you path: /opt/msvc/bin/$DESIRED_ARCH"
       echo "Some scripts available in: ./scripts/inside_msvc-wine/   ie.  $REPO_ROOT/scripts/inside_msvc-wine/"
+      echo 'Avoid wine or wine32'
+      echo 'You can:   wine64 cmd.exe'
       echo 'You can:   cd $REPO_ROOT/src'
       echo "You are inside docker. Explore the folder of: /opt/msvc/bin/x64/cl.exe"
       cd $_initial_cwd
@@ -47,6 +61,7 @@ docker run \
 
       # Then, continue interactively
       exec bash
+      echo "after exec bash"
 EOF_STARTUP
 )"
 
@@ -54,3 +69,7 @@ EOF_STARTUP
 # wineserver -p && $(command -v wine64 || command -v wine || false) wineboot
 
 # /opt/msvc/bin/x64/cl
+
+
+# z:\opt\msvc\bin\x64
+#z:\opt\msvc\bin\x64\cl.exe
