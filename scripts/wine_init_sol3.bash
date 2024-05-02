@@ -13,10 +13,16 @@ docker build      -f Dockerfile      -t msvc-wine      .
 docker run \
     --interactive --tty --rm \
     --env DISPLAY="$DISPLAY" \
+    --env REPO_ROOT="$REPO_ROOT" \
+    --env _initial_cwd="$(pwd)" \
+    --env HOST_HOME="$HOME" \
     --volume "$REPO_ROOT":"$REPO_ROOT" \
     --workdir "$(pwd)" \
     msvc-wine  \
     bash -c "$(cat <<'EOF_STARTUP'
+      # pwd
+      # cd $REPO_ROOT/external/msvc-wine
+      # pwd
       echo "You are inside docker."
       echo "Booting Wine64:"
       wineserver -p && $(command -v wine64 || command -v wine || false) wineboot
@@ -28,9 +34,15 @@ docker run \
       export PATH="$PATH:/opt/msvc/bin/$DESIRED_ARCH"
       find /opt/msvc/bin/$DESIRED_ARCH | grep exe
       echo "..."
+      echo "Docker's HOME=$HOME"
+      echo "HOST_HOME=$HOST_HOME"
+      echo "REPO_ROOT=$REPO_ROOT"
 
       echo "Added to you path: /opt/msvc/bin/$DESIRED_ARCH"
+      echo 'You can:   cd $REPO_ROOT/src'
       echo "You are inside docker. Explore the folder of: /opt/msvc/bin/x64/cl.exe"
+      cd $_initial_cwd
+
 
       # Then, continue interactively
       exec bash
