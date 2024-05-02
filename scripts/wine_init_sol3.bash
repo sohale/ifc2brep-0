@@ -39,6 +39,7 @@ docker run \
       echo "REPO_ROOT=$REPO_ROOT"
 
       echo "Added to you path: /opt/msvc/bin/$DESIRED_ARCH"
+      echo "Some scripts available in: ./scripts/inside_msvc-wine/   ie.  $REPO_ROOT/scripts/inside_msvc-wine/"
       echo 'You can:   cd $REPO_ROOT/src'
       echo "You are inside docker. Explore the folder of: /opt/msvc/bin/x64/cl.exe"
       cd $_initial_cwd
