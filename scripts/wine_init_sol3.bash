@@ -29,6 +29,7 @@ docker run \
     --env _initial_cwd="$(pwd)" \
     --env HOST_HOME="$HOME" \
     --volume "$REPO_ROOT":"$REPO_ROOT" \
+    --volume "/home/ephemssss/novorender/oda-sdk":"/home/ephemssss/novorender/oda-sdk" \
     --workdir "$(pwd)" \
     msvc-wine  \
     bash -c "$(cat <<'EOF_STARTUP'
