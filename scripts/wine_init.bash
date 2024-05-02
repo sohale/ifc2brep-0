@@ -43,7 +43,7 @@ function installations_x {
    # jid=$!
    # echo $jid
 
-   # xvfb-run wine64
+   # xvfb-run $WINE_COMMAND_
    # but not recommended. Dont use `xvfb-run` with `wine`. Simply `wine`, but set `$DISPLAY` before it.
 
    sudo apt-get install xorg openbox
@@ -227,6 +227,9 @@ run_x_stack2
 verify_x_stack
 
 export CLOUD_STORAGE_VOLUME=/mnt/volume_lon1_01
+: || {
+# SKIP
+
 export WINE_STORAGE_BASE=$CLOUD_STORAGE_VOLUME/ifc2brep
 
 sudo mkdir -p $WINE_STORAGE_BASE
@@ -243,38 +246,56 @@ ln -s -f $WINE_STORAGE_BASE/working-dir  $REPO_ROOT/working-dir
 export WORKING_DIR=$REPO_ROOT/working-dir
 # cd $REPO_ROOT/working-dir  # Dont.  You will lose the REPO_ROOT
 
+echo "WORKING_DIR=$WORKING_DIR"
+
+# SKIP
+}
+
+# export WINE_ARCH_=win32
+export WINE_ARCH_=win64
+export ARCH_BITS=64
+export WINE_COMMAND_=wine64
+###########
+
+# Note that many winetrick & softwares only currently support wine32, and some don't support win64.
+# Hence, we focus only on wine32 for now.
+# Update: since, `wine-msvc`, I focus on wine64
+
 
 # mkdir -p $REPO_ROOT/external-tools/wine64
 # export WINE_PREFIX_=$REPO_ROOT/external-tools/wine64
-export WINE_PREFIX_=$WINE_STORAGE_BASE/wine32
-mkdir -p $WINE_PREFIX_
+# export WINE_PREFIX_=$WINE_STORAGE_BASE/wine32
+export WINE_PREFIX_=$CLOUD_STORAGE_VOLUME/$WINE_ARCH_
+sudo mkdir -p $WINE_PREFIX_
+sudo chown -R $USER:$USER $WINE_PREFIX_
 
-echo "WORKING_DIR=$WORKING_DIR"
 echo "Wine folder is: $WINE_PREFIX_"
 ls -1 $WINE_PREFIX_ >/dev/null  # verify it exists
 
-# now, you can run wine cmd
+# Enable verbose debug messages
+export WINEDEBUG=warn+all
+
+# now, you can run $WINE_COMMAND_ cmd
+# $WINE_COMMAND_:
 # wine wine32 win64
 
 # ^ wine prefix
 ####################
 
-export WINE_ARCH_=win32
-# Note that many winetrick & softwares only currently support wine32, and some dontt support win64.
-# Hence, we focus only on wine32 for now.
+
 
 # If already done, skip this step
 # WINEARCH=win64
 # arch=32|64  # for creating 64 or 32
 : || \
-WINEPREFIX=$WINE_PREFIX_  WINEARCH=$WINE_ARCH_ winetricks arch=32 \
+WINEPREFIX=$WINE_PREFIX_  WINEARCH=$WINE_ARCH_ winetricks arch=$ARCH_BITS \
     corefonts \
     win10
 
 : || \
 WINEPREFIX=$WINE_PREFIX_  WINEARCH=$WINE_ARCH_  winetricks \
     msi2
-# WINEDEBUG=+msi wine your_installer.msi
+# WINEDEBUG=+msi $WINE_COMMAND_  your_installer.msi
 # Also see note: "Re-register the Windows Installer Service"
 # Also check `winecfg`` for "msiexec" being "builtin"
 # msi2: Unknown arg msi2
@@ -296,7 +317,7 @@ WINEPREFIX=$WINE_PREFIX_  WINEARCH=$WINE_ARCH_ winetricks \
 
 # Useful, but requires X-windows in place
 # 64 vs 32?
-# : || \
+: || \
 WINEPREFIX=$WINE_PREFIX_ WINEARCH=$WINE_ARCH_ winecfg
 # echo "ok $?"
 # exit
@@ -304,7 +325,7 @@ WINEPREFIX=$WINE_PREFIX_ WINEARCH=$WINE_ARCH_ winecfg
 # Go to the "Libraries" tab. Look for msiexec in the list. If it's set to "native" or has any specific overrides, you might want to change it to "builtin" to ensure Wine uses its internal version.
 
 # # Enable .NET
-# WINEPREFIX=$WINE_PREFIX_ arch=32 winetricks \
+# WINEPREFIX=$WINE_PREFIX_ arch=$ARCH_BITS winetricks \
 #     mono
 # no mono
 
@@ -312,11 +333,12 @@ WINEPREFIX=$WINE_PREFIX_ WINEARCH=$WINE_ARCH_ winecfg
 #      apps list
 #      #x11-apps
 
-WINEPREFIX=$WINE_PREFIX_ arch=32 winetricks \
+WINEPREFIX=$WINE_PREFIX_ arch=$ARCH_BITS winetricks \
   list-all | grep vcrun
 
 # IF installed, vcrun2019 already installed, skipping
-WINEPREFIX=$WINE_PREFIX_ arch=32 winetricks \
+: || \
+WINEPREFIX=$WINE_PREFIX_ arch=$ARCH_BITS winetricks \
    -q \
    vcrun2019
 # oh !! MSVC?
@@ -339,6 +361,7 @@ WINEPREFIX=$WINE_PREFIX_ arch=32 winetricks \
 #          `winetricks --force vcrun2019`
 #    msvc/VC/Tools/MSVC/14.39.33519/bin/Hostx64/x64/cl.exe
 
+################
 
 function prepend_export {
    # Prepend 'export ' to each line
@@ -348,35 +371,40 @@ function prepend_export {
 
 printenv
 
-printenv | grep -E '^(WINE_PREFIX_|DESIRED_DISPLAY|WINE_ARCH_|REPO_ROOT)=' \
+printenv | grep -E '^(WINE_PREFIX_|DESIRED_DISPLAY|WINE_ARCH_|REPO_ROOT|WINE_COMMAND_)=' \
     | prepend_export \
     | tee env1.env
 
-DISPLAY=$DESIRED_DISPLAY   WINEPREFIX=$WINE_PREFIX_  WINEARCH=$WINE_ARCH_  printenv | grep -E '^(DISPLAY|WINEPREFIX|WINEARCH)=' \
+DISPLAY=$DESIRED_DISPLAY   WINEPREFIX=$WINE_PREFIX_  WINEARCH=$WINE_ARCH_  printenv | grep -E '^(DISPLAY|WINEPREFIX|WINEARCH|WINE_COMMAND_)=' \
     | prepend_export \
     | tee env2.env
 
 # There are two levels of `env`s here
 
-# then use:   (source env2.env && wine cmd)
+# then use:   (source env2.env && $WINE_COMMAND_ cmd)
 # (source env2.env && winetricks list)
 # (source env2.env && winetricks list-all) | grep -ie insta
 
-
 echo 'Usage:'
 echo '   (source env2.env && winetricks list-all)'
-echo '   (source env2.env && wine  WINDOWS_MSDOS_PROGRAM_NAME)'
+echo '   (source env2.env && $WINE_COMMAND_  WINDOWS_MSDOS_PROGRAM_NAME)'
 
 #
 # The environment is ready. Ready to cmd.exe:
 #
 # Providing: $WINE_PREFIX_ $DESIRED_DISPLAY, $WINE_ARCH_, $REPO_ROOT, gitrepo_reset_to_root, verify_x_stack
-# DISPLAY=$DESIRED_DISPLAY   WINEPREFIX=$WINE_PREFIX_  WINEARCH=$WINE_ARCH_  wine  \
+# DISPLAY=$DESIRED_DISPLAY   WINEPREFIX=$WINE_PREFIX_  WINEARCH=$WINE_ARCH_  $WINE_COMMAND_  \
    # cmd.exe or any command
 
 # The environment is ready.
 ##################################################
 
+
+#######
+# ok, now let's install a few more things to reduce the warnings
+source env2.env
+
+#######
 
 $REPO_ROOT/scripts/wine_cmd.exe.bash
 
@@ -388,26 +416,26 @@ exit $ExC
 export DISPLAY=:1
 
 echo "DISPLAY:  $DISPLAY should be set. to redicrect the output to above stack. I will set it based on DESIRED_DISPLAY=$DESIRED_DISPLAY"
-echo 'add your command here in this file:    WINEPREFIX=$WINE_PREFIX_ WINEARCH=$WINE_ARCH_  wine     YOUR_WINDOWS_MSDOS_COMMAND   '
+echo 'add your command here in this file:    WINEPREFIX=$WINE_PREFIX_ WINEARCH=$WINE_ARCH_  $WINE_COMMAND_     YOUR_WINDOWS_MSDOS_COMMAND   '
 echo 'or:    (source env2.env && winetricks list-all)'
-echo 'or:    (source env2.env && wine  YOUR_WINDOWS_MSDOS_COMMAND)'
+echo 'or:    (source env2.env && $WINE_COMMAND_  YOUR_WINDOWS_MSDOS_COMMAND)'
 
 echo "scripts/inside_windows/install_python.bat"
 
 # no 'DISPLAY=:0.0 '?
-# DISPLAY=:0.0 WINEPREFIX=$WINE_PREFIX_ WINEARCH=$WINE_ARCH_  xvfb-run wine  cmd
+# DISPLAY=:0.0 WINEPREFIX=$WINE_PREFIX_ WINEARCH=$WINE_ARCH_  xvfb-run $WINE_COMMAND_  cmd
 
 # DISPLAY=:0.0
 #DISPLAY=localhost:10.0
-# WINEPREFIX=$WINE_PREFIX_ WINEARCH=$WINE_ARCH_  xvfb-run wine  cmd
+# WINEPREFIX=$WINE_PREFIX_ WINEARCH=$WINE_ARCH_  xvfb-run $WINE_COMMAND_  cmd
 
-# WINEDEBUG=warn+all  WINEPREFIX=$WINE_PREFIX_  xvfb-run wine explorer /desktop=name,1024x768 notepad.exe
+# WINEDEBUG=warn+all  WINEPREFIX=$WINE_PREFIX_  xvfb-run $WINE_COMMAND_ explorer /desktop=name,1024x768 notepad.exe
 
-# WINEPREFIX=$WINE_PREFIX_   xvfb-run wine  notepad
+# WINEPREFIX=$WINE_PREFIX_   xvfb-run $WINE_COMMAND_  notepad
 
-# DISPLAY=:1 WINEPREFIX=$WINE_PREFIX_ WINEARCH=$WINE_ARCH_  wine  cmd
+# DISPLAY=:1 WINEPREFIX=$WINE_PREFIX_ WINEARCH=$WINE_ARCH_  $WINE_COMMAND_  cmd
 
 export DISPLAY=:1
 
 
-WINEPREFIX=$WINE_PREFIX_ WINEARCH=$WINE_ARCH_  wine  cmd
+WINEPREFIX=$WINE_PREFIX_ WINEARCH=$WINE_ARCH_  $WINE_COMMAND_  cmd
