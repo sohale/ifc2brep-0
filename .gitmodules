@@ -4,3 +4,6 @@
 [submodule "external/bash-stash"]
 	path = external/bash-stash
 	url = git@github.com:sohale/bash-stash.git
+[submodule "external/msvc-wine"]
+	path = external/msvc-wine
+	url = https://github.com/mstorsjo/msvc-wine
