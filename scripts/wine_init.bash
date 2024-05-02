@@ -363,6 +363,10 @@ DISPLAY=$DESIRED_DISPLAY   WINEPREFIX=$WINE_PREFIX_  WINEARCH=$WINE_ARCH_  print
 # (source env2.env && winetricks list-all) | grep -ie insta
 
 
+echo 'Usage:'
+echo '   (source env2.env && winetricks list-all)'
+echo '   (source env2.env && wine  WINDOWS_MSDOS_PROGRAM_NAME)'
+
 #
 # The environment is ready. Ready to cmd.exe:
 #

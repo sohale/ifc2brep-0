@@ -63,8 +63,13 @@ ls -1 $WINE_PREFIX_ >/dev/null  # verify it exists
 sleep 1
 verify_x_stack
 
+# add your command here in this file
+
 echo "DISPLAY:  $DISPLAY"
-echo 'add your command here in this file:       WINEPREFIX=$WINE_PREFIX_ WINEARCH=$WINE_ARCH_  wine     YOURCOMMAND   '
+echo 'Usage:'
+echo '   WINEPREFIX=$WINE_PREFIX_ WINEARCH=$WINE_ARCH_  wine  WINDOWS_MSDOS_PROGRAM_NAME'
+echo '   (source env2.env && winetricks list-all)'
+echo '   (source env2.env && wine  WINDOWS_MSDOS_PROGRAM_NAME)'
 
 #   $$P$$G"
 DISPLAY=$DESIRED_DISPLAY   WINEPREFIX=$WINE_PREFIX_  WINEARCH=$WINE_ARCH_  wine  \
