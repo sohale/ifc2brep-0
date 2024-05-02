@@ -18,7 +18,7 @@ function installations {
 
 # Must inherit this: gitrepo_reset_to_root
 #   othewise, workaround
-gitrepo_reset_to_root || {
+function default_wine_32 {
    # workaround
 
    echo "Using workaround, sincince "flow closure info" are missing as a result of headless running"
@@ -33,17 +33,18 @@ gitrepo_reset_to_root || {
    WINE_PREFIX_=/mnt/volume_lon1_01/ifc2brep/wine32
    DESIRED_DISPLAY=":1"
    WINE_ARCH_="win32"
+   WINE_PREFIX_="wine32"
 
    echo "$REPO_ROOT" >/dev/null  # verify already defined
 
 
    # Providing: $WINE_PREFIX_ $DESIRED_DISPLAY, $WINE_ARCH_, $REPO_ROOT, gitrepo_reset_to_root, verify_x_stack
-   # DISPLAY=$DESIRED_DISPLAY   WINEPREFIX=$WINE_PREFIX_  WINEARCH=$WINE_ARCH_  wine  \
+   # DISPLAY=$DESIRED_DISPLAY   WINEPREFIX=$WINE_PREFIX_  WINEARCH=$WINE_ARCH_  $WINE_PREFIX_  \
       # cmd.exe or any command
 
 }
 
-
+gitrepo_reset_to_root || default_wine_32
 
 
 # mkdir -p $REPO_ROOT/external-tools/wine64
