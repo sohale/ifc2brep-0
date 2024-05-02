@@ -1,6 +1,15 @@
 
 set -exu
 
+source repo.env
+cd  $REPO_ROOT/external/msvc-wine
+
+# build the image
+docker build      -f Dockerfile      -t msvc-wine      .
+#  docker build -f Dockerfile.hello .
+#  docker build -f Dockerfile.clang .
+
+# run after building the image
 docker run \
     --interactive --tty --rm \
     --env DISPLAY="$DISPLAY" \
