@@ -17,7 +17,7 @@ ls -alth
 
 # ifcsdk-win/Ifc/Include/IfcModelProcessor.h
 # /home/ephemssss/novorender/oda-sdk/vc16/Sdai/Include/daiModel.h
-
+# ...
 
 # MAINCPP=
 /opt/msvc/bin/x64/cl \
@@ -28,7 +28,10 @@ ls -alth
    /I/home/ephemssss/novorender/oda-sdk/vc16/KernelBase/Include \
    /I/home/ephemssss/novorender/oda-sdk/vc16/Ifc/Include \
    /I/home/ephemssss/novorender/oda-sdk/vc16/Ifc/Include/Common \
-   -Fo./out/ -Fe./out/a.exe  \
+   \
+   \
+   -Fo./out/ \
+   -Fe./out/a.exe  \
    ./src/test_ifcsdk_compiletion.cpp
 
 ls -alth ./out
