@@ -16,7 +16,26 @@ docker run \
     --volume "$REPO_ROOT":"$REPO_ROOT" \
     --workdir "$(pwd)" \
     msvc-wine  \
-    bash
+    bash -c "$(cat <<'EOF_STARTUP'
+      echo "You are inside docker."
+      echo "Booting Wine64:"
+      wineserver -p && $(command -v wine64 || command -v wine || false) wineboot
+
+      # Give helpful information:
+      ls -1 /opt/msvc/bin | xargs echo "Architectures: "
+      export DESIRED_ARCH="x64"
+      mkdir -p backups # /external/msvc-wine/backups
+      export PATH="$PATH:/opt/msvc/bin/$DESIRED_ARCH"
+      find /opt/msvc/bin/$DESIRED_ARCH | grep exe
+      echo "..."
+
+      echo "Added to you path: /opt/msvc/bin/$DESIRED_ARCH"
+      echo "You are inside docker. Explore the folder of: /opt/msvc/bin/x64/cl.exe"
+
+      # Then, continue interactively
+      exec bash
+EOF_STARTUP
+)"
 
 # inside:
 # wineserver -p && $(command -v wine64 || command -v wine || false) wineboot
