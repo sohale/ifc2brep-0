@@ -10,7 +10,13 @@ set -eux
 
 echo '$REPO_ROOT=' "$REPO_ROOT"
 
-/opt/msvc/bin/x64/cl ./src/test_ifcsdk_compiletion.cpp /EHsc /std:c++20  /I ./includes-symb/ -Fo./out/ -Fe./out/a.exe
+MAINCPP=
+/opt/msvc/bin/x64/cl \
+   /EHsc /std:c++20  /I ./includes-symb/  \
+   -Fo./out/ -Fe./out/a.exe  \
+   ./src/test_ifcsdk_compiletion.cpp
+
+ls -alth ./out
 
 WINEDEBUG="-fixme-all" wine64 ./out/a.exe
 
