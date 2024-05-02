@@ -1,11 +1,12 @@
 #!/bin/bash
 set -eux
+# Compiles a simple cli Hello World program
 
 # To run:
 # ./scripts/wine_init_sol3.bash
 # ./scripts/inside_msvc-wine/compile1.bash
 
-# Kind of a Win-enhanced bash file: We caould call it: `.wine-bash`
+# Kind of a Win-enhanced bash file: We could call it: `.wine-bash`
 echo "hi compiler"
 
 echo '$REPO_ROOT=' "$REPO_ROOT"
@@ -17,7 +18,7 @@ echo WINEDEBUG=$WINEDEBUG
 
 # While still in Linux
 
-/opt/msvc/bin/x64/cl ./src/test_ifcsdk_compiletion.cpp /EHsc /std:c++20  /I ./includes-symb/ -Fo./out/ -Fe./out/a.exe
+/opt/msvc/bin/x64/cl ./src/test1_simple_compilation.cpp  /EHsc /std:c++20  /I ./includes-symb/ -Fo./out/ -Fe./out/a.exe
 
 WINEDEBUG="-fixme-all" wine64 ./out/a.exe
 
