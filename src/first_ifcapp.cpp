@@ -3,9 +3,9 @@
 #include <cstdlib>
 
  //IFC SDK includes
+#include <OdaCommon.h> // must be first
 #include <IfcExamplesCommon.h>
 #include <IfcCore.h>
-#include <OdaCommon.h>
 #include <StaticRxObject.h>
 #include <RxDynamicModule.h>
  #include <ExPrintConsole.h>
