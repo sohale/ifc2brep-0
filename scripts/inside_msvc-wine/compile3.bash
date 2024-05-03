@@ -20,14 +20,29 @@ cd $REPO_ROOT
 INC1_PREFIX="/home/ephemssss/novorender/oda-sdk/vc16"
 LIB_PREFIX="/home/ephemssss/novorender/oda-sdk/vc16/lib"
 
+include_dirs=(
+    "KernelBase"
+    "KernelBase/Include"
+    "Kernel/Include"
+    "Kernel/Extensions/ExServices"
+    "Ifc/Include"
+    "Ifc/Include/Common"
+    "Ifc/Include/sdai"
+    "Ifc/Include/sdai/daiHeader"
+    "Ifc/Extensions/ExServices"
+    "Ifc/Examples/Common"
+    "ThirdParty"
+    "ThirdParty/activation"
+)
+
+compileflags_incl_list=""
+for dir in "${include_dirs[@]}"; do
+    compileflags_incl_list+=" /I$INC1_PREFIX/$dir"
+done
+
 /opt/msvc/bin/x64/cl \
    /EHsc /std:c++20  /I./includes-symb/  \
-   /I$INC1_PREFIX/Sdai/Include  \
-   /I$INC1_PREFIX/Ifc/Include  \
-   /I$INC1_PREFIX/Kernel/Include \
-   /I$INC1_PREFIX/KernelBase/Include \
-   /I$INC1_PREFIX/Ifc/Include \
-   /I$INC1_PREFIX/Ifc/Include/Common \
+   $compileflags_incl_list  \
    \
    ./src/first_ifcapp.cpp \
    \
