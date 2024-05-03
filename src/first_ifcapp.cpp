@@ -2,14 +2,14 @@
 #include <iostream>
 #include <cstdlib>
 
- //IFC SDK includes
+//IFC SDK includes
 #include <OdaCommon.h> // must be first
 #include <IfcExamplesCommon.h>
 #include <IfcCore.h>
 #include <StaticRxObject.h>
 #include <RxDynamicModule.h>
- #include <ExPrintConsole.h>
- #include <daiHeaderSection.h>
+#include <ExPrintConsole.h>
+#include <daiHeaderSection.h>
 #include <daiHeaderEntities.h>
 
 
