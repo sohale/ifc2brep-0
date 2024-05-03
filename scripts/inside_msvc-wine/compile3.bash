@@ -35,9 +35,18 @@ include_dirs=(
     "ThirdParty/activation"
 )
 
+# preprocessor definitions
 define_macros=(
+
+   UNICODE
+   # Trial version is used
    TEIGHA_TRIAL
+   ODA_LICENSING_ENABLED
+   IFC_DYNAMIC_BUILD
+   _TOOLKIT_IN_DLL_
+   CMAKE_INTDIR="Release"
    My_DEFINE_MACRO=123123
+
 )
 
 #########

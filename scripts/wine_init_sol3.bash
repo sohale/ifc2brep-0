@@ -70,9 +70,10 @@ docker run \
       cd $_initial_cwd
 
       echo "Example compilation"
-      echo "./scripts/inside_msvc-wine/compile1.bash"
-      echo "./scripts/inside_msvc-wine/compile2.bash"
-      echo "./scripts/inside_msvc-wine/compile3.bash"
+      echo "./scripts/inside_msvc-wine/compile1.bash" >>~/.bash_history
+      echo "./scripts/inside_msvc-wine/compile2.bash" >>~/.bash_history
+      echo "./scripts/inside_msvc-wine/compile3.bash" >>~/.bash_history
+      cat  ~/.bash_history
 
 
       # Then, continue interactively
