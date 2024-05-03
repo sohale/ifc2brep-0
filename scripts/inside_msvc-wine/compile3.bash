@@ -35,14 +35,32 @@ include_dirs=(
     "ThirdParty/activation"
 )
 
+define_macros=(
+   TEIGHA_TRIAL
+   My_DEFINE_MACRO=123123
+)
+
+#########
+
 compileflags_incl_list=""
 for dir in "${include_dirs[@]}"; do
     compileflags_incl_list+=" /I$INC1_PREFIX/$dir"
 done
 
+compileflags_definemacros=""
+for def in "${define_macros[@]}"; do
+    compileflags_definemacros+=" /D$def"
+done
+
+echo "********************"
+echo $compileflags_definemacros
+echo "********************"
+
 /opt/msvc/bin/x64/cl \
    /EHsc /std:c++20  /I./includes-symb/  \
+   \
    $compileflags_incl_list  \
+   $compileflags_definemacros  \
    \
    ./src/first_ifcapp.cpp \
    \
