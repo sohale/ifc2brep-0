@@ -12,9 +12,34 @@
 #include <daiHeaderSection.h>
 #include <daiHeaderEntities.h>
 
+// Verify define macro definitions
+/*
+#define STRINGIFY(x) #x
+#define DEFVAL_HELPER(x) DEFVAL_##x
+#define DEFVAL_COMPARE(macroname, val) DEFVAL_HELPER(macroname) == (val) ? "corretto "macroname" = " "##val" : "non corretto (##macroname)"
+*/
+/*
+#define DEFVAL_HELPER(x) DEFVAL_##x
+#define DEFVAL_COMPARE(macroname, val) ((DEFVAL_HELPER(macroname)) == (val) ? "corretto "#macroname" = " ""#val : "non corretto " #macroname)
+*/
+/*
+// verifying define macros
+#define IS_DEFINED(x) DEFVAL_##x
+#define DEFINED_AS(macroname, val) ((##macroname) == (val) ? "corretto "#macroname" = " ""#val : "non corretto " #macroname)
+*/
 
 int main(int argc, char* argv[]) {
    std::cout << "Hello.5." << std::endl;
+
+   std::cout
+   << IS_DEFINED(UNICODE) << "\n"
+   << IS_DEFINED(TEIGHA_TRIAL) << "\n"
+   << IS_DEFINED(ODA_LICENSING_ENABLED) << "\n"
+   << IS_DEFINED(IFC_DYNAMIC_BUILD) << "\n"
+   << IS_DEFINED(_TOOLKIT_IN_DLL_) << "\n"
+   << DEFINED_AS(CMAKE_INTDIR,"Release") << "\n"
+   ;
+
    return 0;
 }
 

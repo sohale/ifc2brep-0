@@ -56,7 +56,6 @@ libraries_to_link=(
    TD_Ge.lib
    TD_Root.lib
    TD_DbRoot.lib
-   TD_DbRoot.lib
    TD_ExamplesCommon.lib
    TD_Alloc.lib
 
@@ -92,10 +91,10 @@ echo "********************"
    $compileflags_incl_list  \
    $compileflags_definemacros  \
    \
-   ./src/first_ifcapp.cpp \
-   \
    -Fo./out/ \
    -Fe./out/a3.exe  \
+   \
+   ./src/first_ifcapp.cpp \
    \
    /link /LIBPATH:$LIB_PREFIX/vc16_amd64dll \
    $compileflags_libs
