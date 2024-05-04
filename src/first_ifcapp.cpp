@@ -14,8 +14,22 @@
 */
 
 #include "./macro_toys.hpp"
-#undef CMAKE_INTDIRT
 
+#if CMAKE_INTDIR != Release
+   #error "CMAKE_INTDIR should be Release"
+#endif
+
+
+#if 0 \
+    || !defined(UNICODE) \
+    || !defined(TEIGHA_TRIAL) \
+    || !defined(ODA_LICENSING_ENABLED) \
+    || !defined(IFC_DYNAMIC_BUILD) \
+    || !defined(_TOOLKIT_IN_DLL_)
+
+   #error Some necessary macros not defined"
+
+#endif
 
 int main(int argc, char* argv[]) {
    std::cout << "Hello.5." << std::endl;
