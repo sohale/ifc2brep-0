@@ -114,8 +114,23 @@
 // (use std::string)
 #define MACROTOYS_IS_MACRO_DEFINED(x) (__MACROTOYS__IS_DEFINED(__MACROTOYS__UNDEFINED_IDENTIFIER_HELPER(x)) ? true : false)
 
-#define MACROTOYS_ASSERT_MACRO_VALUE(macro, value, msg) \
-    static_assert(__MACROTOYS__TOSTRING(macro) == std::string(__MACROTOYS__TOSTRING(value)), msg)
+
+
+// Assert macro value
+
+/*
+#define MACROTOYS_ASSERT_MACRO_VALUE(macro, value) \
+    static_assert(__MACROTOYS__TOSTRING(macro) == std::string(__MACROTOYS__TOSTRING(value)), #macro " must be set to " #value)
+*/
+
+// Compile-time string comparison function (recursive)
+constexpr bool __MACROTOYS__compare_strings(const char* a, const char* b) {
+    return *a == *b && (*a == '\0' || __MACROTOYS__compare_strings(a + 1, b + 1));
+}
+
+#define MACROTOYS_ASSERT_MACRO_VALUE(macro, value) \
+    static_assert(__MACROTOYS__compare_strings(__MACROTOYS__TOSTRING(macro), __MACROTOYS__TOSTRING(value)), \
+                  #macro " must be set to " #value)
 
 
 /*

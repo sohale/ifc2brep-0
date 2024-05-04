@@ -19,7 +19,10 @@
 int main(int argc, char* argv[]) {
    std::cout << "Hello.5." << std::endl;
 
-   MACROTOYS_ASSERT_MACRO_VALUE(CMAKE_INTDIR, Release, "CMAKE_INTDIR must be set to Release");
+   // causes no static assert error
+   MACROTOYS_ASSERT_MACRO_VALUE(CMAKE_INTDIR, Release);
+   // causes a static assert error
+   MACROTOYS_ASSERT_MACRO_VALUE(CMAKE_INTDIR, Debug);
 
    std::cout
    /*
