@@ -1,3 +1,8 @@
+// macro_toys.hpp
+#ifndef MACROTOYS_HPP
+#define MACROTOYS_HPP
+
+#include <string>
 
 // some experimental macro definition helpers
 // to Verify define macro definitions
@@ -88,7 +93,7 @@
     STRINGIZE(macroname) << ": " << PRINT_MACRO_VALUE_OR_DEFAULT(macroname, UNDEFINED_LALA) << " " << STRINGIZE(barevalue)
 
 
-// Internal helper macros with __MACROTOYS__ prefix
+// Internal helper macros
 #define __MACROTOYS__STRINGIZE(x) #x
 #define __MACROTOYS__TOSTRING(x) __MACROTOYS__STRINGIZE(x)
 
@@ -99,11 +104,18 @@
 #define __MACROTOYS__IS_DEFINED_HELPER2(x) #x
 #define __MACROTOYS__IS_DEFINED_HELPER1(contents) (0 contents[] == 'u')
 
-// Public macros with MACROTOYS_ prefix
+// Public macros
 #define MACROTOYS_PRINT_MACRO_VALUE_OR_DEFAULT(x, default_value) \
     (__MACROTOYS__IS_DEFINED(__MACROTOYS__UNDEFINED_IDENTIFIER_HELPER(x)) ? __MACROTOYS__TOSTRING(x) : __MACROTOYS__TOSTRING(default_value))
 
 #define MACROTOYS_MACRONAME(token) __MACROTOYS__STRINGIZE(token)
+
+// two more exported utilities:
+// (use std::string)
+#define MACROTOYS_IS_MACRO_DEFINED(x) (__MACROTOYS__IS_DEFINED(__MACROTOYS__UNDEFINED_IDENTIFIER_HELPER(x)) ? true : false)
+
+#define MACROTOYS_ASSERT_MACRO_VALUE(macro, value, msg) \
+    static_assert(__MACROTOYS__TOSTRING(macro) == std::string(__MACROTOYS__TOSTRING(value)), msg)
 
 
 /*
@@ -123,3 +135,6 @@
     << "\n";
 
 */
+
+
+#endif // MACROTOYS_HPP
