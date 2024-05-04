@@ -62,3 +62,64 @@
 #define AA(macroname, barevalue) #macroname << ": " << TOSTRING(macroname) << " " << ANYTHING_TOSTR(barevalue)
 
 
+
+
+// PRINT_MACRO_VALUE_OR_DEFAULT
+// Define a helper macro that will expand to itself when x is undefined
+#define UNDEFINED_IDENTIFIER_HELPER(x) UNDEFINED_IDENTIFIER_HELPER_IMPL(x)
+#define UNDEFINED_IDENTIFIER_HELPER_IMPL(x) x
+
+// Check if a macro is defined
+#define IS_DEFINED(x) _IS_DEFINED(x)
+#define _IS_DEFINED(x) IS_DEFINED_HELPER1(IS_DEFINED_HELPER2(x))
+#define IS_DEFINED_HELPER2(x) #x
+#define IS_DEFINED_HELPER1(contents) (0 contents[] == 'u')
+
+// Print the value or "UNDEFINED_LALA" if undefined
+#define PRINT_MACRO_VALUE_OR_DEFAULT(x, default_value) \
+    (IS_DEFINED(UNDEFINED_IDENTIFIER_HELPER(x)) ? TOSTRING(x) : TOSTRING(default_value))
+
+// Stringize macros
+#define STRINGIZE(x) #x
+#define TOSTRING(x) STRINGIZE(x)
+
+// Main macro for printing values
+#define BB(macroname, barevalue) \
+    STRINGIZE(macroname) << ": " << PRINT_MACRO_VALUE_OR_DEFAULT(macroname, UNDEFINED_LALA) << " " << STRINGIZE(barevalue)
+
+
+// Internal helper macros with __MACROTOYS__ prefix
+#define __MACROTOYS__STRINGIZE(x) #x
+#define __MACROTOYS__TOSTRING(x) __MACROTOYS__STRINGIZE(x)
+
+#define __MACROTOYS__UNDEFINED_IDENTIFIER_HELPER(x) __MACROTOYS__UNDEFINED_IDENTIFIER_HELPER_IMPL(x)
+#define __MACROTOYS__UNDEFINED_IDENTIFIER_HELPER_IMPL(x) x
+
+#define __MACROTOYS__IS_DEFINED(x) __MACROTOYS__IS_DEFINED_HELPER1(__MACROTOYS__IS_DEFINED_HELPER2(x))
+#define __MACROTOYS__IS_DEFINED_HELPER2(x) #x
+#define __MACROTOYS__IS_DEFINED_HELPER1(contents) (0 contents[] == 'u')
+
+// Public macros with MACROTOYS_ prefix
+#define MACROTOYS_PRINT_MACRO_VALUE_OR_DEFAULT(x, default_value) \
+    (__MACROTOYS__IS_DEFINED(__MACROTOYS__UNDEFINED_IDENTIFIER_HELPER(x)) ? __MACROTOYS__TOSTRING(x) : __MACROTOYS__TOSTRING(default_value))
+
+#define MACROTOYS_MACRONAME(token) __MACROTOYS__STRINGIZE(token)
+
+
+/*
+
+   #define CMAKE_INTDIR Release
+   #undef CMAKE_INTDIRT
+
+    std::cout
+    << MACROTOYS_MACRONAME(CMAKE_INTDIR) << ": "
+    << MACROTOYS_PRINT_MACRO_VALUE_OR_DEFAULT(CMAKE_INTDIR, UNDEFINED_LALA) << " "
+    << MACROTOYS_MACRONAME(ReleaseNot)
+    << "\n"
+
+    << MACROTOYS_MACRONAME(CMAKE_INTDIRT) << ": "
+    << MACROTOYS_PRINT_MACRO_VALUE_OR_DEFAULT(CMAKE_INTDIRT, UNDEFINED_LALA) << " "
+    << MACROTOYS_MACRONAME(ReleaseNot)
+    << "\n";
+
+*/

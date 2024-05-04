@@ -28,8 +28,9 @@ int main(int argc, char* argv[]) {
    << IS_DEFINED(IFC_DYNAMIC_BUILD) << "\n"
    << IS_DEFINED(_TOOLKIT_IN_DLL_) << "\n"
    */
-   << AA(CMAKE_INTDIR, ReleaseNot) << "\n"
-   << AA(CMAKE_INTDIRT, ReleaseNot) << "\n"
+    std::cout << MACROTOYS_MACRONAME(CMAKE_INTDIR) << ": " << MACROTOYS_PRINT_MACRO_VALUE_OR_DEFAULT(CMAKE_INTDIR, UNDEFINED_LALA) << " " << MACROTOYS_MACRONAME(ReleaseNot) << "\n"
+              << MACROTOYS_MACRONAME(CMAKE_INTDIRT) << ": " << MACROTOYS_PRINT_MACRO_VALUE_OR_DEFAULT(CMAKE_INTDIRT, UNDEFINED_LALA) << " " << MACROTOYS_MACRONAME(ReleaseNot) << "\n";
+
    /*
    << MACRO_NAME_STR(CMAKE_INTDIR) << "\n"
    << MACRO_NAME_STR(CMAKE_INTDIRT) << "\n"
