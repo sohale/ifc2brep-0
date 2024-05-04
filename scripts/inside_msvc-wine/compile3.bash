@@ -10,9 +10,11 @@ set -eux
 # source repo3.env
 
 
-# Note: amd64 is used.
+# Note:
+# platform: `amd64`
 # vc16 is assumed?
 # But I am using 19.39.33523 (x64)
+# vc16 — Microsoft Visual C++ 2019 ( see https://docs.intellicad.org/files/oda/2021_11/oda_ifc_docs/frames.html?frmname=topic&frmfile=ifc_getting_started_downloading.html )
 
 echo '$REPO_ROOT=' "$REPO_ROOT"
 cd $REPO_ROOT

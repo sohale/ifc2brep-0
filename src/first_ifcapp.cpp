@@ -1,7 +1,10 @@
 //System includes
 #include <iostream>
 #include <cstdlib>
-/**
+
+#undef ODA_LICENSING_ENABLED
+
+
 //IFC SDK includes
 #include <OdaCommon.h> // must be first
 #include <IfcExamplesCommon.h>
@@ -11,7 +14,7 @@
 #include <ExPrintConsole.h>
 #include <daiHeaderSection.h>
 #include <daiHeaderEntities.h>
-*/
+
 
 #include "./macro_toys.hpp"
 
@@ -23,7 +26,7 @@
 #if 0 \
     || !defined(UNICODE) \
     || !defined(TEIGHA_TRIAL) \
-    || !defined(ODA_LICENSING_ENABLED) \
+    || defined(ODA_LICENSING_ENABLED) \
     || !defined(IFC_DYNAMIC_BUILD) \
     || !defined(_TOOLKIT_IN_DLL_)
 
@@ -72,6 +75,8 @@ int main(int argc, char* argv[]) {
    << DEFINED_S2(CMAKE_INTDIRT) << "\n"
    */
    ;
+
+
 
    return 0;
 }
