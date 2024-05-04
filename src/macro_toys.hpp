@@ -94,6 +94,9 @@
 
 
 // Internal helper macros
+
+
+// Helper macros for stringizing
 #define __MACROTOYS__STRINGIZE(x) #x
 #define __MACROTOYS__TOSTRING(x) __MACROTOYS__STRINGIZE(x)
 
@@ -104,9 +107,17 @@
 #define __MACROTOYS__IS_DEFINED_HELPER2(x) #x
 #define __MACROTOYS__IS_DEFINED_HELPER1(contents) (0 contents[] == 'u')
 
-// Public macros
+// User-faced public macros
+
+// older solution
 #define MACROTOYS_PRINT_MACRO_VALUE_OR_DEFAULT(x, default_value) \
     (__MACROTOYS__IS_DEFINED(__MACROTOYS__UNDEFINED_IDENTIFIER_HELPER(x)) ? __MACROTOYS__TOSTRING(x) : __MACROTOYS__TOSTRING(default_value))
+
+
+/*
+#define MACROTOYS_PRINT_MACRO_VALUE_OR_DEFAULT(x, default_value) \
+    (std::string((__MACROTOYS__IS_DEFINED(x)) ? __MACROTOYS__TOSTRING(x) : __MACROTOYS__TOSTRING(default_value)))
+*/
 
 #define MACROTOYS_MACRONAME(token) __MACROTOYS__STRINGIZE(token)
 
@@ -151,5 +162,70 @@ constexpr bool __MACROTOYS__compare_strings(const char* a, const char* b) {
 
 */
 
+
+/*
+#define MACROTOYS_ENSURE_MACRO_DEFINED(x) \
+    #ifdef x \
+    static_assert(true, #x " is defined."); \
+    #else \
+    static_assert(false, #x " is not defined."); \
+    #endif
+
+
+#define MACROTOYS_ENSURE_MACRO_DEFINED2(x) \
+    #ifdef x \
+    "GULA" \
+    #else \
+    "GILU" \
+    #endif
+*/
+/*
+// This macro can be used to generate a static assertion based on whether a macro is defined
+#define MACROTOYS_ENSURE_MACRO_DEFINED(x) \
+    static_assert(MACROTOYS_CHECK_IF_DEFINED_HELPER(x), #x " must be defined.")
+
+// Helper to determine if a macro is defined
+#define MACROTOYS_CHECK_IF_DEFINED_HELPER(x) (sizeof(#x) && 0)
+*/
+
+/*
+// Define a fallback for when a macro is not defined
+#define MACROTOYS_UNDEFINED 0
+
+// Helper to provide a value based on whether a macro is defined or not
+#define MACROTOYS_MACRO_CHECKER(x, ...) MACROTOYS_MACRO_CHECKER_N(__VA_ARGS__, MACROTOYS_UNDEFINED)
+#define MACROTOYS_MACRO_CHECKER_N(a, b, ...) b
+
+// Actual checking macro
+#define MACROTOYS_ENSURE_MACRO_DEFINED(x) \
+    static_assert(MACROTOYS_MACRO_CHECKER(x, 1), #x " must be defined.")
+
+*/
+
+/*
+
+// Define a helper macro that resolves to true if another macro is defined, false otherwise
+#define MACRO_IS_DEFINED_HELPER(x, y) _MACRO_IS_DEFINED_HELPER_1(_MACRO_IS_DEFINED_HELPER_2(x, y))
+#define _MACRO_IS_DEFINED_HELPER_2(x, y) _MACRO_IS_DEFINED_HELPER_3(_##x##_IS_DEFINED_##y)
+#define _MACRO_IS_DEFINED_HELPER_3(x) _MACRO_IS_DEFINED_HELPER_4(x)
+#define _MACRO_IS_DEFINED_HELPER_4(x) #x
+
+#define MACRO_IS_DEFINED(x) (_MACRO_IS_DEFINED_HELPER_1(MACRO_IS_DEFINED_HELPER(x, UNIQUE)) != #x)
+
+#define MACROTOYS_ENSURE_MACRO_DEFINED(x) \
+    static_assert(MACRO_IS_DEFINED(x), #x " must be defined.")
+
+*/
+
+/*
+// Helper macro definitions to check if a macro is defined
+#define MACRO_DEFINED 1
+#define MACRO_NOT_DEFINED 0
+
+// Define another macro that checks if the target macro is defined
+// and then uses static_assert to ensure it's defined
+#define MACROTOYS_ENSURE_MACRO_DEFINED(x) \
+    static_assert(MACRO_IS_DEFINED_##x, #x " must be defined.")
+*/
 
 #endif // MACROTOYS_HPP

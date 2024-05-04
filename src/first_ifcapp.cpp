@@ -16,13 +16,23 @@
 #include "./macro_toys.hpp"
 #undef CMAKE_INTDIRT
 
+
 int main(int argc, char* argv[]) {
    std::cout << "Hello.5." << std::endl;
+
+   /*
+   #define CMAKE_INTDIR Release
+
+   MACROTOYS_ENSURE_MACRO_DEFINED(CMAKE_INTDIR);
+
+   MACROTOYS_ENSURE_MACRO_DEFINED(CMAKE_INTDIR);
+   */
+
 
    // causes no static assert error
    MACROTOYS_ASSERT_MACRO_VALUE(CMAKE_INTDIR, Release);
    // causes a static assert error
-   MACROTOYS_ASSERT_MACRO_VALUE(CMAKE_INTDIR, Debug);
+   // MACROTOYS_ASSERT_MACRO_VALUE(CMAKE_INTDIR, Debug);
 
    std::cout
    /*
@@ -32,9 +42,14 @@ int main(int argc, char* argv[]) {
    << IS_DEFINED(IFC_DYNAMIC_BUILD) << "\n"
    << IS_DEFINED(_TOOLKIT_IN_DLL_) << "\n"
    */
-
-   << MACROTOYS_MACRONAME(CMAKE_INTDIR) << ": " << MACROTOYS_PRINT_MACRO_VALUE_OR_DEFAULT(CMAKE_INTDIR, "UNDEFINED_LALA") << " " << MACROTOYS_MACRONAME(ReleaseNot) << "\n"
-   << MACROTOYS_MACRONAME(CMAKE_INTDIRT) << ": " << MACROTOYS_PRINT_MACRO_VALUE_OR_DEFAULT(CMAKE_INTDIRT, "UNDEFINED_LALA") << " " << MACROTOYS_MACRONAME(ReleaseNot) << "\n";
+   << "hi"
+   // << MACROTOYS_ENSURE_MACRO_DEFINED2(CMAKE_INTDIR)
+   // << std::string(MACROTOYS_MACRONAME(CMAKE_INTDIR)) << ": "
+   // << std::string(MACROTOYS_PRINT_MACRO_VALUE_OR_DEFAULT(CMAKE_INTDIR, "UNDEFINED_LALA")) << " "
+   // << MACROTOYS_PRINT_MACRO_VALUE_OR_DEFAULT(CMAKE_INTDIR, "UNDEFINED_LALA")
+   // << " "
+   // << MACROTOYS_MACRONAME(ReleaseNot) << "\n"
+   // << MACROTOYS_MACRONAME(CMAKE_INTDIRT) << ": " << MACROTOYS_PRINT_MACRO_VALUE_OR_DEFAULT(CMAKE_INTDIRT, "UNDEFINED_LALA") << " " << MACROTOYS_MACRONAME(ReleaseNot) << "\n";
 
    /*
    << MACRO_NAME_STR(CMAKE_INTDIR) << "\n"
