@@ -13,7 +13,7 @@
 #include <daiHeaderEntities.h>
 */
 
-
+#include "./macro_toys.hpp"
 #undef CMAKE_INTDIRT
 
 int main(int argc, char* argv[]) {
