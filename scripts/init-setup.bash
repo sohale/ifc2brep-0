@@ -416,3 +416,29 @@ wineserver -p && $(command -v wine64 || command -v wine || false) wineboot
 # export DISPLAY=localhost:10.0
 # export WINEARCH=win32
 # export WINEPREFIX=/mnt/volume_lon1_01/ifc2brep/wine32
+
+# .....
+# Many other things tried here
+# ....
+
+
+# On the current working solution
+# The solution that works is: mstorsjo/msvc-wine
+git submodule add https://github.com/mstorsjo/msvc-wine ./external/msvc-wine
+# moved docker to another drive (for space issues on my Digital Ocean VM)
+#  using scripts/helper-change-docker-temp.bash
+# This is automated in scripts/wine_init_sol3.bash
+
+# Lessons:
+#  1. The working solution is mstorsjo/msvc-wine (Uses Docker)
+#  2. Need to use Win64
+#  3. Automated as: ./scripts/wine_init_sol3.bash
+#    * run this, then, `wine64 cmd`, or run the compile script
+#  4. Compile commandline : ./scripts/inside_msvc-wine/compile3.bash
+
+# Caveate:
+#   * Still not able to send X Windows output from the docker container of mstorsjo/msvc-wine
+
+# Other design decisions:
+# * For env variables: A preferred approach turned out to be an `.env`
+#    * instead of prefix
