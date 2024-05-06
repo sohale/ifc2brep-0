@@ -22,6 +22,8 @@ cd $REPO_ROOT
 INC1_PREFIX="/home/ephemssss/novorender/oda-sdk/vc16"
 LIB_PREFIX="/home/ephemssss/novorender/oda-sdk/vc16/lib"
 
+BUILDOUTPUT="./out"
+
 include_dirs=(
     "KernelBase"
     "KernelBase/Include"
@@ -93,8 +95,8 @@ echo "********************"
    $compileflags_incl_list  \
    $compileflags_definemacros  \
    \
-   -Fo./out/ \
-   -Fe./out/a3.exe  \
+   -Fo$BUILDOUTPUT/ \
+   -Fe$BUILDOUTPUT/a3.exe  \
    \
    ./src/first_ifcapp.cpp \
    \
@@ -102,7 +104,7 @@ echo "********************"
    $compileflags_libs
 
 
-ls -alth ./out
+ls -alth $BUILDOUTPUT
 
-WINEDEBUG="-fixme-all" wine64 ./out/a3.exe
+WINEDEBUG="-fixme-all" wine64 $BUILDOUTPUT/a3.exe
 
