@@ -22,7 +22,7 @@ cd $REPO_ROOT
 INC1_PREFIX="/home/ephemssss/novorender/oda-sdk/vc16"
 LIB_PREFIX="/home/ephemssss/novorender/oda-sdk/vc16/lib"
 
-BUILDOUTPUT="./out"
+BUILDOUTPUT="./build-output"
 
 include_dirs=(
     "KernelBase"
@@ -88,6 +88,8 @@ done
 echo "********************"
 echo $compileflags_definemacros
 echo "********************"
+
+mkdir -p $BUILDOUTPUT
 
 /opt/msvc/bin/x64/cl \
    /EHsc /std:c++20  /I./includes-symb/  \
