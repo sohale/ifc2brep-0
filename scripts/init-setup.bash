@@ -505,3 +505,9 @@ ln -s $HOME/novorender/oda-sdk/vc16/Kernel/Extensions/ExServices/ExSystemService
 # sol3 is used for actual compilation
 #    Requires Docker build
 #    ./scripts/wine_init_sol3.bash
+
+# ssh remote challenges:
+#   X Windows ($DIPLAY)
+#   disk space: change of Docker -- use volume for docker
+#   wine prefix location ($WINEPREFIX) -- use volume
+#   wine64 ($WINEARCH)
