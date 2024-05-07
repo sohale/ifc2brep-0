@@ -41,6 +41,11 @@ include_dirs=(
     "Ifc/Examples/Common"
     "ThirdParty"
     "ThirdParty/activation"
+
+    # for daiModule.h
+    "Sdai/Include"
+
+    "Sdai/Include/daiHeader"
 )
 
 # preprocessor definitions
