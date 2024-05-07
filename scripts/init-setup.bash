@@ -445,6 +445,7 @@ git submodule add https://github.com/mstorsjo/msvc-wine ./external/msvc-wine
 
 
 ## Activation
+#
 # Register, (for activation?), and download the SDK.
 # Take password from the email you will receive by email.
 # Run the activation process using `TrialActivator.exe` (using sol2 to run it.  (ssince) It will need XWindows)
@@ -461,8 +462,8 @@ git submodule add https://github.com/mstorsjo/msvc-wine ./external/msvc-wine
 
 
 # At compile time: (fro Activation)
-# TEIGHA_TRIAL
-# OdActivationInfo
+# TEIGHA_TRIAL  (macro)
+# OdActivationInfo  (include file)
 
 # Format of `OdActivationInfo`:
 # Have a look at a usage of `OdActivationInfo` in:
@@ -471,3 +472,27 @@ git submodule add https://github.com/mstorsjo/msvc-wine ./external/msvc-wine
 ln -s $HOME/novorender/oda-sdk/vc16/Kernel/Extensions/ExServices/ExSystemServices.h  ExSystemServices-lns.h
 
 # What is TEIGHA_TRIAL
+
+
+## Report: Solutions examined:
+# 1. Clang
+# 2. mingw-w64
+# 3. A python script (failed)
+# 4. Wine (ubuntu)
+# 5. WineHQ (with Winetricks)  -- latest Wine
+#    wine32
+#       Xvbf + x11vnc + openbox
+#       direct to XQuartz
+#    wine64 (not here)
+# 6. msvc-wine (uses Docker, installs msvc) (uses wineboot, etc)
+#        (sol3)
+# 7. WineHQ (latest Wine) + wineboot, etc (solutions in ms-vc)
+#    wine32
+#    wine64 (aka `sol2`)
+#       direct cl.exe in linux (.bash) or via wine64 (.bat)
+
+# sol2: WineHQ+winetricks (wine64, XQuartz)
+# sol3: Wine64 on Docker (msvc-wine) (No Xwindows) direct cl.exe (bash)
+
+# sol2 is used for cases where XWindows is needed (e.g. for activation)
+# sol3 is used for actual compilation
