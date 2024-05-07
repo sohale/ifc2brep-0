@@ -460,14 +460,14 @@ git submodule add https://github.com/mstorsjo/msvc-wine ./external/msvc-wine
 # https://account.opendesign.com/activation/trialmember
 
 
-# At compile time:
+# At compile time: (fro Activation)
 # TEIGHA_TRIAL
 # OdActivationInfo
 
-# Format of OdActivationInfo:
-# Have a look at a usage of "OdActivationInfo" in: ~/novorender/oda-sdk/vc16/Kernel/Extensions/ExServices/ExSystemServices.h
-# ExSystemServices
-# mentioned in this file:
+# Format of `OdActivationInfo`:
+# Have a look at a usage of `OdActivationInfo` in:
+# `ExSystemServices`
+#     Located at ~/novorender/oda-sdk/vc16/Kernel/Extensions/ExServices/ExSystemServices.h
 ln -s $HOME/novorender/oda-sdk/vc16/Kernel/Extensions/ExServices/ExSystemServices.h  ExSystemServices-lns.h
 
 # What is TEIGHA_TRIAL
