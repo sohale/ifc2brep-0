@@ -442,3 +442,23 @@ git submodule add https://github.com/mstorsjo/msvc-wine ./external/msvc-wine
 # Other design decisions:
 # * For env variables: A preferred approach turned out to be an `.env`
 #    * instead of prefix
+
+
+## Activation
+# Register, (for activation?), and download the SDK.
+# Take password from the email you will receive by email.
+# Run the activation process using `TrialActivator.exe` (using sol2 to run it.  (ssince) It will need XWindows)
+# Send them an email, and wait for their response (incolves a JIRA process or their side)
+# Once received, put that in secrets/secrets.txt & secrets/OdActivationInfo
+# Declaring:
+#    secrets/secrets.txt
+#    secrets/OdActivationInfo
+
+
+# https://docs.opendesign.com/tkernel/oda_activation.html
+# ExSystemServices
+# mentioned in this file:
+ln -s $HOME/novorender/oda-sdk/vc16/Kernel/Extensions/ExServices/ExSystemServices.h  ExSystemServices-lns.h
+
+# What is TEIGHA_TRIAL
+# OdActivationInfo

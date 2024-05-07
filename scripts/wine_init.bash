@@ -381,21 +381,21 @@ printenv
 
 printenv | grep -E '^(WINE_PREFIX_|DESIRED_DISPLAY|WINE_ARCH_|REPO_ROOT|WINE_COMMAND_)=' \
     | prepend_export \
-    | tee env1.env
+    | tee env1_sol2.env
 
 DISPLAY=$DESIRED_DISPLAY   WINEPREFIX=$WINE_PREFIX_  WINEARCH=$WINE_ARCH_  printenv | grep -E '^(DISPLAY|WINEPREFIX|WINEARCH|WINE_COMMAND_)=' \
     | prepend_export \
-    | tee env2.env
+    | tee env2_sol2.env
 
 # There are two levels of `env`s here
 
-# then use:   (source env2.env && $WINE_COMMAND_ cmd)
-# (source env2.env && winetricks list)
-# (source env2.env && winetricks list-all) | grep -ie insta
+# then use:   (source env2_sol2.env && $WINE_COMMAND_ cmd)
+# (source env2_sol2.env && winetricks list)
+# (source env2_sol2.env && winetricks list-all) | grep -ie insta
 
 echo 'Usage:'
-echo '   (source env2.env && winetricks list-all)'
-echo '   (source env2.env && $WINE_COMMAND_  WINDOWS_MSDOS_PROGRAM_NAME)'
+echo '   (source env2_sol2.env && winetricks list-all)'
+echo '   (source env2_sol2.env && $WINE_COMMAND_  WINDOWS_MSDOS_PROGRAM_NAME)'
 
 #
 # The environment is ready. Ready to cmd.exe:
@@ -406,8 +406,8 @@ echo '   (source env2.env && $WINE_COMMAND_  WINDOWS_MSDOS_PROGRAM_NAME)'
 
 # The environment is ready.
 ##################################################
-source env1.env
-source env2.env
+source env1_sol2.env
+source env2_sol2.env
 env
 
 ################
@@ -436,8 +436,8 @@ export DISPLAY=:1
 
 echo "DISPLAY:  $DISPLAY should be set. to redicrect the output to above stack. I will set it based on DESIRED_DISPLAY=$DESIRED_DISPLAY"
 echo 'add your command here in this file:    WINEPREFIX=$WINE_PREFIX_ WINEARCH=$WINE_ARCH_  $WINE_COMMAND_     YOUR_WINDOWS_MSDOS_COMMAND   '
-echo 'or:    (source env2.env && winetricks list-all)'
-echo 'or:    (source env2.env && $WINE_COMMAND_  YOUR_WINDOWS_MSDOS_COMMAND)'
+echo 'or:    (source env2_sol2.env && winetricks list-all)'
+echo 'or:    (source env2_sol2.env && $WINE_COMMAND_  YOUR_WINDOWS_MSDOS_COMMAND)'
 
 echo "scripts/inside_windows/install_python.bat"
 

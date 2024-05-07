@@ -1,7 +1,9 @@
 
 set -exu
 
-source repo.env
+# see scripts/bash-stub.bash
+# run scripts/bash-stub.bash to generate env_sol3.env for you
+source env_sol3.env
 
 
 # : || \

@@ -121,5 +121,7 @@ _debug_echo "functions and envs over-written into $OUTPUTFILEN"
 # Prints the name of the env file that is created
 # echo $OUTPUTFILEN
 
+cp $OUTPUTFILEN env_sol3.env
+
 # Prints the contents of the env file that is created
 cat $OUTPUTFILEN && rm $OUTPUTFILEN

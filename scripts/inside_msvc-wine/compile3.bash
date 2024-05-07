@@ -24,6 +24,10 @@ LIB_PREFIX="/home/ephemssss/novorender/oda-sdk/vc16/lib"
 
 BUILDOUTPUT="./build-output"
 
+OdActivationInfoFILE="$REPO_ROOT/secrets/OdActivationInfo"
+# OdActivationInfoINCLUDE="$REPO_ROOT/secrets"
+ACTIVATION_INCLUDE="$REPO_ROOT/secrets"
+
 include_dirs=(
     "KernelBase"
     "KernelBase/Include"
@@ -91,10 +95,15 @@ echo "********************"
 
 mkdir -p $BUILDOUTPUT
 
+
+# compileflags_incl_list+=" /I$ACTIVATION_INCLUDE"
+
 /opt/msvc/bin/x64/cl \
    /EHsc /std:c++20  /I./includes-symb/  \
    \
    $compileflags_incl_list  \
+   /I$ACTIVATION_INCLUDE   \
+   \
    $compileflags_definemacros  \
    \
    -Fo$BUILDOUTPUT/ \
