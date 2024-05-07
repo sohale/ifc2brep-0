@@ -475,7 +475,7 @@ ln -s $HOME/novorender/oda-sdk/vc16/Kernel/Extensions/ExServices/ExSystemService
 
 
 ## Report: Solutions examined:
-# 1. Clang
+# 1. Clang (not possoble since it is the Trial Version, only available on Windows)
 # 2. mingw-w64
 # 3. A python script (failed)
 # 4. Wine (ubuntu)
