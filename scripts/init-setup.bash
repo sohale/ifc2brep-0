@@ -448,17 +448,26 @@ git submodule add https://github.com/mstorsjo/msvc-wine ./external/msvc-wine
 # Register, (for activation?), and download the SDK.
 # Take password from the email you will receive by email.
 # Run the activation process using `TrialActivator.exe` (using sol2 to run it.  (ssince) It will need XWindows)
+#    TrialActivator in vc16_amd64dll
 # Send them an email, and wait for their response (incolves a JIRA process or their side)
 # Once received, put that in secrets/secrets.txt & secrets/OdActivationInfo
 # Declaring:
 #    secrets/secrets.txt
 #    secrets/OdActivationInfo
 
-
 # https://docs.opendesign.com/tkernel/oda_activation.html
+# https://account.opendesign.com/activation
+# https://account.opendesign.com/activation/trialmember
+
+
+# At compile time:
+# TEIGHA_TRIAL
+# OdActivationInfo
+
+# Format of OdActivationInfo:
+# Have a look at a usage of "OdActivationInfo" in: ~/novorender/oda-sdk/vc16/Kernel/Extensions/ExServices/ExSystemServices.h
 # ExSystemServices
 # mentioned in this file:
 ln -s $HOME/novorender/oda-sdk/vc16/Kernel/Extensions/ExServices/ExSystemServices.h  ExSystemServices-lns.h
 
 # What is TEIGHA_TRIAL
-# OdActivationInfo
