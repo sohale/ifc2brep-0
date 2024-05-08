@@ -21,6 +21,7 @@ cd $REPO_ROOT
 
 INC1_PREFIX="/home/ephemssss/novorender/oda-sdk/vc16"
 LIB_PREFIX="/home/ephemssss/novorender/oda-sdk/vc16/lib"
+DLL_PREFIX_WINE="z:\\home\\ephemssss\\novorender\\oda-sdk\\vc16\\exe\\vc16_amd64dll"
 
 BUILDOUTPUT="./build-output"
 
@@ -123,7 +124,7 @@ mkdir -p $BUILDOUTPUT
 ls -alth $BUILDOUTPUT
 
 echo "Executing ..."
-export WINEPATH="z:\\home\\ephemssss\\novorender\\oda-sdk\\vc16\\exe\\vc16_amd64dll;${WINEPATH:-''}"
+export WINEPATH="$DLL_PREFIX_WINE;${WINEPATH:-}"
 echo "WINEPATH: $WINEPATH"
 
 WINEDEBUG="-fixme-all" wine64 $BUILDOUTPUT/a3.exe
