@@ -75,7 +75,7 @@ libraries_to_link=(
 
    # IfcCore.lib IfcBrepModeler.lib IfcFacetModeler.lib TB_Common.lib
 )
-
+# The .tx files are loaded in runtime, don't add them to libraries_to_link
 
 #########
 
