@@ -127,5 +127,7 @@ echo "Executing ..."
 export WINEPATH="$DLL_PREFIX_WINE;${WINEPATH:-}"
 echo "WINEPATH: $WINEPATH"
 
-WINEDEBUG="-fixme-all" wine64 $BUILDOUTPUT/a3.exe
+WINEDEBUG="-fixme-all" wine64 $BUILDOUTPUT/a3.exe \
+   || :
 
+wine64 cmd.exe

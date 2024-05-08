@@ -25,8 +25,12 @@ cd  $REPO_ROOT
 # run after building the image
 docker run \
     --interactive --tty --rm \
-    --env DISPLAY=10.16.0.6:10.0 \
+    \
+    --net=host \
+    --env DISPLAY="$DISPLAY" \
     -v /tmp/.X11-unix:/tmp/.X11-unix \
+    -v $HOME/.Xauthority:/root/.Xauthority \
+    \
     --env REPO_ROOT="$REPO_ROOT" \
     --env _initial_cwd="$(pwd)" \
     --env HOST_HOME="$HOME" \
@@ -39,6 +43,9 @@ docker run \
       # cd $REPO_ROOT/external/msvc-wine
       # pwd
       echo "You are inside docker."
+
+      # not necessary, but very useful for debugging xwindows connection
+      apt update && apt install x11-apps iproute2 apt-utils net-tools -y
 
       # Particular to this Docker image:
       export WINEPREFIX=/root/.wine

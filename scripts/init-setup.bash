@@ -511,3 +511,6 @@ ln -s $HOME/novorender/oda-sdk/vc16/Kernel/Extensions/ExServices/ExSystemService
 #   disk space: change of Docker -- use volume for docker
 #   wine prefix location ($WINEPREFIX) -- use volume
 #   wine64 ($WINEARCH)
+
+# .tx files fixed by adding them to PATH
+# xwindows connection fixed! cool!
