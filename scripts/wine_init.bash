@@ -392,6 +392,7 @@ DISPLAY=$DESIRED_DISPLAY   WINEPREFIX=$WINE_PREFIX_  WINEARCH=$WINE_ARCH_  print
 # then use:   (source env2_sol2.env && $WINE_COMMAND_ cmd)
 # (source env2_sol2.env && winetricks list)
 # (source env2_sol2.env && winetricks list-all) | grep -ie insta
+# or eval "$(cat env2_sol2.env)"
 
 echo 'Usage:'
 echo '   (source env2_sol2.env && winetricks list-all)'

@@ -122,5 +122,9 @@ mkdir -p $BUILDOUTPUT
 
 ls -alth $BUILDOUTPUT
 
+echo "Executing ..."
+export WINEPATH="z:\\home\\ephemssss\\novorender\\oda-sdk\\vc16\\exe\\vc16_amd64dll;${WINEPATH:-''}"
+echo "WINEPATH: $WINEPATH"
+
 WINEDEBUG="-fixme-all" wine64 $BUILDOUTPUT/a3.exe
 
