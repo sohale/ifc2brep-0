@@ -102,6 +102,11 @@ echo "********************"
 mkdir -p $BUILDOUTPUT
 
 
+
+export RED='\033[0;31m'
+export GREEN='\033[0;32m'
+export NC='\033[0m'  # Color Reset
+
 # compileflags_incl_list+=" /I$ACTIVATION_INCLUDE"
 
 /opt/msvc/bin/x64/cl \
@@ -120,8 +125,12 @@ mkdir -p $BUILDOUTPUT
    /link /LIBPATH:$LIB_PREFIX/vc16_amd64dll \
    $compileflags_libs
 
+set +x  # echo off
 
 ls -alth $BUILDOUTPUT
+export EXEFILE=$BUILDOUTPUT/a3.exe
+
+echo -e "Compile ${GREEN} successful${NC}: ${EXEFILE}"
 
 echo "Executing ..."
 export WINEPATH="$DLL_PREFIX_WINE;${WINEPATH:-}"
@@ -139,6 +148,7 @@ WINEDEBUG="-fixme-all" \
 : || \
 wine64 cmd.exe
 
+echo -n "Note: "
 echo "This, sol3, cannot execute a3.exe. Instead, use sol2 for running it."
 # echo 'DLL_PREFIX_WINE="z:\\home\\ephemssss\\novorender\\oda-sdk\\vc16\\exe\\vc16_amd64dll"'
 # echo 'WINEPATH="\$DLL_PREFIX_WINE;\${WINEPATH:-}" wine64 ./build-output/a3.exe'

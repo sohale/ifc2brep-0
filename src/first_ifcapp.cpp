@@ -16,6 +16,9 @@
 #include <daiHeaderEntities.h>
 
 
+#include "IfcCore.h"
+#include "IfcModel.h"
+
 #include "./macro_toys.hpp"
 
 #if CMAKE_INTDIR != Release
@@ -76,7 +79,12 @@ int main(int argc, char* argv[]) {
    */
    ;
 
+   // Initialize ODA IFC SDK
+   odIfcInitialize();
 
+
+   // Uninitialize the SDK
+   odIfcUninitialize();
 
    return 0;
 }
