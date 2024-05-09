@@ -114,6 +114,7 @@ export NC='\033[0m'  # Color Reset
 /opt/msvc/bin/x64/cl \
    /EHsc \
    /std:c++20  \
+   /MD \
    \
    $compileflags_incl_list  \
    /I$ACTIVATION_INCLUDE   \
@@ -124,9 +125,16 @@ export NC='\033[0m'  # Color Reset
    -Fe$BUILDOUTPUT/a3.exe  \
    \
    ./src/first_ifcapp.cpp \
+   ./external/oda-ifc-sdk/Extensions/ExServices/ExIfcHostAppServices.cpp \
    \
-   /link /LIBPATH:$LIB_PREFIX/vc16_amd64dll \
-   $compileflags_libs
+   /link \
+   /LIBPATH:$LIB_PREFIX/vc16_amd64dll \
+   $compileflags_libs \
+   /NODEFAULTLIB:libucrt.lib \
+   ;
+
+# MSVCRT is needed.
+# /NODEFAULTLIB:MSVCRT \
 
 set +x  # echo off
 

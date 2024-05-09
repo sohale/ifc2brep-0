@@ -26,3 +26,7 @@ https://www.opendesign.com/faq/question/how-initialize-oda-ifc-sdk-using-sdai-ap
 Make compile use Dynamic Runtime Linking. Since dependencies are using that.
 `/MT` Static Linking
 `/MD` Use the DLL version of the runtime library
+
+* Standard library:
+   * `MSVCRT`: is needed (don't `/NODEFAULTLIB` the `MSVCRT`)
+   * `libucrt.lib`: should not be linked (use: `/NODEFAULTLIB:libucrt.lib`)
