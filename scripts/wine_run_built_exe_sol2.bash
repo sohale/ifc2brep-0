@@ -5,9 +5,13 @@ set -eux
 
 echo "This script runs exe (compiled using sol3 env) in the "sol2" env"
 
+export RED='\033[0;31m'
+export NC='\033[0m'  # No Color (Color Reset)
 
 # framework's common envs
-source env_sol3.env
+source env_sol3.env  || {
+    echo -e 1>&2 "${RED}env_sol3.env is needed. Run scripts/bash-stub.bash first.${NC}" ; exit 1;
+}
 
 # source env1_sol2.env
 # Contains the "sol2"'s env for running wine64
