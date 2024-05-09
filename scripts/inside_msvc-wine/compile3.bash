@@ -129,9 +129,28 @@ echo "WINEPATH: $WINEPATH"
 
 #    strace -f -e trace=file,process,network -o output.txt \
 
-
+# Skip running the built file. Use instead: scripts/wine_run_built_exe_sol2.bash
+: || \
 WINEDEBUG="-fixme-all" \
    wine64 $BUILDOUTPUT/a3.exe \
    || :
 
+# skip cmd, and return to sol3 wine-env
+: || \
 wine64 cmd.exe
+
+echo "This, sol3, cannot execute a3.exe. Instead, use sol2 for running it."
+# echo 'DLL_PREFIX_WINE="z:\\home\\ephemssss\\novorender\\oda-sdk\\vc16\\exe\\vc16_amd64dll"'
+# echo 'WINEPATH="\$DLL_PREFIX_WINE;\${WINEPATH:-}" wine64 ./build-output/a3.exe'
+
+
+cat << EOF_ENV > built_s23_a3.env
+
+   export DLL_PATH="$DLL_PREFIX_WINE"
+   export BUILT_FILENAME="$BUILDOUTPUT/a3.exe"
+
+EOF_ENV
+# The next script (with its own wine) will know what executable file to run
+
+echo "$(realpath built_s23_a3.env) :"
+cat built_s23_a3.env
