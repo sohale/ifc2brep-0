@@ -18,10 +18,11 @@ allows the addition of textual comments, screenshots, and more on top of IFC fil
     * inside wine (windows)
 
 
-### key
+### C++ code
 * "How to initialize ODA IFC SDK for using SDAI API"
 https://www.opendesign.com/faq/question/how-initialize-oda-ifc-sdk-using-sdai-api
 
-Make compile use Dynamic Runtime Linking
-`/MT`
-`/MD`
+* compilter flags issue:
+Make compile use Dynamic Runtime Linking. Since dependencies are using that.
+`/MT` Static Linking
+`/MD` Use the DLL version of the runtime library

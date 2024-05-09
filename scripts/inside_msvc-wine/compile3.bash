@@ -109,9 +109,11 @@ export NC='\033[0m'  # Color Reset
 
 # compileflags_incl_list+=" /I$ACTIVATION_INCLUDE"
 #    /I./includes-symb/  \
+#  /NODEFAULTLIB:libucrt.lib /NODEFAULTLIB:MSVCRT
 
 /opt/msvc/bin/x64/cl \
-   /EHsc /std:c++20  \
+   /EHsc \
+   /std:c++20  \
    \
    $compileflags_incl_list  \
    /I$ACTIVATION_INCLUDE   \
