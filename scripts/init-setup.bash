@@ -519,3 +519,18 @@ ln -s $HOME/novorender/oda-sdk/vc16/Kernel/Extensions/ExServices/ExSystemService
 #    Inspecing Wine & Docker & MAC address did not help
 # It is HWID
 #    "Reverse engineering ComputerHardwareIds.exe with winedbg"
+
+
+* compilter flags issue:
+Make compile use Dynamic Runtime Linking. Since dependencies are using that.
+`/MT` Static Linking
+`/MD` Use the DLL version of the runtime library
+
+* Standard library:
+   * `MSVCRT`: is needed (don't `/NODEFAULTLIB` the `MSVCRT`)
+   * `libucrt.lib`: should not be linked (use: `/NODEFAULTLIB:libucrt.lib`)
+
+
+* First run:
+0024:err:winediag:ntlm_check_version ntlm_auth was not found. Make sure that ntlm_auth >= 3.0.25 is in your path. Usually, you can find it in the winbind package of your distribution.
+0024:err:ntlm:ntlm_LsaApInitializePackage no NTLM support, expect problems

@@ -78,6 +78,11 @@ int main(int argc, char* argv[]) {
    << DEFINED_S2(CMAKE_INTDIRT) << "\n"
    */
    ;
+   std::cout << "\n\n" << std::endl;
+
+   // .ifcXML ??
+   auto filename_ifc = "./examples/novo-samples/SP-00-VA.ifc";
+
 
    // Common ODA IFC SDK initialization part
    OdStaticRxObject<MyServices> svcs;
@@ -86,8 +91,8 @@ int main(int argc, char* argv[]) {
 
    // SDAI calls can be performed just after common initialization procedure
    SdaiSession session = sdaiOpenSession();
-   SdaiRep repo = _sdaiCreateRepositoryFromFile(session, "c:\\file.ifcXML", "");
-   SdaiRep repoOpened = sdaiOpenRepositoryBN(session, "c:\\file.ifcXML");
+   SdaiRep repo = _sdaiCreateRepositoryFromFile(session, filename_ifc, "");
+   SdaiRep repoOpened = sdaiOpenRepositoryBN(session, filename_ifc);
    SdaiModel modelRO = sdaiAccessModelBN(repoOpened, "default", sdaiRO);
    SdaiSet cartesianPoints = sdaiGetEntityExtentBN(modelRO, "IfcCartesianPoint");
    SdaiIterator it = sdaiCreateIterator(cartesianPoints);
