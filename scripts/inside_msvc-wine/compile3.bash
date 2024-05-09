@@ -127,6 +127,9 @@ echo "Executing ..."
 export WINEPATH="$DLL_PREFIX_WINE;${WINEPATH:-}"
 echo "WINEPATH: $WINEPATH"
 
+#    strace -f -e trace=file,process,network -o output.txt \
+
+
 WINEDEBUG="-fixme-all" \
    wine64 $BUILDOUTPUT/a3.exe \
    || :
