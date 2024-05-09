@@ -96,12 +96,20 @@ int main(int argc, char* argv[]) {
    SdaiModel modelRO = sdaiAccessModelBN(repoOpened, "default", sdaiRO);
    SdaiSet cartesianPoints = sdaiGetEntityExtentBN(modelRO, "IfcCartesianPoint");
    SdaiIterator it = sdaiCreateIterator(cartesianPoints);
+   int counter = 0;
    for (sdaiBeginning(it); sdaiNext(it);)
    {
       SdaiAppInstance inst = nullptr;
       sdaiGetAggrByIterator(it, sdaiINSTANCE, &inst);
       // ...
+      counter++;
+      if (counter %100 == 0 || counter < 50){
+         std::cout << "iteration " << counter;
+         std::cout << std::endl;
+      }
    }
+   // iterations=24920 !
+   std::cout << "iterations=" << counter << std::endl;
    sdaiDeleteIterator(it);
    sdaiCloseSession(session);
 
