@@ -7,17 +7,17 @@
 
 //IFC SDK includes
 #include <OdaCommon.h> // must be first
-#include <IfcExamplesCommon.h>
 #include <IfcCore.h>
+#include <IfcModel.h>
+
+#include <IfcExamplesCommon.h>
+
 #include <StaticRxObject.h>
 #include <RxDynamicModule.h>
 #include <ExPrintConsole.h>
 #include <daiHeaderSection.h>
 #include <daiHeaderEntities.h>
 
-
-#include "IfcCore.h"
-#include "IfcModel.h"
 
 #include "./macro_toys.hpp"
 
@@ -79,12 +79,37 @@ int main(int argc, char* argv[]) {
    */
    ;
 
+   // Common ODA IFC SDK initialization part
+   OdStaticRxObject<MyServices> svcs;
+   odrxInitialize(&svcs);
+   odIfcInitialize(false /* No CDA */, false /* No geometry calculation needed */);
+
+   // SDAI calls can be performed just after common initialization procedure
+   SdaiSession session = sdaiOpenSession();
+   SdaiRep repo = _sdaiCreateRepositoryFromFile(session, "c:\\file.ifcXML", "");
+   SdaiRep repoOpened = sdaiOpenRepositoryBN(session, "c:\\file.ifcXML");
+   SdaiModel modelRO = sdaiAccessModelBN(repoOpened, "default", sdaiRO);
+   SdaiSet cartesianPoints = sdaiGetEntityExtentBN(modelRO, "IfcCartesianPoint");
+   SdaiIterator it = sdaiCreateIterator(cartesianPoints);
+   for (sdaiBeginning(it); sdaiNext(it);)
+   {
+      SdaiAppInstance inst = nullptr;
+      sdaiGetAggrByIterator(it, sdaiINSTANCE, &inst);
+      // ...
+   }
+   sdaiDeleteIterator(it);
+   sdaiCloseSession(session);
+
+   // Common ODA IFC SDK uninitialization part
+   odIfcUninitialize();
+   odrxUninitialize();
+
+   /*
    // Initialize ODA IFC SDK
    odIfcInitialize();
-
-
    // Uninitialize the SDK
    odIfcUninitialize();
+   */
 
    return 0;
 }
