@@ -108,9 +108,10 @@ export GREEN='\033[0;32m'
 export NC='\033[0m'  # Color Reset
 
 # compileflags_incl_list+=" /I$ACTIVATION_INCLUDE"
+#    /I./includes-symb/  \
 
 /opt/msvc/bin/x64/cl \
-   /EHsc /std:c++20  /I./includes-symb/  \
+   /EHsc /std:c++20  \
    \
    $compileflags_incl_list  \
    /I$ACTIVATION_INCLUDE   \

@@ -16,3 +16,12 @@ allows the addition of textual comments, screenshots, and more on top of IFC fil
     * Only needed in run-time.
     * Can put it in the PATH
     * inside wine (windows)
+
+
+### key
+* "How to initialize ODA IFC SDK for using SDAI API"
+https://www.opendesign.com/faq/question/how-initialize-oda-ifc-sdk-using-sdai-api
+
+Make compile use Dynamic Runtime Linking
+`/MT`
+`/MD`
