@@ -74,8 +74,8 @@ function default_wine_64 {
 #
 
 
-source env1.env
-source env2.env
+source env1_sol2.env
+source env2_sol2.env
 env
 
 

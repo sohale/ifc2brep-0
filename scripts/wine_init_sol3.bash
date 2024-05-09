@@ -22,6 +22,14 @@ cd  $REPO_ROOT
 
 #     --env DISPLAY="$DISPLAY" \
 
+# HWID:
+#     --mac-address e2:4f:37:c1:43:80  \
+#    --cap-add=SYS_PTRACE --security-opt seccomp=unconfined \
+# HWID=$(sudo dmidecode -s system-uuid)
+
+# apt install debconf dialog libterm-readline-gnu-perl
+
+
 # run after building the image
 docker run \
     --interactive --tty --rm \
@@ -30,6 +38,7 @@ docker run \
     --env DISPLAY="$DISPLAY" \
     -v /tmp/.X11-unix:/tmp/.X11-unix \
     -v $HOME/.Xauthority:/root/.Xauthority \
+    \
     \
     --env REPO_ROOT="$REPO_ROOT" \
     --env _initial_cwd="$(pwd)" \
@@ -44,8 +53,18 @@ docker run \
       # pwd
       echo "You are inside docker."
 
+      export DEBIAN_FRONTEND=noninteractive
       # not necessary, but very useful for debugging xwindows connection
-      apt update && apt install x11-apps iproute2 apt-utils net-tools -y
+      apt update \
+         && echo "tzdata tzdata/Areas select Europe" | debconf-set-selections \
+         && echo "tzdata tzdata/Zones/Europe select London" | debconf-set-selections \
+         && apt install \
+            debconf dialog \
+            iproute2 apt-utils net-tools \
+            x11-apps \
+            strace \
+            fwupd \
+            -y
 
       # Particular to this Docker image:
       export WINEPREFIX=/root/.wine
@@ -86,7 +105,14 @@ docker run \
 
 
       # Then, continue interactively
-      exec bash
+      unset DEBIAN_FRONTEND
+      # orig:  PS1='\[\033[01;36m\]container\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\n[01;32m\]$(whoami)\033[01;35m\]@\h\[\033[00m\] \[\033[01;33m\]$(cut -c1-12 /proc/1/cpuset)\[\033[00m\] \$ ' \
+      # export PS1='\[\033[01;36m\]container\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\n\[\033[01;32m\]\u     \[\033[01;35m\]@\h\[\033[00m\] \[\033[01;33m\]$(cut -c1-12 /proc/1/cpuset)\[\033[00m\] \$ '
+      # export PS1='\[\033[01;36m\]container\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\n      [01;32m\]$(whoami)\033[01;35m\]@\h\[\033[00m\] \[\033[01;33m\]$(cut -c1-12 /proc/1/cpuset)\[\033[00m\] \$ '
+      export PS1='\[\033[01;36m\]container\[\033[00m\]:\[\033[01;35m\]@\h \[\033[01;34m\]\w\[\033[00m\]\n\[\033[01;32m\]$(whoami) \[\033[00m\] \[\033[01;33m\]$(cut -c1-12 /proc/1/cpuset)\[\033[00m\] \$ '
+      export PS1='\[\033[01;36m\]container\[\033[00m\]:\[\033[01;35m\]@\h \[\033[01;34m\]\w\[\033[00m\]\n\[\033[01;32m\]$(whoami) \[\033[00m\] \[\033[01;33m\]$(cut -c1-12 /proc/1/cpuset)\[\033[01;32m\] \$ \[\033[00m\]'
+
+      exec bash   # --norc --noprofile
       echo "after exec bash"
 EOF_STARTUP
 )"

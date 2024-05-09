@@ -514,3 +514,8 @@ ln -s $HOME/novorender/oda-sdk/vc16/Kernel/Extensions/ExServices/ExSystemService
 
 # .tx files fixed by adding them to PATH
 # xwindows connection fixed! cool!
+
+# the hardware code does not match.
+#    Inspecing Wine & Docker & MAC address did not help
+# It is HWID
+#    "Reverse engineering ComputerHardwareIds.exe with winedbg"
