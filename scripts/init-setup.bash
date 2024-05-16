@@ -534,3 +534,8 @@ Make compile use Dynamic Runtime Linking. Since dependencies are using that.
 * First run:
 0024:err:winediag:ntlm_check_version ntlm_auth was not found. Make sure that ntlm_auth >= 3.0.25 is in your path. Usually, you can find it in the winbind package of your distribution.
 0024:err:ntlm:ntlm_LsaApInitializePackage no NTLM support, expect problems
+
+# to fix that wait. in sol2: run environment
+sudo apt install winbind
+
+# iteration: 24920 ?!

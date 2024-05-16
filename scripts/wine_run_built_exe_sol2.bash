@@ -34,7 +34,8 @@ echo "X-Windows \$DISPLAY=$DISPLAY"
 echo "ODA DLLs are in: $DLL_PATH"
 echo "executable in: $BUILT_FILENAME"
 
-
+WINEDEBUG=+relay,+seh,+tid
+echo "WINEDEBUG: $WINEDEBUG"
 
 # DLL_PATH
 # DLL_PREFIX_WINE="z:\\home\\ephemssss\\novorender\\oda-sdk\\vc16\\exe\\vc16_amd64dll"
