@@ -9,8 +9,9 @@ export RED='\033[0;31m'
 export NC='\033[0m'  # No Color (Color Reset)
 
 # framework's common envs
-source env_sol3.env  || {
-    echo -e 1>&2 "${RED}env_sol3.env is needed. Run scripts/bash-stub.bash first.${NC}" ; exit 1;
+# Renamed from env_sol3.env -> env_common.env: it is not specific to sol3. It is a bunch of functions + common env vars: REPOROOT, common for ll solutions in this project
+source env_common.env  || {
+    echo -e 1>&2 "${RED}env_common.env is needed. Run scripts/bash-stub.bash first.${NC}" ; exit 1;
 }
 
 # source env1_sol2.env

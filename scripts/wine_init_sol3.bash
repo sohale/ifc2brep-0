@@ -2,9 +2,9 @@
 set -exu
 
 # see scripts/bash-stub.bash
-# run scripts/bash-stub.bash to generate env_sol3.env for you
-source env_sol3.env
-
+# run scripts/bash-stub.bash to generate env_common.env for you
+source env_common.env
+# we no longer has env_sol3.env
 
 # : || \
 {

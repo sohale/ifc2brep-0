@@ -497,7 +497,7 @@ ln -s $HOME/novorender/oda-sdk/vc16/Kernel/Extensions/ExServices/ExSystemService
 # sol2: WineHQ+winetricks (wine64, XQuartz)
 # sol3: Wine64 on Docker (msvc-wine) (No Xwindows) direct cl.exe (bash)
 
-# The env variables are env2_sol2.env and env_sol3.env
+# The env variables are env2_sol2.env and env_sol3.env (renamed: env_common.env)
 
 # sol2 is used for cases where XWindows is needed (e.g. for activation)
 #    Requires installation of latest WineHQ
