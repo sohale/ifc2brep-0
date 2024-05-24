@@ -108,5 +108,5 @@ It is not a one-click solution as I hoped, you need to do things manually & init
   * The no-do s: No CMake ⛔️
   * Use / set up conan.io
   * some refactoring of scripts (also into a/the framework)
-  * needs a big cleanup (the whole thing. Hence, the `.version.txt` system with its tag system)
+  * needs a big cleanup (the whole thing. Hence, the `.version.txt` "cleaning (clean-code-ing)" system with its tag system)
   * automate the orgL aspects
