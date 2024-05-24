@@ -1,0 +1,3 @@
+0.0.1 "compiling was working"
+
+0.0.2 "LSP in place too. Is a leaf."
