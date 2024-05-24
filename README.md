@@ -106,3 +106,21 @@ It is not a one-click solution as I hoped, you need to do things manually & init
   * some refactoring of scripts (also into a/the framework)
   * needs a big cleanup (the whole thing. Hence, the `.version.txt` "cleaning (clean-code-ing)" system with its tag system)
   * automate the orgL aspects
+
+
+
+## Where the core code starts
+Plunge point:
+Core part to satart looking at (bypass the big overhead)
+* Where to look first: [`./src/first_ifcapp.cpp`](src/first_ifcapp.cpp)
+
+<!-- open these side by side:
+examples/novo-samples/SP-00-VA.ifc
+src/first_ifcapp.cpp
+README.md
+-->
+
+
+### todo items
+* todo items for toolchain
+   * docker build logs to be `--` plain

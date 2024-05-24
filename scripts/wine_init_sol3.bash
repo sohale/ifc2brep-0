@@ -9,10 +9,24 @@ source env_common.env
 # : || \
 {
 
+
+BUILDER_NAME="MsVcWine_Builder"
+#docker buildx rm ${BUILDER_NAME}  # if exists.    # || true
+#docker buildx create --name ${BUILDER_NAME} --use
+docker buildx use --name ${BUILDER_NAME}
+
+docker buildx inspect --bootstrap
+
 cd  $REPO_ROOT/external/msvc-wine
 
 # build the image
-docker build      -f Dockerfile      -t msvc-wine      .
+docker buildx build    \
+          --progress=plain \
+          -f Dockerfile \
+          -t msvc-wine \
+          . \
+          #
+
 #  docker build -f Dockerfile.hello .
 #  docker build -f Dockerfile.clang .
 

@@ -80,9 +80,18 @@ int main(int argc, char* argv[]) {
    ;
    std::cout << "\n\n" << std::endl;
 
+   std::cout << "Part1: Start\n\n" << std::endl;
+
+
    // .ifcXML ??
    auto filename_ifc = "./examples/novo-samples/SP-00-VA.ifc";
 
+   // involves contents: (nested in this IFC file)
+   // inside SP-00-VA.ifc
+   auto _repository_name = "";
+   auto _entity_name = "IfcCartesianPoint";
+   // non-const implies change-of-mind
+   // _entity_name = "IFCPROPERTYSINGLEVALUE";
 
    // Common ODA IFC SDK initialization part
    OdStaticRxObject<MyServices> svcs;
@@ -91,10 +100,13 @@ int main(int argc, char* argv[]) {
 
    // SDAI calls can be performed just after common initialization procedure
    SdaiSession session = sdaiOpenSession();
-   SdaiRep repo = _sdaiCreateRepositoryFromFile(session, filename_ifc, "");
+   SdaiRep repo = _sdaiCreateRepositoryFromFile(session, filename_ifc, _repository_name);
    SdaiRep repoOpened = sdaiOpenRepositoryBN(session, filename_ifc);
    SdaiModel modelRO = sdaiAccessModelBN(repoOpened, "default", sdaiRO);
-   SdaiSet cartesianPoints = sdaiGetEntityExtentBN(modelRO, "IfcCartesianPoint");
+
+   if (false) {
+   // "entity instance"s
+   SdaiSet cartesianPoints = sdaiGetEntityExtentBN(modelRO, _entity_name);
    SdaiIterator it = sdaiCreateIterator(cartesianPoints);
    int counter = 0;
    for (sdaiBeginning(it); sdaiNext(it);)
@@ -103,7 +115,7 @@ int main(int argc, char* argv[]) {
       sdaiGetAggrByIterator(it, sdaiINSTANCE, &inst);
       // ...
       counter++;
-      if (counter %100 == 0 || counter < 50){
+      if (counter % 1000 == 0 || counter < 50){
          std::cout << "iteration " << counter;
          std::cout << std::endl;
       }
@@ -111,6 +123,71 @@ int main(int argc, char* argv[]) {
    // iterations=24920 !
    std::cout << "iterations=" << counter << std::endl;
    sdaiDeleteIterator(it);
+   std::cout << "Part1: End" << std::endl;
+   }
+
+  // sdaiGetEntityExtentBN
+
+  if (true) {
+    using std::endl;  // keep it local. Keep your conveniences contained.
+    using std::cout;
+    cout << "Part2: Start" << endl;
+
+    // _entity_name = "IfcCylinder";
+    // Search for all instances of IfcExtrudedAreaSolid
+    auto _entity_name = "IfcExtrudedAreaSolid";
+    SdaiSet extrusions = sdaiGetEntityExtentBN(modelRO, _entity_name);
+    SdaiIterator extrusionIt = sdaiCreateIterator(extrusions);
+
+    int counter = 0;
+    while (sdaiNext(extrusionIt)) {
+        cout << "iter " << endl;
+
+        SdaiAppInstance extrusion = nullptr;
+        sdaiGetAggrByIterator(extrusionIt, sdaiINSTANCE, &extrusion);
+        cout << "bi1" << endl;
+
+        // Get the profile defining the extrusion
+        SdaiAppInstance profile;
+        cout << "profile1" << endl;
+
+        sdaiGetAttrBN(extrusion, "SweptArea", sdaiINSTANCE, &profile);
+        cout << "SweptArea" << endl;
+
+        // Check if the profile is a circle (which would make it a cylinder)
+        char* profileType = nullptr;
+        cout << "profile2" << endl;
+
+        cout << "Will crash here: SDAI Error: sdaiAT_NDEF (290): Attribute not defined" << endl;
+
+        exit(1);
+        sdaiGetAttrBN(profile, "entityName", sdaiSTRING, &profileType);
+        // SDAI Error: sdaiAT_NDEF (290): Attribute not defined
+        cout << "sdaiGetAttrBN(1)" << endl;
+        if (strcmp(profileType, "IfcCircle") == 0) {
+            cout << "sdaiGetAttrBN(1)" << endl;
+
+            cout << "Cylinder found with profile: IfcCircle" << endl;
+            // Extract and handle cylinder dimensions, position, etc.
+        }
+        cout << "post-if" << endl;
+
+      counter++;
+      if (true || counter % 10 == 0 || counter < 50){
+         cout << "iteration_b " << counter;
+         cout << endl;
+      }
+    }
+    sdaiDeleteIterator(extrusionIt);
+    std::cout << "Part2: End" << endl;
+
+  };
+
+
+
+
+
+
    sdaiCloseSession(session);
 
    // Common ODA IFC SDK uninitialization part

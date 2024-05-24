@@ -30,3 +30,11 @@ Make compile use Dynamic Runtime Linking. Since dependencies are using that.
 * Standard library:
    * `MSVCRT`: is needed (don't `/NODEFAULTLIB` the `MSVCRT`)
    * `libucrt.lib`: should not be linked (use: `/NODEFAULTLIB:libucrt.lib`)
+
+
+
+two primary types of entries: geometric representations and property assignments
+
+IFCEXTRUDEDAREASOLID
+
+IfcProfileDef
