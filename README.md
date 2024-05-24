@@ -43,10 +43,6 @@ ODA_EMAIL="...@..."
 ODA_PASSWORD="...given to you initially during registration "
 IFC_ACTIVATION_CODE="a 245-letter code, from the activation process (involves manual & JIRA)"
 ODA_SERIALNUMBER="a 42-letter thing that comes orm your Wine64 dir instance"
-
-
-SDYF-EYVYG5-DC3D4N-TBZBEJ-X3U5S9
-
 ```
 you will need aa 44 letter "ODA hardware code" in the process of activation, but you dont need that here.
 
