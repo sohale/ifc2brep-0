@@ -1,0 +1,7 @@
+[
+   {
+       "directory": "/home/ephemssss/novorender/ifc2brep-0",
+       "command": "/usr/lib/llvm-18/bin/clang++ -std=c++20 -I/home/ephemssss/novorender/oda-sdk/vc16/KernelBase -I/home/ephemssss/novorender/oda-sdk/vc16/KernelBase/Include -I/home/ephemssss/novorender/oda-sdk/vc16/Kernel/Include -I/home/ephemssss/novorender/oda-sdk/vc16/Kernel/Extensions/ExServices -I/home/ephemssss/novorender/oda-sdk/vc16/Ifc/Include -I/home/ephemssss/novorender/oda-sdk/vc16/Ifc/Include/Common -I/home/ephemssss/novorender/oda-sdk/vc16/Ifc/Include/sdai -I/home/ephemssss/novorender/oda-sdk/vc16/Ifc/Include/sdai/daiHeader -I/home/ephemssss/novorender/oda-sdk/vc16/Ifc/Extensions/ExServices -I/home/ephemssss/novorender/oda-sdk/vc16/Ifc/Examples/Common -I/home/ephemssss/novorender/oda-sdk/vc16/ThirdParty -I/home/ephemssss/novorender/oda-sdk/vc16/ThirdParty/activation -I/home/ephemssss/novorender/oda-sdk/vc16/Sdai/Include -I/home/ephemssss/novorender/oda-sdk/vc16/Sdai/Include/daiHeader -I/home/ephemssss/novorender/ifc2brep-0/secrets -DUNICODE -DTEIGHA_TRIAL -DODA_LICENSING_ENABLED -DIFC_DYNAMIC_BUILD -D_TOOLKIT_IN_DLL_ -DCMAKE_INTDIR=Release -DMy_DEFINE_MACRO=123123 -o ./build-output/a3 ./src/first_ifcapp.cpp ./external/oda-ifc-sdk/Extensions/ExServices/ExIfcHostAppServices.cpp -L/home/ephemssss/novorender/oda-sdk/vc16/lib/vc16_amd64dll -lIfcCore -lsdai -lTD_Gi -lTD_Ge -lTD_Root -lTD_DbRoot -lTD_ExamplesCommon -lTD_Alloc",
+       "file": "./src/first_ifcapp.cpp"
+   }
+]
