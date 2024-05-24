@@ -539,3 +539,26 @@ Make compile use Dynamic Runtime Linking. Since dependencies are using that.
 sudo apt install winbind
 
 # iteration: 24920 ?!
+
+
+# `.version.txt` and tag 0.2.0
+
+Need to igrate from build to buildx.
+Instrucitons to install buildx: (todo URL to my notes somewhere on github).
+
+Old:
+```bash
+docker build    \
+          -f Dockerfile
+          -t msvc-wine
+          .
+```
+new:
+```bash
+docker buildx build    \
+          --progress=plain \
+          -f Dockerfile \
+          -t msvc-wine \
+          . \
+          #
+```
