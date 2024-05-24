@@ -1,3 +1,14 @@
 0.0.1 "compiling was working"
 
-0.0.2 "LSP in place too. Is a leaf."
+v0.0.2 "LSP in place too. Is a leaf. Is a tag."  # leaf means it will be subject to cleanup.
+     # version leaf/tag
+     # for 0.0.2
+     # 0.0.2 : "after LSP & build and a minimal content-traversing example is in place and compiling"
+     # it is as of development efforts leading to: May 16 2024
+     # i.e. "LSP support using clangd (from May 16 2024, 18:00-19:40)"
+     # It is 🟢 (function, compile, etc)
+     # But it is red in terms of cleanliness
+     # But it is good in terms of documenting things
+     # Undocumented: part: secret: the structure of the secret file
+     # let's document it in the readme.md
+
