@@ -66,11 +66,14 @@ wc -l $ifcf
 
 # rm $TEMPFILE
 
+# batcat || sudo apt install bat
+
 echo "The result of analysis"
-cat << EXPLAIN.MD > explanation.md
+cat << 'EXPLAIN.MD' | batcat  #> explanation.md
     #!/usr/bin/env batcat
     The result of analysis:
-
+```txt
+    sdfsd
     ##=IFCAPPLICATION(##,'str','str','str');
     ##=IFCAXIS0.00PLACEMENT(##,##);
     ##=IFCBUILDINGELEMENTPROXY('str',##,$,$,$,##,$,$,$);
@@ -153,7 +156,7 @@ cat << EXPLAIN.MD > explanation.md
     FILE_SCHEMA(('str'));
     HEADER;
     ISO-0.00-0.00;
-
+```
 EXPLAIN.MD
 
 echo "B"
