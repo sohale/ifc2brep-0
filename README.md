@@ -108,6 +108,25 @@ It is not a one-click solution as I hoped, you need to do things manually & init
   * automate the orgL aspects
 
 
+Steps
+```bash
+cd ......ifc2brep-0
+./scripts/bash-stub.bash   # creates ./env_common.env
+
+# via ./env_common.env
+./scripts/wine_init_sol3.bash  # runs (and builds) the docker
+〉 ./scripts/inside_msvc-wine/compile3.bash
+
+# only once? scripts/wine_init.bash
+# carefule: re-creates the wine env (sol2), so shoul dbe run once, beause it can be slow
+scripts/wine_init.bash
+# Also goes intide the cmd.exe. May run winecfg, etc
+# todo: also: mark the resulting.env file as read-only?
+
+
+# via: env2_sol2.env
+./scripts/wine_run_built_exe_sol2.bash
+```
 
 ## Where the core code starts
 Plunge point:
@@ -124,3 +143,5 @@ README.md
 ### todo items
 * todo items for toolchain
    * docker build logs to be `--` plain
+   * docker buildx usage (done), and installation documentation )
+   * automate fixing of vscode version guards

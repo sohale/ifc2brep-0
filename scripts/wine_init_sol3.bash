@@ -13,7 +13,7 @@ source env_common.env
 BUILDER_NAME="MsVcWine_Builder"
 #docker buildx rm ${BUILDER_NAME}  # if exists.    # || true
 #docker buildx create --name ${BUILDER_NAME} --use
-docker buildx use --name ${BUILDER_NAME}
+docker buildx use --builder ${BUILDER_NAME}
 
 docker buildx inspect --bootstrap
 

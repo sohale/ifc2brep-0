@@ -405,6 +405,10 @@ echo '   (source env2_sol2.env && $WINE_COMMAND_  WINDOWS_MSDOS_PROGRAM_NAME)'
 # DISPLAY=$DESIRED_DISPLAY   WINEPREFIX=$WINE_PREFIX_  WINEARCH=$WINE_ARCH_  $WINE_COMMAND_  \
    # cmd.exe or any command
 
+chmod -w env1_sol2.env
+chmod -w env2_sol2.env
+
+
 # The environment is ready.
 ##################################################
 source env1_sol2.env
