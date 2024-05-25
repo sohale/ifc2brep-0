@@ -20,12 +20,22 @@ function remove_all_numbers_with_decimals {
     sed 's/0\.00E[-+][0-9]\+/0\.00/g'
 }
 
+function remove_all_numbers_integer {
+    # sed 's/\,[0-9]\{2,\},/00,/g' | \
+    # sed 's/\,[0-9]\{2\)\},/00\)/g'
+
+    sed 's/,[0-9]\{2,\},/,00,/g' | \
+    sed 's/,[0-9]\{2,\})/,00)/g' | \
+    sed 's/([0-9]\{2,\})/(00)/g' | \
+    sed 's/([0-9]\{2,\},/(00,/g'
+}
+
 function replace_single_quoted_strings {
     sed "s/'[^']*'/'str'/g"
 }
 # nromalise / collapse
 function collapse_arg_longlists {
-  sed -E 's/(##,){7,}/##,##,##,##,##,##,##,/g'
+  sed -E 's/(##,){7,}/##,##,##,##,##,##,…,/g'
 }
 
 function extract_the_good_part {
@@ -60,6 +70,12 @@ function linux_eol {
   mktemp --version;
 } > /dev/null
 
+{
+  # verify
+  #  echo "0.00E-05 0.00E-5 0.00E+05" | sed 's/0\.00E[-+][0-9]\+/0\.00/g'
+  echo ;
+}
+
 # ##=IFCRELDEFINESBYPROPERTIES('0.00ynpyqVej0.00xBVte0.00smL0.00X',##,$,$,(##),##);
 # IFCRELDEFINESBYPROPERTIES = ?
 
@@ -91,6 +107,7 @@ cat $ifcf \
    | replace_single_quoted_strings \
    | kill_hashrefs \
    | remove_all_numbers_with_decimals \
+   | remove_all_numbers_integer \
    | collapse_arg_longlists \
    |sort | uniq \
    |   tee $TEMPFILE \
