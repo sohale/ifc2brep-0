@@ -70,11 +70,8 @@ Exploring the IFC file:
 
 In search of "cycliners" and "circular arcs" to convert:
 
-Finding the right component using `grep`:
-```bash
-cat $ifcf |grep -v '=IFCCARTESIANPOINT(' | grep -v 'IFCPOLYLOOP(' | grep -v '=IFCCOLOURRGB(' | grep -v '=IFCFACEOUTERBOUND(' | grep -v '=IFCPRESENTATIONSTYLEASSIGNMENT(' | grep -v '=IFCSTYLEDITEM' | grep -v '=IFCFACE(' | grep -v 'IFCSURFACESTYLERENDERING(' | grep -v 'IFCDIRECTION(' | grep -v '=IFCAXIS2PLACEMENT2D(' | grep -v '=IFCOPENSHELL(' | grep -v '=IFCAXIS2PLACEMENT3D(' | grep -v '=IFCSURFACESTYLE(' | grep -v '=IFCEXTRUDEDAREASOLID('  | grep -v '=IFCCIRCLEPROFILEDEF(' | grep -v '=IFCSHELLBASEDSURFACEMODEL(' | grep -v 'Colour (RGB):'|  tee temp-tee-out.txt  && wc -l temp-tee-out.txt
-```
-(TBC). From 69077 lines down to 5986 lines.
+Finding the right component using `grep`: See `scripts/experiments/analyse_ifc.bash`
+Reduces the 69077 lines in IFC  (down to 5986, ... lines).
 
 
 Notable structures found:

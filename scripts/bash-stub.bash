@@ -123,6 +123,7 @@ _debug_echo "functions and envs over-written into $OUTPUTFILEN"
 
 # was env_sol3.env
 cp $OUTPUTFILEN env_common.env
+chmod -w env_common.env
 
 # Prints the contents of the env file that is created
 cat $OUTPUTFILEN && rm $OUTPUTFILEN
