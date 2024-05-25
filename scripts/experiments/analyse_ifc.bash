@@ -16,7 +16,8 @@ function remove_all_numbers_with_decimals {
     # sed 's/[0-9]\+\.[0-9]\+/0\.00/g'
     # sed 's/[0-9]\+\.[0-9]\{1,\}/0\.00/g'
     # sed 's/[0-9]\+\(\.[0-9]*\)\{0,1\}/0\.00/g'
-    sed 's/[0-9]\+\.\([0-9]*\)\{0,1\}/0\.00/g'
+    sed 's/[0-9]\+\.\([0-9]*\)\{0,1\}/0\.00/g' | \
+    sed 's/0\.00E[-+][0-9]\+/0\.00/g'
 }
 
 function replace_single_quoted_strings {
@@ -138,7 +139,7 @@ cat << 'EXPLAIN.MD' # | batcat  #> explanation.md
     ##=IFCDERIVEDUNITELEMENT(##,-0.00);
     ##=IFCDERIVEDUNITELEMENT(##,0.00);
     ##=IFCDIMENSIONALEXPONENTS(0.00,0.00,0.00,0.00,0.00,0.00,0.00);
-    ##=IFCGEOMETRICREPRESENTATIONCONTEXT($,'str',0.00,0.00E-0.00,##,$);
+    ##=IFCGEOMETRICREPRESENTATIONCONTEXT($,'str',3,0.00,##,$);
     ##=IFCGEOMETRICREPRESENTATIONSUBCONTEXT('str','str',*,*,*,*,##,$,.MODEL_VIEW.,$);
     ##=IFCGROUP('str',##,'str',$,$);
     ##=IFCLOCALPLACEMENT(##,##);
@@ -200,13 +201,13 @@ cat << 'EXPLAIN.MD' # | batcat  #> explanation.md
     ##=IFCSIUNIT(*,.VOLUMEUNIT.,$,.CUBIC_METRE.);
     ##=IFCUNITASSIGNMENT((##,##,##,##,##,##,##,##,##,##,##,##,##,##,##,##,##,##));
     DATA;
-    END-ISO-0.00-0.00;
+    END-ISO-10303-21;
     ENDSEC;
     FILE_DESCRIPTION(('str'),'str');
     FILE_NAME('str','str',('str'),('str'),'str','str','str');
     FILE_SCHEMA(('str'));
     HEADER;
-    ISO-0.00-0.00;
+    ISO-10303-21;
 EXPLAIN.MD
 
 # if we wanted explanation.md:
