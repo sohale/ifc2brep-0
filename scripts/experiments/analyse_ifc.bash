@@ -18,6 +18,7 @@ function remove_all_numbers_with_decimals {
     # sed 's/[0-9]\+\(\.[0-9]*\)\{0,1\}/0\.00/g'
     sed 's/[0-9]\+\.\([0-9]*\)\{0,1\}/0\.00/g' | \
     sed 's/0\.00E[-+][0-9]\+/0\.00/g'
+    # todo: "-" prefix ?
 }
 
 function remove_all_numbers_integer {
@@ -58,6 +59,29 @@ function linux_eol {
     sed 's/\r$//'
 }
 
+# IfcChangeActionEnum()s: for: IFCOWNERHISTORY()
+# .NOCHANGE.
+# .MODIFIED.
+# .ADDED.
+# .DELETED.
+# .NOTDEFINED.
+
+expected() {
+  # expect
+  # expected
+  # tobe
+  # expect_tobe
+  # expect2B
+
+  set -eu
+  expected_output=$1
+  actual_output=$(cat)
+
+  if [ "$actual_output" != "$expected_output" ]; then
+    echo "Assertion failed: expected '$expected_output' but got '$actual_output'"
+    exit 1
+  fi
+}
 
 # fail fast
 {
@@ -71,8 +95,11 @@ function linux_eol {
 } > /dev/null
 
 {
-  # verify
-  #  echo "0.00E-05 0.00E-5 0.00E+05" | sed 's/0\.00E[-+][0-9]\+/0\.00/g'
+  # verify # TDD:
+  # self tests
+  echo "0.00E-05 0.00E-5 0.00E+05" | remove_all_numbers_with_decimals | expected "0.00 0.00 0.00"
+  echo "11230.01231230" | remove_all_numbers_with_decimals | expected "0.00"
+  echo "10." | remove_all_numbers_with_decimals | expected "0.00"
   echo ;
 }
 
@@ -134,7 +161,7 @@ grc diff \
     #
 # <(cat $TEMPFILE | remove_indents_any )
 
-# rm $TEMPFILE
+rm $TEMPFILE
 
 # cat $0 | extract_the_good_part
 
