@@ -6,7 +6,23 @@ function kill_hashrefs {
   sed 's/#\([0-9]\+\)/##/g'
 }
 
+# To remove any occurrence of 0.001 and replace it with 0.00
+# function remove_numbers {
+function remove_all_numbers_with_decimals {
+    # sed 's/[0-9]\+\.[0-9]\+/0\.00/g'
+    # sed 's/[0-9]\+\.[0-9]\{1,\}/0\.00/g'
+    sed 's/[0-9]\+\(\.[0-9]*\)\{0,1\}/0\.00/g'
+}
+
+function replace_single_quoted_strings {
+    sed "s/'[^']*'/'str'/g"
+}
+
+# ##=IFCRELDEFINESBYPROPERTIES('0.00ynpyqVej0.00xBVte0.00smL0.00X',##,$,$,(##),##);
+# IFCRELDEFINESBYPROPERTIES = ?
+
 export ifcf="/home/ephemssss/novorender/ifc2brep-0/examples/novo-samples/SP-00-VA.ifc"
+
 
 cat $ifcf \
    |  grep -v '=IFCCARTESIANPOINT(' \
@@ -26,6 +42,18 @@ cat $ifcf \
    |  grep -v '=IFCCIRCLEPROFILEDEF(' \
    |  grep -v '=IFCSHELLBASEDSURFACEMODEL(' \
    |  grep -v 'Colour (RGB):'\
-  |   tee temp-tee-out.txt  && wc -l temp-tee-out.txt
+   | replace_single_quoted_strings \
+   | kill_hashrefs \
+   | remove_all_numbers_with_decimals \
+   |   tee temp-tee-out.txt
+
+echo
+
+wc -l temp-tee-out.txt
 
 # (TBC). From 69077 lines down to 5986 lines.
+
+
+cat << EXPLAIN.MD
+Here it goes
+EXPLAIN.MD
