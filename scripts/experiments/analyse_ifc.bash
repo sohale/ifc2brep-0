@@ -21,6 +21,28 @@ function remove_all_numbers_with_decimals {
 function replace_single_quoted_strings {
     sed "s/'[^']*'/'str'/g"
 }
+# nromalise / collapse
+function collapse_arg_longlists {
+  sed -E 's/(##,){7,}/##,##,##,##,##,##,##,/g'
+}
+
+function extract_the_good_part {
+  # extract_payload
+
+  # # Escape the marker for use in awk and sed
+  # local ESCAPED=$(echo "$MARKER" | sed 's/[]\/$*.^|[]/\\&/g')
+  awk '/EXPLAIN\.MD/,/^EXPLAIN\.MD/'| sed '1d;$d'
+}
+
+function remove_indents_num {
+    set -u
+    local NUM=$1
+    sed "s/^ \{$NUM\}//"
+}
+function remove_indents_any {
+    sed "s/^ \{0,\}//"
+}
+
 
 # ##=IFCRELDEFINESBYPROPERTIES('0.00ynpyqVej0.00xBVte0.00smL0.00X',##,$,$,(##),##);
 # IFCRELDEFINESBYPROPERTIES = ?
@@ -52,11 +74,14 @@ cat $ifcf \
    | replace_single_quoted_strings \
    | kill_hashrefs \
    | remove_all_numbers_with_decimals \
+   | collapse_arg_longlists \
    |sort | uniq \
    |   tee $TEMPFILE \
 ;
 
+echo -n 'speel...'
 sleep 1
+echo -e '\b\b\b-ed'
 
 echo "ok"
 
@@ -65,6 +90,12 @@ wc -l $ifcf
 # (TBC). From 69077 lines down to 5986 lines.
 
 # rm $TEMPFILE
+
+# Magic
+grc diff $TEMPFILE <(cat $0 | extract_the_good_part | remove_indents_any )
+
+# cat $0 | extract_the_good_part
+
 
 # batcat || sudo apt install bat
 
