@@ -48,6 +48,17 @@ function linux_eol {
 }
 
 
+# fail fast
+{
+  grc --version|grep "Colouriser";
+  batcat --version;
+  xxd --version;
+  wc --version;
+  awk --version;
+  sed --version;
+  mktemp --version;
+} > /dev/null
+
 # ##=IFCRELDEFINESBYPROPERTIES('0.00ynpyqVej0.00xBVte0.00smL0.00X',##,$,$,(##),##);
 # IFCRELDEFINESBYPROPERTIES = ?
 
@@ -82,22 +93,30 @@ cat $ifcf \
    | collapse_arg_longlists \
    |sort | uniq \
    |   tee $TEMPFILE \
+   >/dev/null \
 ;
 
-echo -n 'speel...'
-sleep 1
-echo -e '\b\b\b-ed'
-
-echo "ok"
+# echo -n 'speel...'
+# sleep 1
+# echo -e '\b\b\b-ed'
 
 wc -l $TEMPFILE
 wc -l $ifcf
 # (TBC). From 69077 lines down to 5986 lines.
 
-# rm $TEMPFILE
+# debug:
+# cat $0 | extract_the_good_part | remove_indents_any | sort | uniq > 1.txt
+# cat  $TEMPFILE  | sort | uniq  > 2.txt
+# grc diff <( xxd 1.txt | head )  <( xxd 2.txt | head )
 
 # Magic
-grc diff $TEMPFILE <(cat $0 | extract_the_good_part | remove_indents_any )
+grc diff \
+    <(cat $0 | extract_the_good_part | remove_indents_any ) \
+    $TEMPFILE \
+    #
+# <(cat $TEMPFILE | remove_indents_any )
+
+# rm $TEMPFILE
 
 # cat $0 | extract_the_good_part
 
